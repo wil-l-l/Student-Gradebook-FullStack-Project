@@ -1,0 +1,29 @@
+.grade-table {
+  margin-top: 30px;
+  width: 95vw;
+  font-size: 2.2rem;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.grade-table__heading-row {
+  background-color: var(--teritary-color);
+  color: #ccd4de;
+  height: 50px;
+}
+
+@media (min-width: 768px) {
+  .grade-table {
+    font-size: 2.5rem;
+  }
+}
+@media (min-width: 1024px) {
+  .grade-table {
+    font-size: 2.7rem;
+  }
+}
+@media (min-width: 1440px) {
+  .grade-table {
+    font-size: 2.9rem;
+  }
+}

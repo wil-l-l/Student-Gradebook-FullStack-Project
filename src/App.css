@@ -1,0 +1,43 @@
+:root {
+  --secondary-color: #d9dee4;
+  --primary-color: #edeef0;
+  --teritary-color: #3e53a0;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: var(--primary-color);
+  color: #323955;
+  font-family: "Inter", sans-serif;
+  font-size: 1.6rem;
+}
+
+.error-text {
+  color: red;
+}
+
+.server-link {
+  color: #323955;
+  font-size: 2.4rem;
+  text-decoration: none;
+  width: 300px;
+  text-align: center;
+}
+.server-link:hover{
+  text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+  .server-link {
+    width: 610px;
+  }
+}

@@ -1,0 +1,31 @@
+.student-dropdown-box {
+  margin-top: 30px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+
+.student-dropdown {
+  font-size: 1.7rem;
+  margin-left: 10px;
+  height: 30px;
+  width: 45px;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+@media (min-width: 768px) {
+  .student-dropdown-box {
+    font-size: 2.2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .student-dropdown-box {
+    align-items: flex-end;
+    font-size: 2.4rem;
+  }
+}

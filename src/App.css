@@ -25,19 +25,3 @@ body {
   color: red;
 }
 
-.server-link {
-  color: #323955;
-  font-size: 2.4rem;
-  text-decoration: none;
-  width: 300px;
-  text-align: center;
-}
-.server-link:hover{
-  text-decoration: underline;
-}
-
-@media (min-width: 768px) {
-  .server-link {
-    width: 610px;
-  }
-}

@@ -20,6 +20,12 @@ const User = mongoose.model(
       minlength: 3,
       maxlength: 50,
     },
+    userName: {
+      type: String,
+      required: true,
+      minlength: 6,
+      maxlength: 52,
+    },
     isStudent: {
       type: Boolean,
       default: true,

@@ -1,12 +1,12 @@
 import "../../Reset.css";
-import "./StudentGradePage.css";
+import "./StudentGradesPage.css";
 import Header from "../../components/Header/Header";
 import MainSection from "../../components/MainSection/MainSection";
 import { useState, useEffect, useRef } from "react";
 import fetchStudents from "../../utils/fetchStudents";
 import { Link } from "react-router";
 
-function StudentGradePage() {
+function StudentGradesPage() {
   const [students, setStudents] = useState(null);
   const [currentStudent, setCurrentStudent] = useState(2);
   const [error, setError] = useState(null);
@@ -70,4 +70,4 @@ function StudentGradePage() {
   );
 }
 
-export default StudentGradePage;
+export default StudentGradesPage;

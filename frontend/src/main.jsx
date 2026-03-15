@@ -1,13 +1,21 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router";
-import StudentGradePage from "./pages/StudentGradePage/StudentGradePage.jsx";
+
+import StudentGradePages from "./pages/StudentGradesPage/StudentGradesPage.jsx";
+import LoginPage from "./pages/LoginPage/LoginPage.jsx";
+
+import "./Reset.css";
+import "./index.css";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <LoginPage />,
+  },
+  {
+    path: "/student",
+    element: <StudentGradePages />,
   },
 ]);
 

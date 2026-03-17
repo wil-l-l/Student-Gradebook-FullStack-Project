@@ -3,12 +3,14 @@ import SchoolSelector from "../../components/SchoolSelector/SchoolSelector";
 import { useState } from "react";
 
 const SignUpPage = () => {
-  const [inputData, setInputData] = useState({
+  const defaultInputData = {
     firstName: "",
     lastName: "",
     middleName: "",
     school: "",
-  });
+  };
+  const [inputData, setInputData] = useState(defaultInputData);
+  const [createdUser, setCreatedUser] = useState(null);
 
   return (
     <form
@@ -28,7 +30,9 @@ const SignUpPage = () => {
         });
 
         const newUser = await response.json();
-        console.log(newUser);
+
+        setInputData(defaultInputData);
+        setCreatedUser(newUser.data);
       }}
       action=""
     >
@@ -68,6 +72,15 @@ const SignUpPage = () => {
       />
       <br />
       <button>Submit</button>
+
+      {createdUser && (
+        <>
+          <p>
+            <span className="green-text">Successfully</span> created new user!
+          </p>
+          <p>username: {createdUser.userName} </p>
+        </>
+      )}
     </form>
   );
 };

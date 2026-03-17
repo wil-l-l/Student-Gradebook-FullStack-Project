@@ -12,8 +12,23 @@ const SignUpPage = () => {
 
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
+        const response = await fetch("/api/signup", {
+          method: "POST",
+          body: JSON.stringify({
+            firstName: inputData.firstName,
+            lastName: inputData.lastName,
+            middleName: inputData.middleName,
+            school: inputData.school,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const newUser = await response.json();
+        console.log(newUser);
       }}
       action=""
     >

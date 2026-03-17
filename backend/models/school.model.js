@@ -15,6 +15,14 @@ const School = mongoose.model(
       minlength: 4,
       maxlength: 4,
     },
+    teachers: {
+      type: [],
+      default: [],
+    },
+    students: {
+      type: [],
+      default: [],
+    },
   }),
 );
 

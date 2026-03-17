@@ -11,10 +11,8 @@ router.post("/", async (req, res) => {
   });
   if (middleName) newStudent.middleName = middleName;
 
-  console.log(newStudent.userName);
   newStudent = await newStudent.save();
 
-  console.log(newStudent);
   res.status(201).send({ success: true, message: "Created a new user" });
 });
 

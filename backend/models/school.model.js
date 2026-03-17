@@ -1,0 +1,21 @@
+const mongoose = require("mongoose");
+
+const School = mongoose.model(
+  "School",
+  new mongoose.Schema({
+    name: {
+      type: String,
+      required: true,
+      minlength: 12,
+      maxlength: 75,
+    },
+    code: {
+      type: String,
+      required: true,
+      minlength: 4,
+      maxlength: 4,
+    },
+  }),
+);
+
+module.exports = School;

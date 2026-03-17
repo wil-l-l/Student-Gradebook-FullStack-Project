@@ -3,6 +3,15 @@ const router = express.Router();
 const School = require("../models/school.model");
 const uuid = require("uuid");
 
+router.get("/", async (req, res) => {
+  const schools = await School.find().select("name code -_id");
+  res.status(200).send({
+    success: true,
+    message: "Got all schools",
+    data: schools,
+  });
+});
+
 router.post("/", async (req, res) => {
   let newSchool = new School({
     name: req.body.name,

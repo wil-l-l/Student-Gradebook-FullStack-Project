@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 import "./LoginPage.css";
 import { useRef } from "react";
+import { Link } from "react-router";
 
 const LoginPage = () => {
   const userNameRef = useRef(null);
@@ -44,6 +45,7 @@ const LoginPage = () => {
           ref={userNameRef}
         />
       </form>
+      <Link to={"/signup"}>New User? SignUp Here.</Link>
     </main>
   );
 };

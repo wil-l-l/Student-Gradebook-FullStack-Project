@@ -7,11 +7,16 @@ import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 
 import "./Reset.css";
 import "./index.css";
+import SignUpPage from "./pages/SignUpPage/SignUpPage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <LoginPage />,
+  },
+  {
+    path: "/signup",
+    element: <SignUpPage />,
   },
   {
     path: "/student",

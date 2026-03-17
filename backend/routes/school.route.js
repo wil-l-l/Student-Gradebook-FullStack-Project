@@ -10,11 +10,11 @@ router.post("/", async (req, res) => {
 
   const getCode = () => uuid.v4().slice(0, 4);
 
-  const schoolsInDB = await School.find().select("code -_id");
   let uniqueCodeGenerated = false;
   do {
     const codeGenerated = getCode();
-    if (schoolsInDB.some(({ code }) => codeGenerated === code) === false) {
+    const matchingCodeSchools = await School.find({ code: codeGenerated });
+    if (matchingCodeSchools.length === 0) {
       uniqueCodeGenerated = true;
       newSchool.code = codeGenerated;
     }

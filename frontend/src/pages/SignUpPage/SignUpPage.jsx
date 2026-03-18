@@ -1,6 +1,7 @@
 import "./SignUpPage.css";
 import SchoolSelector from "../../components/SchoolSelector/SchoolSelector";
 import { useState } from "react";
+import { Link } from "react-router";
 
 const SignUpPage = () => {
   const defaultInputData = {
@@ -10,29 +11,33 @@ const SignUpPage = () => {
     school: "",
   };
   const [inputData, setInputData] = useState(defaultInputData);
-  const [createdUser, setCreatedUser] = useState(null);
+  const [signUpResponse, setSignUpResponse] = useState(null);
 
   return (
     <form
       onSubmit={async (e) => {
+        const requiredUserData = {
+          firstName: inputData.firstName,
+          lastName: inputData.lastName,
+          school: inputData.school,
+        };
+
+        if (inputData.middleName)
+          requiredUserData.middleName = inputData.middleName;
+
         e.preventDefault();
         const response = await fetch("/api/signup", {
           method: "POST",
-          body: JSON.stringify({
-            firstName: inputData.firstName,
-            lastName: inputData.lastName,
-            middleName: inputData.middleName,
-            school: inputData.school,
-          }),
+          body: JSON.stringify(requiredUserData),
           headers: {
             "Content-Type": "application/json",
           },
         });
 
-        const newUser = await response.json();
+        const responseBody = await response.json();
 
         setInputData(defaultInputData);
-        setCreatedUser(newUser.data);
+        setSignUpResponse(responseBody);
       }}
       action=""
     >
@@ -73,14 +78,22 @@ const SignUpPage = () => {
       <br />
       <button>Submit</button>
 
-      {createdUser && (
-        <>
-          <p>
-            <span className="green-text">Successfully</span> created new user!
-          </p>
-          <p>username: {createdUser.userName} </p>
-        </>
-      )}
+      {signUpResponse &&
+        (signUpResponse.success ? (
+          <>
+            <p>
+              <span className="green-text">Successfully</span> created new user!
+            </p>
+            <p>username: {signUpResponse.data.userName} </p>
+            <Link to="/">Go back to main page here!</Link>
+          </>
+        ) : (
+          <>
+            <p className="error-text">Could not create a new user.</p>
+            <p className="error-text">Error: {signUpResponse.message} </p>
+            <p>Please try again!</p>
+          </>
+        ))}
     </form>
   );
 };

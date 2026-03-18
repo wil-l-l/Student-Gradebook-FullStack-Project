@@ -36,7 +36,7 @@ const SignUpPage = () => {
 
         const responseBody = await response.json();
 
-        setInputData(defaultInputData);
+        setInputData({ ...defaultInputData, school: requiredUserData.school });
         setSignUpResponse(responseBody);
       }}
       action=""

@@ -32,6 +32,10 @@ const User = mongoose.model(
       type: Boolean,
       default: true,
     },
+    schoolId: {
+      type: String,
+      required: true,
+    },
   }),
 );
 

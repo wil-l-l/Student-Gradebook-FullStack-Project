@@ -25,6 +25,7 @@ router.post("/", async (req, res) => {
   ]); // the value of 'school' passed by the client could be the school name or school code
 
   const matchedSchool = schoolFound[0];
+  newUser.schoolId = matchedSchool._id.toString();
   newUser.userName =
     (lastName + firstName[0]).toLowerCase() + matchedSchool.code;
 

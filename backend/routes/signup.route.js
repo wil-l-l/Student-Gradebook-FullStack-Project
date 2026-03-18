@@ -1,9 +1,16 @@
+const Joi = require("joi");
 const express = require("express");
 const router = express.Router();
-const User = require("../models/user.model");
+const { User, validateClient } = require("../models/user.model");
 const School = require("../models/school.model");
 
 router.post("/", async (req, res) => {
+  const { error } = validateClient(req.body);
+  if (error)
+    return res
+      .status(400)
+      .send({ success: false, message: error.details[0].message });
+
   const { firstName, lastName, middleName, school, isStudent } = req.body;
   let newUser = new User({
     firstName,

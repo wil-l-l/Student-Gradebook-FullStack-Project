@@ -39,7 +39,7 @@ const User = mongoose.model(
     },
     // Created randomly by server
     courses: {
-      type: [String], // Array of course ids
+      type: [], // Array of course ids for students, an array of course objects for teachers
       required: true,
     },
   }),

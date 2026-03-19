@@ -48,15 +48,33 @@ router.post("/", async (req, res) => {
 
       createTeacherCourses(newTeacher);
       coursesArr.push(...newTeacher.courses);
-      newTeacher.courses.forEach(({ id }) => newSchool.courses.push(id));
+      newTeacher.courses.forEach(({ _id }) => newSchool.courses.push(_id));
 
       return newTeacher;
     });
   }
+  let studentsArr = [];
+  if (students && students.length > 0) {
+    studentsArr = students.map(({ firstName, lastName, middleName }) => {
+      const newStudent = new User({
+        firstName,
+        lastName,
+        userName: (lastName + firstName[0]).toLowerCase() + newSchool.code,
+        schoolId: newSchool._id.toString(),
+      });
+      if (middleName) newStudent.middleName = middleName;
+
+      createStudentCourses(newStudent, coursesArr);
+
+      return newStudent;
+    });
+  }
   newSchool.teachers = teachersArr.map(({ _id }) => _id.toString());
+  newSchool.students = studentsArr.map(({ _id }) => _id.toString());
 
   await Course.bulkSave(coursesArr);
   await User.bulkSave(teachersArr);
+  await User.bulkSave(studentsArr);
   newSchool = await newSchool.save();
 
   res.status(200).send({
@@ -67,7 +85,7 @@ router.post("/", async (req, res) => {
 });
 
 function createTeacherCourses(teacher) {
-  const numOfCourses = 5;
+  const numOfCourses = 3;
   const random = exhaustiveUniqueRandom(0, constants.classes.length - 1);
 
   let count = 0;
@@ -83,6 +101,22 @@ function createTeacherCourses(teacher) {
         teacherId: teacher._id.toString(),
       }),
     );
+
+    // The unique numbers will be iterated over infinitely
+    if (count === numOfCourses) break;
+  }
+}
+
+function createStudentCourses(student, courses) {
+  const numOfCourses = 2;
+  const random = exhaustiveUniqueRandom(0, courses.length - 1);
+
+  let count = 0;
+  for (const number of random) {
+    count = count + 1;
+
+    courses[number].students.push({ ...student, grade: null });
+    student.courses.push(courses[number]._id.toString());
 
     // The unique numbers will be iterated over infinitely
     if (count === numOfCourses) break;

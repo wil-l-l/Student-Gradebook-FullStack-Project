@@ -32,6 +32,7 @@ const User = mongoose.model(
       type: Boolean,
       default: true,
     },
+    // Will be passed when registering a teacher to an existing school, but will be added by the server when creating teacher users when a new school is being registered
     schoolId: {
       type: String,
       required: true,

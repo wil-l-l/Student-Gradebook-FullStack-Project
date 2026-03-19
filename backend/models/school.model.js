@@ -23,6 +23,10 @@ const School = mongoose.model(
       type: [],
       default: [],
     },
+    courses: {
+      type: [String],
+      required: true,
+    },
   }),
 );
 

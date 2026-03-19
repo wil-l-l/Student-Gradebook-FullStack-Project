@@ -13,6 +13,7 @@
     "express": "^5.2.1",
     "joi": "^18.0.2",
     "mongoose": "^9.3.0",
+    "unique-random": "^4.0.0",
     "uuid": "^13.0.0"
   },
   "devDependencies": {

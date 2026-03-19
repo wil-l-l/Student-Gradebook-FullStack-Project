@@ -1,8 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const School = require("../models/school.model");
-const uuid = require("uuid");
 const { User } = require("../models/user.model");
+const Course = require("../models/course.model");
+const constants = require("../constants");
+const uuid = require("uuid");
+const { exhaustiveUniqueRandom } = require("unique-random");
 
 router.get("/", async (req, res) => {
   const schools = await School.find().select("name code -_id");
@@ -32,20 +35,27 @@ router.post("/", async (req, res) => {
 
   const { teachers, students } = req.body;
   let teachersArr = [];
+  let coursesArr = [];
   if (teachers && teachers.length > 0) {
-    teachersArr = teachers.map(
-      ({ firstName, lastName, isStudent }) =>
-        new User({
-          firstName,
-          lastName,
-          isStudent: false,
-          userName: (lastName + firstName[0]).toLowerCase() + newSchool.code,
-          schoolId: newSchool._id.toString(),
-        }),
-    );
+    teachersArr = teachers.map(({ firstName, lastName }) => {
+      const newTeacher = new User({
+        firstName,
+        lastName,
+        isStudent: false,
+        userName: (lastName + firstName[0]).toLowerCase() + newSchool.code,
+        schoolId: newSchool._id.toString(),
+      });
+
+      createTeacherCourses(newTeacher);
+      coursesArr.push(...newTeacher.courses);
+      newTeacher.courses.forEach(({ id }) => newSchool.courses.push(id));
+
+      return newTeacher;
+    });
   }
   newSchool.teachers = teachersArr.map(({ _id }) => _id.toString());
 
+  await Course.bulkSave(coursesArr);
   await User.bulkSave(teachersArr);
   newSchool = await newSchool.save();
 
@@ -55,5 +65,28 @@ router.post("/", async (req, res) => {
     data: newSchool,
   });
 });
+
+function createTeacherCourses(teacher) {
+  const numOfCourses = 5;
+  const random = exhaustiveUniqueRandom(0, constants.classes.length - 1);
+
+  let count = 0;
+  for (const number of random) {
+    count = count + 1;
+
+    teacher.courses.push(
+      new Course({
+        name: constants.classes[number],
+        period: count,
+        students: [],
+        assignments: [],
+        teacherId: teacher._id.toString(),
+      }),
+    );
+
+    // The unique numbers will be iterated over infinitely
+    if (count === numOfCourses) break;
+  }
+}
 
 module.exports = router;

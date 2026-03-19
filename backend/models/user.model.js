@@ -37,6 +37,11 @@ const User = mongoose.model(
       type: String,
       required: true,
     },
+    // Created randomly by server
+    courses: {
+      type: [String], // Array of course ids
+      required: true,
+    },
   }),
 );
 

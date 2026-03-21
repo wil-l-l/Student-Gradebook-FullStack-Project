@@ -5,7 +5,10 @@ const { User } = require("../models/user.model");
 const Course = require("../models/course.model");
 const constants = require("../constants");
 const uuid = require("uuid");
-const { exhaustiveUniqueRandom } = require("unique-random");
+const {
+  exhaustiveUniqueRandom,
+  consecutiveUniqueRandom,
+} = require("unique-random");
 
 router.get("/", async (req, res) => {
   const schools = await School.find().select("name code -_id");
@@ -99,6 +102,7 @@ function createTeacherCourses(teacher) {
         students: [],
         assignments: [],
         teacherId: teacher._id.toString(),
+        schoolId: teacher.schoolId.toString(),
       }),
     );
 
@@ -115,13 +119,14 @@ function createStudentCourses(student, courses) {
   for (const number of random) {
     count = count + 1;
     const course = courses[number];
+    const courseGrade = consecutiveUniqueRandom(0, 100)();
 
     const studentCourseCopy = {
       teacherId: course.teacherId,
       name: course.name,
       period: course.period,
       assignments: course.assignments,
-      grade: null,
+      grade: courseGrade,
       id: course._id.toString(),
     };
 
@@ -131,7 +136,7 @@ function createStudentCourses(student, courses) {
       lastName: studentDocumentCopy.lastName,
       isStudent: studentDocumentCopy.isStudent,
       schoolId: studentDocumentCopy.schoolId,
-      grade: null,
+      grade: courseGrade,
     };
 
     courses[number].students.push(courseStudentCopy);

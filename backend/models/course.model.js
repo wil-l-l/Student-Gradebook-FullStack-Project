@@ -21,6 +21,10 @@ const Course = mongoose.model(
       type: String,
       required: true,
     },
+    schoolId:{
+      type: String,
+      required: true
+    }
   }),
 );
 

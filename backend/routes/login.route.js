@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const User = require("../models/user.model");
+const { User } = require("../models/user.model");
 
 router.post("/", async (req, res) => {
   const { userName } = req.body;
@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
     return res.status(404).send({ success: false, message: "Could not login" });
 
   const user = await User.findOne({ userName: userName }).select(
-    "firstName lastName userName -_id",
+    "firstName lastName courses -_id",
   );
 
   if (!user) {

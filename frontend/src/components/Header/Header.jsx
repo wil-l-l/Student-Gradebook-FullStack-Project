@@ -1,40 +1,16 @@
 import "./Header.css";
-import RequestBtn from "../RequestBtn/RequestBtn";
+import { useContext } from "react";
+import { StudentContext } from "../../contexts/StudentContext";
 
-const Header = ({
-  editMode,
-  setEditMode,
-  studentToView,
-  students,
-  setStudents,
-  setCurrentStudent,
-}) => {
+const Header = () => {
+  const student = useContext(StudentContext);
+  const fullName = student.firstName + " " + student.lastName;
+
   return (
     <header className="header-box">
-      <div className="request-btn-box">
-        <RequestBtn
-          content={"ADD"}
-          editMode={editMode}
-          setEditMode={setEditMode}
-          students={students}
-          setStudents={setStudents}
-          setCurrentStudent={setCurrentStudent}
-        />
-        <RequestBtn
-          content={"UPD"}
-          editMode={editMode}
-          setEditMode={setEditMode}
-        />
-        <RequestBtn
-          content={"DEL"}
-          editMode={editMode}
-          setEditMode={setEditMode}
-        />
-      </div>
-
       <div className="profile-box">
-        <img src="" alt={studentToView.name} className="profile-img" />
-        <p className="profile-name">{studentToView.name}</p>
+        <img src="" alt={fullName} className="profile-img" />
+        <p className="profile-name">{fullName}</p>
       </div>
     </header>
   );

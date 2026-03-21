@@ -1,11 +1,9 @@
-import { useNavigate } from "react-router";
 import "./LoginPage.css";
 import { useRef } from "react";
 import { Link } from "react-router";
 
-const LoginPage = () => {
+const LoginPage = ({ setStudentAccount }) => {
   const userNameRef = useRef(null);
-  const navigate = useNavigate();
 
   const login = async (userName) => {
     const response = await fetch("/api/login", {
@@ -22,11 +20,10 @@ const LoginPage = () => {
 
     if (!responseBody.success) {
       console.error(responseBody.message);
-      navigate("/", { replace: true });
       return;
     }
 
-    navigate("/student");
+    setStudentAccount(responseBody.data);
   };
 
   return (

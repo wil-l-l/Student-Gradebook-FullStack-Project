@@ -1,13 +1,7 @@
 import "./GradeTable.css";
 import GradeRows from "./GradeRows/GradeRows";
 
-const GradeTable = ({
-  studentToView,
-  currentStudent,
-  editMode,
-  students,
-  setStudents
-}) => {
+const GradeTable = () => {
   return (
     <table className="grade-table">
       <thead className="grade-table__heading-row">
@@ -18,13 +12,7 @@ const GradeTable = ({
         </tr>
       </thead>
       <tbody>
-        <GradeRows
-          currentStudent={currentStudent}
-          studentToView={studentToView}
-          editMode={editMode}
-          students={students}
-          setStudents={setStudents}
-        />
+        <GradeRows />
       </tbody>
     </table>
   );

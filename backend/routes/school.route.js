@@ -125,7 +125,16 @@ function createStudentCourses(student, courses) {
       id: course._id.toString(),
     };
 
-    courses[number].students.push(student);
+    const studentDocumentCopy = { ...student._doc };
+    const courseStudentCopy = {
+      firstName: studentDocumentCopy.firstName,
+      lastName: studentDocumentCopy.lastName,
+      isStudent: studentDocumentCopy.isStudent,
+      schoolId: studentDocumentCopy.schoolId,
+      grade: null,
+    };
+
+    courses[number].students.push(courseStudentCopy);
     student.courses.push(studentCourseCopy);
 
     // The unique numbers will be iterated over infinitely

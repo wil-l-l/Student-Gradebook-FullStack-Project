@@ -114,9 +114,19 @@ function createStudentCourses(student, courses) {
   let count = 0;
   for (const number of random) {
     count = count + 1;
+    const course = courses[number];
 
-    courses[number].students.push({ ...student, grade: null });
-    student.courses.push(courses[number]._id.toString());
+    const studentCourseCopy = {
+      teacherId: course.teacherId,
+      name: course.name,
+      period: course.period,
+      assignments: course.assignments,
+      grade: null,
+      id: course._id.toString(),
+    };
+
+    courses[number].students.push(student);
+    student.courses.push(studentCourseCopy);
 
     // The unique numbers will be iterated over infinitely
     if (count === numOfCourses) break;

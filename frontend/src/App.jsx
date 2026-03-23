@@ -3,19 +3,22 @@ import { StudentContext } from "./contexts/StudentContext";
 import StudentGradesPage from "./pages/StudentGradesPage/StudentGradesPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import { useState } from "react";
+import TeacherEntryPage from "./pages/TeacherEntryPage/TeacherEntryPage";
 
 function App() {
-  const [studentAccount, setStudentAccount] = useState(null);
+  const [userAccount, setUserAccount] = useState(null);
 
   return (
     <>
-      <StudentContext value={studentAccount}>
-        {studentAccount === null ? (
+      <StudentContext value={userAccount}>
+        {userAccount === null ? (
           <>
-            <LoginPage setStudentAccount={setStudentAccount} />
+            <LoginPage setUserAccount={setUserAccount} />
           </>
-        ) : (
+        ) : userAccount.isStudent ? (
           <StudentGradesPage />
+        ) : (
+          <TeacherEntryPage />
         )}
       </StudentContext>
     </>

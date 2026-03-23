@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
     return res.status(404).send({ success: false, message: "Could not login" });
 
   const user = await User.findOne({ userName: userName }).select(
-    "firstName lastName courses -_id",
+    "firstName lastName courses isStudent -_id",
   );
 
   if (!user) {

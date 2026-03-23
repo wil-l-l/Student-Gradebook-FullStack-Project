@@ -2,7 +2,7 @@ import "./LoginPage.css";
 import { useRef } from "react";
 import { Link } from "react-router";
 
-const LoginPage = ({ setStudentAccount }) => {
+const LoginPage = ({ setUserAccount }) => {
   const userNameRef = useRef(null);
 
   const login = async (userName) => {
@@ -23,7 +23,7 @@ const LoginPage = ({ setStudentAccount }) => {
       return;
     }
 
-    setStudentAccount(responseBody.data);
+    setUserAccount(responseBody.data);
   };
 
   return (

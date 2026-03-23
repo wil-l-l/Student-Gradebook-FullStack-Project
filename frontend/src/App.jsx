@@ -1,5 +1,5 @@
 import "./Reset.css";
-import { StudentContext } from "./contexts/StudentContext";
+import { UserContext } from "./contexts/UserContext";
 import StudentGradesPage from "./pages/StudentGradesPage/StudentGradesPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import { useState } from "react";
@@ -10,7 +10,7 @@ function App() {
 
   return (
     <>
-      <StudentContext value={userAccount}>
+      <UserContext value={userAccount}>
         {userAccount === null ? (
           <>
             <LoginPage setUserAccount={setUserAccount} />
@@ -20,7 +20,7 @@ function App() {
         ) : (
           <TeacherEntryPage />
         )}
-      </StudentContext>
+      </UserContext>
     </>
   );
 }

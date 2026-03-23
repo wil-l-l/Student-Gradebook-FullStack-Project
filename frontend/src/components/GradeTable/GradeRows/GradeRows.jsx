@@ -1,9 +1,9 @@
 import "./GradeRows.css";
 import { useContext } from "react";
-import { StudentContext } from "../../../contexts/StudentContext";
+import { UserContext } from "../../../contexts/UserContext";
 
 const GradeRows = () => {
-  const student = useContext(StudentContext);
+  const student = useContext(UserContext);
 
   return student.courses
     .map(({ period, name, grade }) => ({

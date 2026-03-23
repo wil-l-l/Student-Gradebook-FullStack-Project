@@ -1,9 +1,9 @@
 import "./Header.css";
 import { useContext } from "react";
-import { StudentContext } from "../../contexts/StudentContext";
+import { UserContext } from "../../contexts/UserContext";
 
 const Header = () => {
-  const student = useContext(StudentContext);
+  const student = useContext(UserContext);
   const fullName = student.firstName + " " + student.lastName;
 
   return (

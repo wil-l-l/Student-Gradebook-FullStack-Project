@@ -1,3 +1,5 @@
+import ManageAssignments from "../ManageAssignments/ManageAssignments";
+import ManageStudents from "../ManageStudents/ManageStudents";
 import "./ManageCoursePage.css";
 import { useState } from "react";
 
@@ -29,26 +31,9 @@ const ManageCoursePage = ({ selectedCourse }) => {
           </div>
         </>
       ) : choice === "students" ? (
-        <>
-          <ul>
-            {selectedCourse.students.map(
-              ({ firstName, lastName, grade }, index) => (
-                <li key={firstName + lastName + grade + index}>
-                  {firstName}, {lastName} <br />
-                  Grade: {grade}
-                </li>
-              ),
-            )}
-          </ul>
-        </>
+        <ManageStudents selectedCourse={selectedCourse} />
       ) : (
-        <>
-          {selectedCourse.assignments.length > 0 ? (
-            <ul>Render assignments list</ul>
-          ) : (
-            <p>Publish an assignment to get started! </p>
-          )}
-        </>
+        <ManageAssignments selectedCourse={selectedCourse} />
       )}
     </>
   );

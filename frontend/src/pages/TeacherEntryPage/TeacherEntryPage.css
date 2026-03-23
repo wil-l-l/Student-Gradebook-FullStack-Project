@@ -8,17 +8,26 @@
 }
 
 .teacher-entry-page__classes-list__item {
-  margin-top: 10px;
-  padding: 10px 100px;
+  margin-top: 30px;
+  padding: 15px 100px;
   border-radius: 7px;
   text-align: center;
   cursor: pointer;
 }
 .teacher-entry-page__classes-list__item:nth-child(even) {
-  background: var(--secondary-color);
   box-shadow: 0px 0px 0.5px 1.5px rgba(128, 128, 128, 0.3);
 }
 .teacher-entry-page__classes-list__item:nth-child(odd) {
-  background: white;
   box-shadow: 0px 0px 0.5px 1.5px rgba(128, 128, 128, 0.2);
+}
+
+.teacher-entry-page__classes-list__item--active:nth-child(even) {
+  background-color: var(--secondary-color);
+}
+.teacher-entry-page__classes-list__item--active:nth-child(odd) {
+  background-color: white;
+}
+.teacher-entry-page__classes-list__item--inactive {
+  background-color: rgba(255, 0, 0, 0.5);
+  color: white;
 }

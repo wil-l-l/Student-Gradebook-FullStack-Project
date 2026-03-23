@@ -112,19 +112,23 @@ function createTeacherCourses(teacher) {
 }
 
 function createStudentCourses(student, courses) {
-  const numOfCourses = 2;
+  const numOfCourses = 3;
   const random = exhaustiveUniqueRandom(0, courses.length - 1);
 
   let count = 0;
+  let filledPeriods = [];
   for (const number of random) {
-    count = count + 1;
     const course = courses[number];
+    const coursePeriod = course.period;
+    if (filledPeriods.includes(coursePeriod)) continue;
+
+    count = count + 1;
     const courseGrade = consecutiveUniqueRandom(0, 100)();
 
     const studentCourseCopy = {
       teacherId: course.teacherId,
       name: course.name,
-      period: course.period,
+      period: coursePeriod,
       assignments: course.assignments,
       grade: courseGrade,
       id: course._id.toString(),
@@ -141,6 +145,7 @@ function createStudentCourses(student, courses) {
 
     courses[number].students.push(courseStudentCopy);
     student.courses.push(studentCourseCopy);
+    filledPeriods.push(coursePeriod);
 
     // The unique numbers will be iterated over infinitely
     if (count === numOfCourses) break;

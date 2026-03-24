@@ -140,6 +140,7 @@ function createStudentCourses(student, courses) {
       lastName: studentDocumentCopy.lastName,
       isStudent: studentDocumentCopy.isStudent,
       schoolId: studentDocumentCopy.schoolId,
+      _id: studentDocumentCopy._id.toString(),
       grade: courseGrade,
     };
 

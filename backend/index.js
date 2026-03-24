@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const signup = require("./routes/signup.route");
 const login = require("./routes/login.route");
 const school = require("./routes/school.route");
+const assignment = require("./routes/assignment.route");
 
 mongoose
   .connect("mongodb://localhost/gradebook")
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use("/api/signup", signup);
 app.use("/api/login", login);
 app.use("/api/schools", school);
+app.use("/api/assignments", assignment);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Listening to PORT: ${PORT}`));

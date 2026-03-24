@@ -21,7 +21,8 @@ body {
   font-size: 1.6rem;
 }
 
-.error-text {
+.error-text,
+.red-text {
   color: red;
 }
 

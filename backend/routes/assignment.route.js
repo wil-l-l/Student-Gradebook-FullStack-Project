@@ -19,6 +19,7 @@ router.post("/", async (req, res) => {
       name: type,
       weight: assignmentTypes[type],
     },
+    isGraded: false, // Newly created assignments will always start as not graded, 'isGraded' will be true when the assignment is graded for every student
   });
 
   const course = await Course.findById(courseId);
@@ -58,6 +59,7 @@ router.post("/", async (req, res) => {
       name: newAssignment.name,
       type: newAssignment.type,
       grade: newAssignment.grade,
+      isGraded: newAssignment.isGraded,
     },
   });
 });

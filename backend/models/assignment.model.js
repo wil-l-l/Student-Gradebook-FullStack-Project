@@ -11,6 +11,10 @@ const Assignment = mongoose.model(
       type: Object, // { name: <assignment_type_name>, weight: <assignment_type_weight> }
       required: true,
     },
+    isGraded: {
+      type: Boolean,
+      required: true,
+    },
   }),
 );
 

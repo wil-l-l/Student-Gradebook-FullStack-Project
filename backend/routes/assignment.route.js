@@ -11,17 +11,18 @@ const assignmentTypes = {
 };
 
 router.post("/", async (req, res) => {
-  const { teacherId, courseId, type, name } = req.body;
+  const { type, name, userName, courseId } = req.body;
 
   const newAssignment = new Assignment({
     name,
     type: {
-      [type]: assignmentTypes[type],
+      name: type,
+      weight: assignmentTypes[type],
     },
   });
 
   const course = await Course.findById(courseId);
-  const teacher = await User.findById(teacherId);
+  const teacher = await User.findOne({ userName });
   const teacherCourse = teacher.courses.find(
     ({ _id }) => _id.toString() === course._id.toString(),
   );

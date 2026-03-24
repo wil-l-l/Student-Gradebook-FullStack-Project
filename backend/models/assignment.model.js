@@ -8,7 +8,7 @@ const Assignment = mongoose.model(
       required: true,
     },
     type: {
-      type: Object, // { <assignment_type> : <assignment_type_weight> }
+      type: Object, // { name: <assignment_type_name>, weight: <assignment_type_weight> }
       required: true,
     },
   }),

@@ -52,7 +52,7 @@ router.post("/", async (req, res) => {
     await student.save();
   });
 
-  res.status(200).send({
+  res.status(201).send({
     success: true,
     data: {
       name: newAssignment.name,

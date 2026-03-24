@@ -15,6 +15,12 @@ const Assignment = mongoose.model(
       type: Boolean,
       required: true,
     },
+    points: {
+      type: Number,
+      required: true,
+      min: 5, 
+      max: 100, 
+    },
   }),
 );
 

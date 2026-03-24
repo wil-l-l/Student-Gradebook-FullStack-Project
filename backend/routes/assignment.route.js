@@ -11,7 +11,7 @@ const assignmentTypes = {
 };
 
 router.post("/", async (req, res) => {
-  const { type, name, userName, courseId } = req.body;
+  const { type, name, userName, courseId, points } = req.body;
 
   const newAssignment = new Assignment({
     name,
@@ -20,6 +20,7 @@ router.post("/", async (req, res) => {
       weight: assignmentTypes[type],
     },
     isGraded: false, // Newly created assignments will always start as not graded, 'isGraded' will be true when the assignment is graded for every student
+    points,
   });
 
   const course = await Course.findById(courseId);
@@ -60,6 +61,7 @@ router.post("/", async (req, res) => {
       type: newAssignment.type,
       grade: newAssignment.grade,
       isGraded: newAssignment.isGraded,
+      points: newAssignment.points,
     },
   });
 });

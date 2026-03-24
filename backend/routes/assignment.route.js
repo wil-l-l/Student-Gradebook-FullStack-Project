@@ -11,7 +11,7 @@ const assignmentTypes = {
 };
 
 router.post("/", async (req, res) => {
-  const { type, name, userName, courseId, points } = req.body;
+  const { type, name, userName, courseId, maxPoints } = req.body;
 
   const newAssignment = new Assignment({
     name,
@@ -20,7 +20,7 @@ router.post("/", async (req, res) => {
       weight: assignmentTypes[type],
     },
     isGraded: false, // Newly created assignments will always start as not graded, 'isGraded' will be true when the assignment is graded for every student
-    points,
+    maxPoints,
   });
 
   const course = await Course.findById(courseId);
@@ -61,7 +61,37 @@ router.post("/", async (req, res) => {
       type: newAssignment.type,
       grade: newAssignment.grade,
       isGraded: newAssignment.isGraded,
-      points: newAssignment.points,
+      maxPoints: newAssignment.maxPoints,
+    },
+  });
+});
+
+router.patch("/:id", async (req, res) => {
+  const assignmentId = req.params.id;
+  const { studentId, pointsEarned } = req.body;
+
+  const studentToUpdate = await User.findOne({
+    _id: studentId,
+  }).select("courses");
+
+  let assignmentToUpdate = null;
+
+  studentToUpdate.courses.forEach(({ assignments }) => {
+    assignments.forEach((assignmentObj) => {
+      if (assignmentObj._id.toString() === assignmentId)
+        assignmentToUpdate = assignmentObj;
+    });
+  });
+
+  assignmentToUpdate.pointsEarned = pointsEarned;
+
+  studentToUpdate.markModified("courses");
+  const studentAfterUpdate = await studentToUpdate.save();
+
+  res.status(200).send({
+    success: true,
+    data: {
+      courses: studentAfterUpdate.courses,
     },
   });
 });

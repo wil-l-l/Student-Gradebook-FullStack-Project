@@ -84,6 +84,7 @@ router.patch("/:id", async (req, res) => {
   });
 
   assignmentToUpdate.pointsEarned = pointsEarned;
+  assignmentToUpdate.isGraded = true;
 
   studentToUpdate.markModified("courses");
   const studentAfterUpdate = await studentToUpdate.save();

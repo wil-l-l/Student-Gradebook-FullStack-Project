@@ -29,3 +29,7 @@ body {
 .green-text {
   color: green;
 }
+
+.bold-text {
+  font-weight: 600;
+}

@@ -18,8 +18,7 @@ const ManageAssignments = ({ selectedCourse }) => {
               <li
                 className="manage-assignments-assignments-list__item"
                 key={assignmentObj.name + index}
-                onClick={(e) => {
-                  console.log(e.target);
+                onClick={() => {
                   setEnterBulkGrade(true);
                   setAssignmentToGrade(assignmentObj);
                 }}

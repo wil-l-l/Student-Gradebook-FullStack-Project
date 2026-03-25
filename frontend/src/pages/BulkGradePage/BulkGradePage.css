@@ -45,6 +45,9 @@
   width: 50px;
   outline: none;
 }
+.bulk-grade-page__points-input:focus {
+  outline: 1px solid black;
+}
 .bulk-grade-page__points-input::placeholder {
   text-align: center;
 }

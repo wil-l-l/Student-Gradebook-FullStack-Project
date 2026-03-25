@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./BulkGradePage.css";
+import { useEffect } from "react";
 
 const BulkGradePage = ({ course, assignment }) => {
   const [points, setPoints] = useState("");
   const [currentStudentIndex, setCurrentStudentIndex] = useState(0);
   const [trackGradedStudents, setTrackGradedStudents] = useState([]);
+  const pointsInputRef = useRef(null);
 
   const courseStudents = [...course.students];
   const currentStudent = courseStudents[currentStudentIndex];
@@ -14,6 +16,10 @@ const BulkGradePage = ({ course, assignment }) => {
 
   const getFullName = (student = currentStudent) =>
     student ? student.firstName + " " + student.lastName : "";
+
+  useEffect(() => {
+    if (pointsInputRef.current) pointsInputRef.current.focus();
+  }, [currentStudentIndex]);
 
   return (
     <div className="bulk-grade-page">
@@ -49,9 +55,10 @@ const BulkGradePage = ({ course, assignment }) => {
             <div className="bulk-grade-page__points-form__points-and-arrow-box">
               <div className="bulk-grade-page__points-box">
                 <input
+                  ref={pointsInputRef}
                   type="number"
                   className="bulk-grade-page__points-input"
-                  placeholder=""
+                  autoFocus
                   value={points}
                   min={0}
                   max={assignment.maxPoints}
@@ -86,31 +93,22 @@ const BulkGradePage = ({ course, assignment }) => {
         </>
       ) : (
         <ul className="bulk-grade-page__review-students-list">
-          {trackGradedStudents.map((studentObj) =>
-            studentObj.isGraded ? (
-              <li
-                key={studentObj._id}
-                className="bulk-grade-page__review-students-list__item"
-                onClick={(e) => {
-                  console.log(e.target);
-                }}
-              >
-                <span className="green-text">graded</span>{" "}
-                <p>{getFullName(studentObj)}</p>
-              </li>
-            ) : (
-              <li
-                key={studentObj._id}
-                className="bulk-grade-page__review-students-list__item"
-                onClick={(e) => {
-                  console.log(e.target);
-                }}
-              >
-                <span className="red-text bold-text">NOT GRADED</span>{" "}
-                <p>{getFullName(studentObj)}</p>
-              </li>
-            ),
-          )}
+          {trackGradedStudents.map((studentObj) => (
+            <li
+              key={studentObj._id}
+              className="bulk-grade-page__review-students-list__item"
+              onClick={(e) => {
+                console.log(e.target);
+              }}
+            >
+              {studentObj.isGraded ? (
+                <span className="green-text">graded</span>
+              ) : (
+                <span className="red-text bold-text">NOT GRADED</span>
+              )}
+              <p>{getFullName(studentObj)}</p>
+            </li>
+          ))}
         </ul>
       )}
     </div>

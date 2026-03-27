@@ -71,8 +71,14 @@ const ReviewBulkGrades = ({
             ))}
             <button
               className="review-bulk-grades__submit-btn bold-text"
-              onClick={(e) => {
-                console.log(e.target);
+              onClick={() => {
+                if (thisGradedStudents.every(({ isGraded }) => isGraded)) {
+                  console.log("Submit grades");
+                } else {
+                  console.log(
+                    "All assignments are not graded, show an error message and/or visual cue.",
+                  );
+                }
               }}
             >
               SUBMIT GRADES

@@ -17,19 +17,24 @@ const BulkGradePage = ({ course, assignment }) => {
     <div className="bulk-grade-page">
       {trackGradedStudents.length !== courseStudents.length ? (
         <>
-          <p className="bulk-grade-page__student-name">{getFullName()}</p>
           <PointsForm
             courseStudents={courseStudents}
             currentStudentIndex={currentStudentIndex}
             trackGradedStudents={trackGradedStudents}
             setTrackGradedStudents={setTrackGradedStudents}
             assignment={assignment}
+            getFullName={getFullName}
             setCurrentStudentIndex={setCurrentStudentIndex}
           />
         </>
       ) : (
         <ReviewBulkGrades
+          courseStudents={courseStudents}
+          currentStudentIndex={currentStudentIndex}
           trackGradedStudents={trackGradedStudents}
+          setTrackGradedStudents={setTrackGradedStudents}
+          assignment={assignment}
+          setCurrentStudentIndex={setCurrentStudentIndex}
           getFullName={getFullName}
         />
       )}

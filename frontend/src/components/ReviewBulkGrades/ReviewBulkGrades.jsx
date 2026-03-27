@@ -52,6 +52,14 @@ const ReviewBulkGrades = ({ trackGradedStudents, getFullName }) => {
             <p>{getFullName(studentObj)}</p>
           </li>
         ))}
+        <button
+          className="review-bulk-grades__submit-btn bold-text"
+          onClick={(e) => {
+            console.log(e.target);
+          }}
+        >
+          SUBMIT GRADES
+        </button>
       </ul>
     </>
   );

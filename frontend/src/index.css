@@ -14,7 +14,8 @@ html {
   font-size: 62.5%;
 }
 
-body {
+body,
+button {
   background-color: var(--primary-color);
   color: #323955;
   font-family: "Inter", sans-serif;

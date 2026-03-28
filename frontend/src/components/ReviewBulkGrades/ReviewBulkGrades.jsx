@@ -10,16 +10,36 @@ const ReviewBulkGrades = ({
   assignment,
   setCurrentStudentIndex,
   getFullName,
+  teacherId,
 }) => {
   const [markAllMissing, setMarkAllMissing] = useState(false);
   const [thisGradedStudents, setThisGradedStudents] = useState([
     ...trackGradedStudents,
   ]);
   const [gradeOneStudent, setGradeOneStudent] = useState(null);
+  const [doGradeSubmission, setDoGradeSubmission] = useState(false);
 
   useEffect(() => {
     setThisGradedStudents(trackGradedStudents);
   }, [trackGradedStudents]);
+
+  useEffect(() => {
+    if (doGradeSubmission === true) {
+      thisGradedStudents.forEach(async ({ _id, pointsEarned }) => {
+        fetch(`/api/assignments/${assignment._id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            studentId: _id,
+            teacherId,
+            pointsEarned,
+          }),
+        });
+      });
+    }
+  }, [doGradeSubmission, thisGradedStudents, teacherId, assignment]);
 
   return (
     <>
@@ -73,7 +93,7 @@ const ReviewBulkGrades = ({
               className="review-bulk-grades__submit-btn bold-text"
               onClick={() => {
                 if (thisGradedStudents.every(({ isGraded }) => isGraded)) {
-                  console.log("Submit grades");
+                  setDoGradeSubmission(true);
                 } else {
                   console.log(
                     "All assignments are not graded, show an error message and/or visual cue.",

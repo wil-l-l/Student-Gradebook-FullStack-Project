@@ -92,7 +92,7 @@ router.patch("/:id", async (req, res) => {
   res.status(200).send({
     success: true,
     data: {
-      courses: studentAfterUpdate.courses,
+      student: studentAfterUpdate,
     },
   });
 });

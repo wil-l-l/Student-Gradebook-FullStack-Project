@@ -6,7 +6,13 @@ const ManageStudents = ({ selectedCourse }) => {
       <ul>
         {selectedCourse.students.map(
           ({ firstName, lastName, grade }, index) => (
-            <li key={firstName + lastName + grade + index}>
+            <li
+              onClick={() => {
+                console.log(selectedCourse);
+              }}
+              className="manage-students__list-item"
+              key={firstName + lastName + grade + index}
+            >
               {firstName}, {lastName} <br />
               Grade: {grade}
             </li>

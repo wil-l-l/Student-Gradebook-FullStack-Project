@@ -1,9 +1,11 @@
 import "./GradeRows.css";
 import { useContext } from "react";
 import { UserContext } from "../../../contexts/UserContext";
+import { useNavigate } from "react-router";
 
 const GradeRows = () => {
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
 
   return user.courses
     .map(({ period, name, grade }) => ({
@@ -12,9 +14,7 @@ const GradeRows = () => {
         <tr
           key={period}
           className="grade-row"
-          onClick={() => {
-            console.log(name);
-          }}
+          onClick={() => navigate(`/student/course/${period}`)}
         >
           <td>{period}</td>
           <td>{name}</td>

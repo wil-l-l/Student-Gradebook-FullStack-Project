@@ -5,8 +5,11 @@ import PrivateRoutes from "./routes/PrivateRoutes.jsx";
 
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import SignUpPage from "./pages/SignUpPage/SignUpPage.jsx";
+
 import TeacherEntryPage from "./pages/TeacherEntryPage/TeacherEntryPage.jsx";
+
 import StudentGradesPage from "./pages/StudentGradesPage/StudentGradesPage.jsx";
+import ViewCoursePage from "./pages/ViewCoursePage/ViewCoursePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +39,12 @@ const router = createBrowserRouter([
       {
         path: "/student",
         element: <StudentGradesPage />,
+        children: [
+          {
+            path: "/student/course/:period",
+            element: <ViewCoursePage />,
+          },
+        ],
       },
     ],
   },

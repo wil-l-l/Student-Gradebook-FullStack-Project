@@ -1,8 +1,9 @@
 import { useNavigate } from "react-router";
 import { UserContext } from "../contexts/UserContext";
 import { useContext, useEffect } from "react";
+import { Outlet } from "react-router";
 
-const PrivateRoutes = ({ children }) => {
+const PrivateRoutes = () => {
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -13,7 +14,7 @@ const PrivateRoutes = ({ children }) => {
     goToLogin();
   }, [user, navigate]);
 
-  return children;
+  return <Outlet />;
 };
 
 export default PrivateRoutes;

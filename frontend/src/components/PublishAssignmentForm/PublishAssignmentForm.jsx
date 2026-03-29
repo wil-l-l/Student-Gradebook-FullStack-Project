@@ -3,7 +3,7 @@ import "./PublishAssignmentForm.css";
 import { UserContext } from "../../contexts/UserContext";
 
 const PublishAssignmentForm = ({ selectedCourse }) => {
-  const teacher = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [points, setPoints] = useState(5);
@@ -16,7 +16,7 @@ const PublishAssignmentForm = ({ selectedCourse }) => {
         const formData = {
           name,
           type,
-          userName: teacher.userName,
+          userName: user.userName,
           courseId: selectedCourse._id,
           points: Number(points),
         };

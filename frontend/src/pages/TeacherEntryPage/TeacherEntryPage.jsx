@@ -5,7 +5,7 @@ import { useState } from "react";
 import ManageCoursePage from "../../components/ManageCoursePage/ManageCoursePage";
 
 const TeacherEntryPage = () => {
-  const teacher = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const [selectedCourse, setSelectedCourse] = useState(null);
 
   return (
@@ -17,7 +17,7 @@ const TeacherEntryPage = () => {
           <>
             <h2 className="teacher-entry-page__heading">Classes</h2>
             <ul className="teacher-entry-page__classes-list">
-              {teacher.courses.map(({ name, period, students }, index) => (
+              {user.courses.map(({ name, period, students }, index) => (
                 <li
                   key={period}
                   className={`teacher-entry-page__classes-list__item${
@@ -27,7 +27,7 @@ const TeacherEntryPage = () => {
                   }`}
                   onClick={() => {
                     if (!(students.length > 0)) return;
-                    setSelectedCourse(teacher.courses[index]);
+                    setSelectedCourse(user.courses[index]);
                   }}
                 >
                   {name} {period}

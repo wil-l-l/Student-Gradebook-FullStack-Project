@@ -1,9 +1,19 @@
 import "./LoginPage.css";
-import { useRef } from "react";
-import { Link } from "react-router";
+import { useRef, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router";
+import { UserContext } from "../../contexts/UserContext";
 
-const LoginPage = ({ setUserAccount }) => {
+const LoginPage = () => {
   const userNameRef = useRef(null);
+  const navigate = useNavigate();
+  const { user, setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    if (user === null) return;
+
+    if (user.isStudent) navigate("/student");
+    else navigate("/teacher");
+  }, [user, navigate]);
 
   const login = async (userName) => {
     const response = await fetch("/api/login", {
@@ -23,7 +33,7 @@ const LoginPage = ({ setUserAccount }) => {
       return;
     }
 
-    setUserAccount(responseBody.data);
+    setUser(responseBody.data);
   };
 
   return (
@@ -42,7 +52,7 @@ const LoginPage = ({ setUserAccount }) => {
           ref={userNameRef}
         />
       </form>
-      <Link to={"/signup"}>New User? SignUp Here.</Link>
+      <Link to={"/signup"}>New User? Signup here.</Link>
     </main>
   );
 };

@@ -3,9 +3,9 @@ import { useContext } from "react";
 import { UserContext } from "../../../contexts/UserContext";
 
 const GradeRows = () => {
-  const student = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
-  return student.courses
+  return user.courses
     .map(({ period, name, grade }) => ({
       period,
       courseInfo: (

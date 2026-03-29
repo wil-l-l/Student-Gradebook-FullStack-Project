@@ -3,8 +3,8 @@ import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
 const Header = () => {
-  const student = useContext(UserContext);
-  const fullName = student.firstName + " " + student.lastName;
+  const { user } = useContext(UserContext);
+  const fullName = user.firstName + " " + user.lastName;
 
   return (
     <header className="header-box">

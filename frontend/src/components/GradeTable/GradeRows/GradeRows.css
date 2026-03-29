@@ -1,6 +1,7 @@
 .grade-row {
   height: 55px;
   position: relative;
+  cursor: pointer;
 }
 .grade-row:nth-child(even) {
   background: var(--secondary-color);

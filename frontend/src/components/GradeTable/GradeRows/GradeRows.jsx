@@ -9,7 +9,13 @@ const GradeRows = () => {
     .map(({ period, name, grade }) => ({
       period,
       courseInfo: (
-        <tr key={period} className="grade-row">
+        <tr
+          key={period}
+          className="grade-row"
+          onClick={() => {
+            console.log(name);
+          }}
+        >
           <td>{period}</td>
           <td>{name}</td>
           <td>
@@ -30,7 +36,9 @@ const GradeRows = () => {
         </tr>
       ),
     }))
-    .toSorted((a, b) => (a.pd > b.pd ? 1 : a.pd < b.pd ? -1 : 0))
+    .toSorted((a, b) =>
+      a.period > b.period ? 1 : a.period < b.period ? -1 : 0,
+    )
     .map(({ courseInfo }) => courseInfo);
 };
 

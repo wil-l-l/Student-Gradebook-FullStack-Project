@@ -1,39 +1,34 @@
-import ManageAssignments from "../ManageAssignments/ManageAssignments";
-import ManageStudents from "../ManageStudents/ManageStudents";
+import { useLocation, useNavigate, useParams } from "react-router";
+import getCourseFromPeriod from "../../utils/getCourseFromPeriod";
+import { useContext } from "react";
+import { UserContext } from "../../contexts/UserContext";
 import "./ManageCoursePage.css";
-import { useState } from "react";
 
-const ManageCoursePage = ({ selectedCourse }) => {
-  const [choice, setChoice] = useState(null);
+const ManageCoursePage = () => {
+  const { user } = useContext(UserContext);
+  const { period } = useParams();
+  const course = getCourseFromPeriod(user.courses, period);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   return (
     <>
-      {choice === null ? (
+      {pathname === `${pathname}` && (
         <>
-          <h2 className="teacher-entry-page__heading">
-            Class Opened: {selectedCourse.name}
-          </h2>
+          <h2>Class Opened: {course.name}</h2>
           <div
-            onClick={() => {
-              setChoice("assignments");
-            }}
-            className="teacher-entry-page__prompt-block"
+            onClick={() => navigate(`/teacher/course/${period}/assignments`)}
+            className="manage_course_page__prompt-block"
           >
             Assignments
           </div>
           <div
-            onClick={() => {
-              setChoice("students");
-            }}
-            className="teacher-entry-page__prompt-block"
+            onClick={() => navigate(`/teacher/course/${period}/students`)}
+            className="manage_course_page__prompt-block"
           >
             Students
           </div>
         </>
-      ) : choice === "students" ? (
-        <ManageStudents selectedCourse={selectedCourse} />
-      ) : (
-        <ManageAssignments selectedCourse={selectedCourse} />
       )}
     </>
   );

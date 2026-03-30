@@ -7,6 +7,9 @@ import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import SignUpPage from "./pages/SignUpPage/SignUpPage.jsx";
 
 import TeacherEntryPage from "./pages/TeacherEntryPage/TeacherEntryPage.jsx";
+import ManageCoursePage from "./components/ManageCoursePage/ManageCoursePage.jsx";
+import ManageStudents from "./components/ManageStudents/ManageStudents.jsx";
+import ManageAssignments from "./components/ManageAssignments/ManageAssignments.jsx";
 
 import StudentGradesPage from "./pages/StudentGradesPage/StudentGradesPage.jsx";
 import ViewCoursePage from "./pages/ViewCoursePage/ViewCoursePage.jsx";
@@ -35,6 +38,20 @@ const router = createBrowserRouter([
       {
         path: "/teacher",
         element: <TeacherEntryPage />,
+        children: [
+          {
+            path: "/teacher/course/:period",
+            element: <ManageCoursePage />,
+          },
+          {
+            path: "/teacher/course/:period/students",
+            element: <ManageStudents />,
+          },
+          {
+            path: "/teacher/course/:period/assignments",
+            element: <ManageAssignments />,
+          },
+        ],
       },
       {
         path: "/student",

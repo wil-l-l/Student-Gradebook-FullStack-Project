@@ -1,20 +1,29 @@
 import { useState } from "react";
 import PublishAssignmentForm from "../PublishAssignmentForm/PublishAssignmentForm";
-import "./ManageAssignments.css";
 import BulkGradePage from "../../pages/BulkGradePage/BulkGradePage";
+import getCourseFromPeriod from "../../utils/getCourseFromPeriod";
+import { useContext } from "react";
+import { useParams } from "react-router";
+import { UserContext } from "../../contexts/UserContext";
+import "./ManageAssignments.css";
 
-const ManageAssignments = ({ selectedCourse }) => {
+const ManageAssignments = () => {
   const [enterBulkGrade, setEnterBulkGrade] = useState(false);
   const [assignmentToGrade, setAssignmentToGrade] = useState(null);
+  const { user } = useContext(UserContext);
+  const { period } = useParams();
+
+  const course = getCourseFromPeriod(user.courses, period);
+  const courseAssignments = course.assignments;
 
   return (
     <>
-      {selectedCourse.assignments.length > 0 && enterBulkGrade ? (
-        <BulkGradePage course={selectedCourse} assignment={assignmentToGrade} />
-      ) : selectedCourse.assignments.length > 0 && enterBulkGrade === false ? (
+      {courseAssignments.length > 0 && enterBulkGrade ? (
+        <BulkGradePage course={course} assignment={assignmentToGrade} />
+      ) : courseAssignments.length > 0 && enterBulkGrade === false ? (
         <>
           <ul className="manage-assignments-assignments-list">
-            {selectedCourse.assignments.map((assignmentObj, index) => (
+            {courseAssignments.map((assignmentObj, index) => (
               <li
                 className="manage-assignments-assignments-list__item"
                 key={assignmentObj.name + index}
@@ -36,7 +45,7 @@ const ManageAssignments = ({ selectedCourse }) => {
       ) : (
         <>
           <p>Publish an assignment to get started! </p>
-          <PublishAssignmentForm selectedCourse={selectedCourse} />
+          <PublishAssignmentForm selectedCourse={course} />
         </>
       )}
     </>

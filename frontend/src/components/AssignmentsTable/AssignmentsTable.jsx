@@ -1,31 +1,38 @@
-import { useContext } from "react";
-import { UserContext } from "../../contexts/UserContext";
-import { useParams } from "react-router";
+import "./AssignmentsTable.css";
 
-const AssignmentsTable = () => {
-  const { user } = useContext(UserContext);
-  const { period } = useParams();
-
-  const course = user.courses.find(
-    (courseObj) => courseObj.period === Number(period),
-  );
-  const assignments = course.assignments;
-
+const AssignmentsTable = ({ assignments }) => {
   return (
-    <div className="view_course_page__assignments-bar">
-      <h2>Assignments</h2>
-      <ul>
+    <>
+      <div className="assignments-table__info-bar">
+        <p className="assignments-table__info-bar__item">Assignment:</p>
+        <p className="assignments-table__info-bar__item">Points:</p>
+        <p className="assignments-table__info-bar__item">Percent:</p>
+        <p className="assignments-table__info-bar__item">Grade:</p>
+        <p className="assignments-table__info-bar__item">Type:</p>
+      </div>
+      <ul className="assignments-table__list">
         {assignments.length === 0 ? (
-          <p>No assignments published for this class yet.</p>
+          <p className="assignments-table__list__item__text">
+            No assignments published for this class yet.
+          </p>
         ) : (
           assignments.map(({ name, type, pointsEarned, maxPoints }) => (
-            <li key={name + type.classwork}>
-              {name} {pointsEarned}/{maxPoints}
+            <li
+              className="assignments-table__list__item"
+              key={name + type.classwork}
+            >
+              <p className="assignments-table__list__item__text">{name}</p>
+              <p className="assignments-table__list__item__text">
+                {pointsEarned}/{maxPoints}
+              </p>
+              <p className="assignments-table__list__item__text">99%</p>
+              <p className="assignments-table__list__item__text">A</p>
+              <p className="assignments-table__list__item__text">{type.name}</p>
             </li>
           ))
         )}
       </ul>
-    </div>
+    </>
   );
 };
 

@@ -1,0 +1,32 @@
+.assignments-table__info-bar {
+  margin-top: 80px;
+  width: 90vw;
+  font-weight: 600;
+}
+
+.assignments-table__info-bar,
+.assignments-table__list__item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+}
+.assignments-table__info-bar__item,
+.assignments-table__list__item__text {
+  padding-left: 10px;
+}
+
+.assignments-table__list {
+  margin-top: 10px;
+  list-style-type: none;
+  width: 90vw;
+}
+.assignments-table__list__item {
+  margin-top: 10px;
+  border-radius: 5px;
+  padding: 10px 0px;
+}
+.assignments-table__list__item:nth-child(odd) {
+  background-color: white;
+}
+.assignments-table__list__item:nth-child(even) {
+  background-color: var(--secondary-color);
+}

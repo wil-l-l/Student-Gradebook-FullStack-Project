@@ -1,0 +1,12 @@
+.view-course-page {
+  display: flex;
+  flex-direction: column;
+}
+
+.view_course_page__course-info-bar {
+  margin-top: 50px;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  font-weight: 600;
+}

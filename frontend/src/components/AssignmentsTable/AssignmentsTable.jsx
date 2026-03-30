@@ -1,6 +1,7 @@
 import getLetterGrade from "../../utils/getLetterGrade";
 import isGradeEmpty from "../../utils/isGradeEmpty";
 import "./AssignmentsTable.css";
+import getGradePercentage from "../../utils/getGradePercentage";
 
 const AssignmentsTable = ({ assignments }) => {
   return (
@@ -30,7 +31,9 @@ const AssignmentsTable = ({ assignments }) => {
                   : `${pointsEarned}/${maxPoints}`}
               </p>
               <p className="assignments-table__list__item__text">
-                {isGradeEmpty(pointsEarned) ? "N/A" : "99%"}
+                {isGradeEmpty(pointsEarned)
+                  ? "N/A"
+                  : `${getGradePercentage(pointsEarned / maxPoints)}`}
               </p>
               <p className="assignments-table__list__item__text">
                 {getLetterGrade(pointsEarned / maxPoints)}

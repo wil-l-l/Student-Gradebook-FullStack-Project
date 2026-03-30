@@ -2,6 +2,8 @@ import "./GradeRows.css";
 import { useContext } from "react";
 import { UserContext } from "../../../contexts/UserContext";
 import { useNavigate } from "react-router";
+import getLetterGrade from "../../../utils/getLetterGrade";
+import isGradeEmpty from "../../../utils/isGradeEmpty";
 
 const GradeRows = () => {
   const { user } = useContext(UserContext);
@@ -19,19 +21,7 @@ const GradeRows = () => {
           <td>{period}</td>
           <td>{name}</td>
           <td>
-            {!grade
-              ? "NG"
-              : `${grade}% ${
-                  grade >= 90
-                    ? "A"
-                    : grade >= 80
-                      ? "B"
-                      : grade >= 70
-                        ? "C"
-                        : grade >= 60
-                          ? "D"
-                          : "F"
-                }`}
+            {isGradeEmpty(grade) ? "N/A" : `${grade}% ${getLetterGrade(grade)}`}
           </td>
         </tr>
       ),

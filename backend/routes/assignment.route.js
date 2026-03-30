@@ -3,12 +3,9 @@ const router = express.Router();
 const Course = require("../models/course.model");
 const Assignment = require("../models/assignment.model");
 const { User } = require("../models/user.model");
+const { default: sharedConstants } = require("../../sharedConstants");
 
-const assignmentTypes = {
-  homework: 30,
-  classwork: 20,
-  assessment: 50,
-};
+const { assignmentTypes } = sharedConstants;
 
 router.post("/", async (req, res) => {
   const { type, name, userName, courseId, maxPoints } = req.body;

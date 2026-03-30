@@ -3,14 +3,13 @@ import AssignmentsTable from "../../components/AssignmentsTable/AssignmentsTable
 import { useContext } from "react";
 import { useParams } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
+import getCourseFromPeriod from "../../utils/getCourseFromPeriod";
 
 const ViewCoursePage = () => {
   const { user } = useContext(UserContext);
   const { period } = useParams();
 
-  const course = user.courses.find(
-    (courseObj) => courseObj.period === Number(period),
-  );
+  const course = getCourseFromPeriod(user.courses, period);
   const assignments = course.assignments;
 
   return (

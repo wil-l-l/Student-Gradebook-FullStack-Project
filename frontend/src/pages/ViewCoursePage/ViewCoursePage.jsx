@@ -8,7 +8,7 @@ import getCourseFromPeriod from "../../utils/getCourseFromPeriod";
 const ViewCoursePage = () => {
   const { user } = useContext(UserContext);
   const { period, id } = useParams();
-  const [loadedCourseAssignments, setLoadedCourseAssignments] = useState(null);
+  const [loadedStudentData, setLoadedStudentData] = useState(null);
 
   const course = getCourseFromPeriod(user.courses, period);
   const courseAssignments = course.assignments;
@@ -19,12 +19,10 @@ const ViewCoursePage = () => {
       let response = await fetch(`/api/users/${id}`);
       response = await response.json();
       const studentData = response.data;
-
-      const studentCourse = getCourseFromPeriod(studentData.courses, period);
-      setLoadedCourseAssignments(studentCourse.assignments);
+      setLoadedStudentData(studentData);
     };
     if (isStudent === false) getStudent();
-  }, [isStudent, setLoadedCourseAssignments, id, courseAssignments, period]);
+  }, [isStudent, setLoadedStudentData, id, courseAssignments, period]);
 
   return (
     <section className="view-course-page">
@@ -32,12 +30,26 @@ const ViewCoursePage = () => {
         <h2>Course: {course.name}</h2>
         <p>Period: {course.period}</p>
       </div>
-      {loadedCourseAssignments === null && isStudent === false ? (
+      {loadedStudentData === null && isStudent === false ? (
         <p>Loading course assignments for student...</p>
       ) : (
-        <AssignmentsTable
-          assignments={isStudent ? courseAssignments : loadedCourseAssignments}
-        />
+        <>
+          <p className="view-course-page__teacher-view-text">
+            Teacher View of Student:{" "}
+            <span className="magenta-text bold-text">
+              {" "}
+              {loadedStudentData.firstName + " " + loadedStudentData.lastName}
+            </span>
+          </p>
+          <AssignmentsTable
+            assignments={
+              isStudent
+                ? courseAssignments
+                : getCourseFromPeriod(loadedStudentData.courses, period)
+                    .assignments
+            }
+          />
+        </>
       )}
     </section>
   );

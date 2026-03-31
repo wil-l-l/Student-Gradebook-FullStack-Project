@@ -31,6 +31,10 @@ button {
   color: green;
 }
 
+.magenta-text {
+  color: #88313f;
+}
+
 .bold-text {
   font-weight: 600;
 }

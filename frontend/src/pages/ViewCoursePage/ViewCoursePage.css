@@ -10,3 +10,7 @@
   flex-direction: column;
   font-weight: 600;
 }
+
+.view-course-page__teacher-view-text {
+  font-size: 1.6rem;
+}

@@ -1,12 +1,11 @@
 import { useContext } from "react";
 import "./TeacherEntryPage.css";
 import { UserContext } from "../../contexts/UserContext";
-import { useLocation, useNavigate, useParams } from "react-router";
-import { Outlet } from "react-router";
+import { useLocation, useNavigate, useParams, Outlet } from "react-router";
 
 const TeacherEntryPage = () => {
   const { user } = useContext(UserContext);
-  const { period } = useParams();
+  const { period, id } = useParams();
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -42,6 +41,7 @@ const TeacherEntryPage = () => {
       {pathname === `/teacher/course/${period}` && <Outlet />}
       {pathname === `/teacher/course/${period}/students` && <Outlet />}
       {pathname === `/teacher/course/${period}/assignments` && <Outlet />}
+      {pathname === `/teacher/course/${period}/students/${id}` && <Outlet />}
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import getCourseFromPeriod from "../../utils/getCourseFromPeriod";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
@@ -8,15 +8,16 @@ const ManageStudents = () => {
   const { user } = useContext(UserContext);
   const { period } = useParams();
   const course = getCourseFromPeriod(user.courses, period);
+  const navigate = useNavigate();
 
   return (
     <>
       <ul>
-        {course.students.map(({ firstName, lastName, grade }, index) => (
+        {course.students.map(({ firstName, lastName, grade, _id }, index) => (
           <li
-            onClick={() => {
-              console.log(firstName, lastName);
-            }}
+            onClick={() =>
+              navigate(`/teacher/course/${period}/students/${_id}`)
+            }
             className="manage-students__list-item"
             key={firstName + lastName + grade + index}
           >

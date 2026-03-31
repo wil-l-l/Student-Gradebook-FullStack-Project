@@ -1,16 +1,30 @@
 import "./ViewCoursePage.css";
 import AssignmentsTable from "../../components/AssignmentsTable/AssignmentsTable";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
 import getCourseFromPeriod from "../../utils/getCourseFromPeriod";
 
 const ViewCoursePage = () => {
   const { user } = useContext(UserContext);
-  const { period } = useParams();
+  const { period, id } = useParams();
+  const [loadedCourseAssignments, setLoadedCourseAssignments] = useState(null);
 
   const course = getCourseFromPeriod(user.courses, period);
-  const assignments = course.assignments;
+  const courseAssignments = course.assignments;
+  const isStudent = user.isStudent;
+
+  useEffect(() => {
+    const getStudent = async () => {
+      let response = await fetch(`/api/users/${id}`);
+      response = await response.json();
+      const studentData = response.data;
+
+      const studentCourse = getCourseFromPeriod(studentData.courses, period);
+      setLoadedCourseAssignments(studentCourse.assignments);
+    };
+    if (isStudent === false) getStudent();
+  }, [isStudent, setLoadedCourseAssignments, id, courseAssignments, period]);
 
   return (
     <section className="view-course-page">
@@ -18,7 +32,13 @@ const ViewCoursePage = () => {
         <h2>Course: {course.name}</h2>
         <p>Period: {course.period}</p>
       </div>
-      <AssignmentsTable assignments={assignments} />
+      {loadedCourseAssignments === null && isStudent === false ? (
+        <p>Loading course assignments for student...</p>
+      ) : (
+        <AssignmentsTable
+          assignments={isStudent ? courseAssignments : loadedCourseAssignments}
+        />
+      )}
     </section>
   );
 };

@@ -48,6 +48,10 @@ const router = createBrowserRouter([
             element: <ManageStudents />,
           },
           {
+            path: "/teacher/course/:period/students/:id",
+            element: <ViewCoursePage />,
+          },
+          {
             path: "/teacher/course/:period/assignments",
             element: <ManageAssignments />,
           },

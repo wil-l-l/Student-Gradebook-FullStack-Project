@@ -5,8 +5,26 @@ const Assignment = require("../models/assignment.model");
 const { User } = require("../models/user.model");
 const { default: sharedConstants } = require("../../sharedConstants");
 const { default: mongoose } = require("mongoose");
-
 const { assignmentTypes } = sharedConstants;
+
+router.get("/:userName/:id", async (req, res) => {
+  const { userName, id } = req.params;
+
+  const teacher = await User.findOne({ userName }).select("courses -_id");
+  const teacherCourses = teacher.courses;
+
+  let assignment = null;
+  teacherCourses.forEach((courseObj) => {
+    courseObj.assignments.forEach((assignmentObj) => {
+      if (assignmentObj._id.toString() === id) assignment = assignmentObj;
+    });
+  });
+
+  res.status(200).send({
+    success: true,
+    data: assignment,
+  });
+});
 
 router.post("/", async (req, res) => {
   const { type, name, userName, courseId, maxPoints } = req.body;

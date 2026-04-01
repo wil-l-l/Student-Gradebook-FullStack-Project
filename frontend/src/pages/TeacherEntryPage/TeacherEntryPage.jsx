@@ -45,6 +45,8 @@ const TeacherEntryPage = () => {
       {pathname === `/teacher/course/${period}/assignments/publish` && (
         <Outlet />
       )}
+      {pathname ===
+        `/teacher/course/${period}/assignments/bulk-grade/${id}` && <Outlet />}
     </>
   );
 };

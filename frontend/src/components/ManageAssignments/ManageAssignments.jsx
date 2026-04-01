@@ -1,5 +1,3 @@
-import { useState } from "react";
-import BulkGradePage from "../../pages/BulkGradePage/BulkGradePage";
 import getCourseFromPeriod from "../../utils/getCourseFromPeriod";
 import { useContext } from "react";
 import { Link, useNavigate, useParams } from "react-router";
@@ -7,8 +5,6 @@ import { UserContext } from "../../contexts/UserContext";
 import "./ManageAssignments.css";
 
 const ManageAssignments = () => {
-  const [enterBulkGrade, setEnterBulkGrade] = useState(false);
-  const [assignmentToGrade, setAssignmentToGrade] = useState(null);
   const { user } = useContext(UserContext);
   const { period } = useParams();
   const navigate = useNavigate();
@@ -19,9 +15,7 @@ const ManageAssignments = () => {
 
   return (
     <>
-      {courseAssignments.length > 0 && enterBulkGrade ? (
-        <BulkGradePage course={course} assignment={assignmentToGrade} />
-      ) : courseAssignments.length > 0 && enterBulkGrade === false ? (
+      {courseAssignments.length > 0 ? (
         <>
           <button
             onClick={() => navigate(publishAssignmentRoute)}
@@ -34,10 +28,11 @@ const ManageAssignments = () => {
               <li
                 className="manage-assignments-assignments-list__item"
                 key={assignmentObj.name + index}
-                onClick={() => {
-                  setEnterBulkGrade(true);
-                  setAssignmentToGrade(assignmentObj);
-                }}
+                onClick={() =>
+                  navigate(
+                    `/teacher/course/${period}/assignments/bulk-grade/${assignmentObj._id}`,
+                  )
+                }
               >
                 {assignmentObj.isGraded === false ? (
                   <span className="red-text">NOT GRADED</span>

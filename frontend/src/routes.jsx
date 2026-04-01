@@ -15,6 +15,7 @@ import StudentGradesPage from "./pages/StudentGradesPage/StudentGradesPage.jsx";
 import ViewCoursePage from "./pages/ViewCoursePage/ViewCoursePage.jsx";
 import PublishAssignmentForm from "./components/PublishAssignmentForm/PublishAssignmentForm.jsx";
 import ErrorPage from "./pages/ErrorPage/ErrorPage.jsx";
+import BulkGradePage from "./pages/BulkGradePage/BulkGradePage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
           {
             path: "/teacher/course/:period/assignments/publish",
             element: <PublishAssignmentForm />,
+          },
+          {
+            path: "/teacher/course/:period/assignments/bulk-grade/:id",
+            element: <BulkGradePage />,
           },
         ],
       },

@@ -8,6 +8,7 @@
 .assignments-table__list__item {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1fr 1.5fr;
+  align-items: center;
 }
 .assignments-table__info-bar__item,
 .assignments-table__list__item__text {
@@ -29,4 +30,14 @@
 }
 .assignments-table__list__item:nth-child(even) {
   background-color: var(--secondary-color);
+}
+
+.assignments-table__points-earned-input {
+  width: 44px;
+  padding: 3px 0px;
+  background: none;
+  text-align: right;
+  border: 1.5px solid black;
+  border-radius: 5px;
+  font-size: 1.6rem;
 }

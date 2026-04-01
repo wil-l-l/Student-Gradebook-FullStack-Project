@@ -1,28 +1,56 @@
 import { useNavigate, useParams } from "react-router";
 import getCourseFromPeriod from "../../utils/getCourseFromPeriod";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import "./ManageStudents.css";
+import getWeightedGradeAsPercent from "../../utils/getWeightedGradeAsPercent";
 
 const ManageStudents = () => {
   const { user } = useContext(UserContext);
   const { period } = useParams();
   const course = getCourseFromPeriod(user.courses, period);
   const navigate = useNavigate();
+  const [loadedStudents, setLoadedStudents] = useState([]);
+  const [loadedAllStudents, setLoadedAllStudents] = useState(null);
+
+  const isStudent = user.isStudent;
+  useEffect(() => {
+    const storeLoadedStudents = [];
+    const getStudent = async (id) => {
+      let response = await fetch(`/api/users/${id}`);
+      response = await response.json();
+      const student = response.data;
+
+      storeLoadedStudents.push(student);
+
+      if (storeLoadedStudents.length === course.students.length) {
+        setLoadedStudents(storeLoadedStudents);
+        setLoadedAllStudents(true);
+      }
+    };
+
+    course.students.forEach(({ _id }) => getStudent(_id));
+  }, [isStudent, setLoadedStudents, user, period, course.students]);
 
   return (
     <>
       <ul>
-        {course.students.map(({ firstName, lastName, grade, _id }, index) => (
+        {course.students.map(({ firstName, lastName, _id }, index) => (
           <li
             onClick={() =>
               navigate(`/teacher/course/${period}/students/${_id}`)
             }
             className="manage-students__list-item"
-            key={firstName + lastName + grade + index}
+            key={firstName + lastName + index}
           >
             {firstName}, {lastName} <br />
-            Grade: {grade}
+            Grade:{" "}
+            {loadedAllStudents
+              ? getWeightedGradeAsPercent(
+                  loadedStudents.find((studentObj) => studentObj._id === _id),
+                  period,
+                )
+              : "Loading..."}
           </li>
         ))}
       </ul>

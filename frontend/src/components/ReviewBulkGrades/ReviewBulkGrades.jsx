@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import "./ReviewBulkGrades.css";
 import PointsForm from "../PointsForm/PointsForm";
+import { UserContext } from "../../contexts/UserContext";
 
 const ReviewBulkGrades = ({
   courseStudents,
@@ -10,7 +11,6 @@ const ReviewBulkGrades = ({
   assignment,
   setCurrentStudentIndex,
   getFullName,
-  teacherId,
 }) => {
   const [markAllMissing, setMarkAllMissing] = useState(false);
   const [thisGradedStudents, setThisGradedStudents] = useState([
@@ -18,6 +18,8 @@ const ReviewBulkGrades = ({
   ]);
   const [gradeOneStudent, setGradeOneStudent] = useState(null);
   const [doGradeSubmission, setDoGradeSubmission] = useState(false);
+
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     setThisGradedStudents(trackGradedStudents);
@@ -33,13 +35,13 @@ const ReviewBulkGrades = ({
           },
           body: JSON.stringify({
             studentId: _id,
-            teacherId,
+            teacherUserName: user.userName,
             pointsEarned,
           }),
         });
       });
     }
-  }, [doGradeSubmission, thisGradedStudents, teacherId, assignment]);
+  }, [doGradeSubmission, thisGradedStudents, user.userName, assignment]);
 
   return (
     <>

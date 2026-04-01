@@ -4,6 +4,7 @@ const Course = require("../models/course.model");
 const Assignment = require("../models/assignment.model");
 const { User } = require("../models/user.model");
 const { default: sharedConstants } = require("../../sharedConstants");
+const { default: mongoose } = require("mongoose");
 
 const { assignmentTypes } = sharedConstants;
 
@@ -65,26 +66,64 @@ router.post("/", async (req, res) => {
 
 router.patch("/:id", async (req, res) => {
   const assignmentId = req.params.id;
-  const { studentId, pointsEarned } = req.body;
+  const { studentId, pointsEarned, teacherUserName } = req.body;
 
-  const studentToUpdate = await User.findOne({
+  const student = await User.findOne({
     _id: studentId,
   }).select("courses");
-
-  let assignmentToUpdate = null;
-
-  studentToUpdate.courses.forEach(({ assignments }) => {
-    assignments.forEach((assignmentObj) => {
-      if (assignmentObj._id.toString() === assignmentId)
-        assignmentToUpdate = assignmentObj;
-    });
+  const teacher = await User.findOne({ userName: teacherUserName });
+  const course = await Course.findOne({
+    assignments: {
+      $elemMatch: {
+        _id: new mongoose.Types.ObjectId(assignmentId),
+      },
+    },
   });
 
-  assignmentToUpdate.pointsEarned = pointsEarned;
-  assignmentToUpdate.isGraded = true;
+  const updateAssignmentFromAssignments = (assignments, isUser = true) => {
+    assignments.some((assignmentObj, index) => {
+      if (assignmentObj._id.toString() === assignmentId) {
+        const generalUpdatedAssignment = { ...assignmentObj, isGraded: true };
+        assignments[index] = isUser
+          ? {
+              ...generalUpdatedAssignment,
+              pointsEarned: Number(pointsEarned),
+            }
+          : generalUpdatedAssignment;
+        return true;
+      }
+    });
+  };
 
-  studentToUpdate.markModified("courses");
-  const studentAfterUpdate = await studentToUpdate.save();
+  const findAssignmentFromCoursesAndUpdate = (courses, isUser = true) => {
+    if (isUser)
+      courses.forEach(({ assignments }) => {
+        updateAssignmentFromAssignments(assignments);
+      });
+    else updateAssignmentFromAssignments(courses.assignments);
+  };
+
+  findAssignmentFromCoursesAndUpdate(student.courses);
+  findAssignmentFromCoursesAndUpdate(teacher.courses);
+  findAssignmentFromCoursesAndUpdate(course, false);
+
+  const courseAssignments = course.assignments;
+  courseAssignments.some((courseAssignmentObj, index) => {
+    if (courseAssignmentObj._id.toString() === assignmentId) {
+      courseAssignments[index] = {
+        ...courseAssignmentObj,
+        isGraded: true,
+      };
+      return true;
+    }
+  });
+
+  student.markModified("courses");
+  teacher.markModified("courses");
+  course.markModified("assignments");
+  const studentAfterUpdate = await student.save();
+  await course.save();
+  await teacher.save();
 
   res.status(200).send({
     success: true,

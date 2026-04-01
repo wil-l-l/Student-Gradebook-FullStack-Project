@@ -18,7 +18,7 @@ const PublishAssignmentForm = ({ selectedCourse }) => {
           type,
           userName: user.userName,
           courseId: selectedCourse._id,
-          points: Number(points),
+          maxPoints: Number(points),
         };
         let response = await fetch("/api/assignments", {
           method: "POST",

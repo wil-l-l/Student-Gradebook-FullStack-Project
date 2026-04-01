@@ -36,7 +36,6 @@ const BulkGradePage = ({ course, assignment }) => {
           assignment={assignment}
           setCurrentStudentIndex={setCurrentStudentIndex}
           getFullName={getFullName}
-          teacherId={course.teacherId}
         />
       )}
     </div>

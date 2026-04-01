@@ -1,12 +1,22 @@
 import { useContext, useState } from "react";
 import "./PublishAssignmentForm.css";
 import { UserContext } from "../../contexts/UserContext";
+import { useParams } from "react-router";
+import getCourseFromPeriod from "../../utils/getCourseFromPeriod";
 
-const PublishAssignmentForm = ({ selectedCourse }) => {
+const PublishAssignmentForm = () => {
   const { user } = useContext(UserContext);
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [points, setPoints] = useState(5);
+  const { period } = useParams();
+  const course = getCourseFromPeriod(user.courses, period);
+
+  const clearFormFields = () => {
+    setName("");
+    setType("");
+    setPoints(5);
+  };
 
   return (
     <form
@@ -17,7 +27,7 @@ const PublishAssignmentForm = ({ selectedCourse }) => {
           name,
           type,
           userName: user.userName,
-          courseId: selectedCourse._id,
+          courseId: course._id,
           maxPoints: Number(points),
         };
         let response = await fetch("/api/assignments", {
@@ -28,7 +38,7 @@ const PublishAssignmentForm = ({ selectedCourse }) => {
           body: JSON.stringify(formData),
         });
         response = await response.json();
-        console.log(response);
+        if (response.success) clearFormFields();
       }}
     >
       <label htmlFor="assignment-name">Assignment Name: </label>

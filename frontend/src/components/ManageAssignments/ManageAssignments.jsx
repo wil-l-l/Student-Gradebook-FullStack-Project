@@ -1,9 +1,8 @@
 import { useState } from "react";
-import PublishAssignmentForm from "../PublishAssignmentForm/PublishAssignmentForm";
 import BulkGradePage from "../../pages/BulkGradePage/BulkGradePage";
 import getCourseFromPeriod from "../../utils/getCourseFromPeriod";
 import { useContext } from "react";
-import { useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
 import "./ManageAssignments.css";
 
@@ -12,7 +11,9 @@ const ManageAssignments = () => {
   const [assignmentToGrade, setAssignmentToGrade] = useState(null);
   const { user } = useContext(UserContext);
   const { period } = useParams();
+  const navigate = useNavigate();
 
+  const publishAssignmentRoute = `/teacher/course/${period}/assignments/publish`;
   const course = getCourseFromPeriod(user.courses, period);
   const courseAssignments = course.assignments;
 
@@ -22,6 +23,12 @@ const ManageAssignments = () => {
         <BulkGradePage course={course} assignment={assignmentToGrade} />
       ) : courseAssignments.length > 0 && enterBulkGrade === false ? (
         <>
+          <button
+            onClick={() => navigate(publishAssignmentRoute)}
+            className="manage-assignments__create-btn"
+          >
+            Create & Publish an Assignment
+          </button>
           <ul className="manage-assignments-assignments-list">
             {courseAssignments.map((assignmentObj, index) => (
               <li
@@ -44,8 +51,9 @@ const ManageAssignments = () => {
         </>
       ) : (
         <>
-          <p>Publish an assignment to get started! </p>
-          <PublishAssignmentForm selectedCourse={course} />
+          <Link to={publishAssignmentRoute}>
+            Publish an assignment to get started!
+          </Link>
         </>
       )}
     </>

@@ -13,6 +13,7 @@ import ManageAssignments from "./components/ManageAssignments/ManageAssignments.
 
 import StudentGradesPage from "./pages/StudentGradesPage/StudentGradesPage.jsx";
 import ViewCoursePage from "./pages/ViewCoursePage/ViewCoursePage.jsx";
+import PublishAssignmentForm from "./components/PublishAssignmentForm/PublishAssignmentForm.jsx";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
           {
             path: "/teacher/course/:period/assignments",
             element: <ManageAssignments />,
+          },
+          {
+            path: "/teacher/course/:period/assignments/publish",
+            element: <PublishAssignmentForm />,
           },
         ],
       },

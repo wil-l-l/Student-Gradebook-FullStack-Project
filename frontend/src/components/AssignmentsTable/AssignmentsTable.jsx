@@ -11,6 +11,12 @@ const AssignmentsTable = ({ assignments }) => {
   const [newPointsEarned, setNewPointsEarned] = useState(0);
   const [updatedAssignments, setUpdatedAssignments] = useState([]);
   const pointsFormRef = useRef(null);
+
+  const clearPointsInput = () => {
+    setCellClicked(null);
+    setNewPointsEarned(0);
+  };
+
   const pointsForm = (maxPoints) => {
     return (
       <form
@@ -76,8 +82,7 @@ const AssignmentsTable = ({ assignments }) => {
                 } else addNewAssignmentToUpdatedAssignments();
               } else addNewAssignmentToUpdatedAssignments();
 
-              setCellClicked(null);
-              setNewPointsEarned(0);
+              clearPointsInput();
             }
           };
           updateAssignmentGrade();
@@ -94,6 +99,7 @@ const AssignmentsTable = ({ assignments }) => {
           name=""
           id=""
           onChange={(e) => setNewPointsEarned(Number(e.target.value))}
+          onKeyDown={({ key }) => key === "Escape" && clearPointsInput()}
         />
         /{maxPoints}
       </form>

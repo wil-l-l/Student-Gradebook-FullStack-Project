@@ -14,6 +14,7 @@ import ManageAssignments from "./components/ManageAssignments/ManageAssignments.
 import StudentGradesPage from "./pages/StudentGradesPage/StudentGradesPage.jsx";
 import ViewCoursePage from "./pages/ViewCoursePage/ViewCoursePage.jsx";
 import PublishAssignmentForm from "./components/PublishAssignmentForm/PublishAssignmentForm.jsx";
+import ErrorPage from "./pages/ErrorPage/ErrorPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
         element: <SignUpPage />,
       },
     ],
+    errorElement: <ErrorPage />,
   },
   {
     element: <PrivateRoutes />,
@@ -73,6 +75,7 @@ const router = createBrowserRouter([
         ],
       },
     ],
+    errorElement: <ErrorPage />,
   },
 ]);
 

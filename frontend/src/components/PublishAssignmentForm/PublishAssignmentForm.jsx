@@ -1,15 +1,17 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./PublishAssignmentForm.css";
 import { UserContext } from "../../contexts/UserContext";
 import { useParams } from "react-router";
 import getCourseFromPeriod from "../../utils/getCourseFromPeriod";
 
 const PublishAssignmentForm = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [points, setPoints] = useState(5);
   const { period } = useParams();
+  const [didPublish, setdidPublish] = useState(false);
+
   const course = getCourseFromPeriod(user.courses, period);
 
   const clearFormFields = () => {
@@ -17,6 +19,20 @@ const PublishAssignmentForm = () => {
     setType("");
     setPoints(5);
   };
+
+  useEffect(() => {
+    if (didPublish) {
+      const fetchAssignments = async () => {
+        const response = await fetch(`/api/users/${user._id}`);
+        const responseBody = await response.json();
+
+        const updatedTeacher = responseBody.data;
+        setUser(updatedTeacher);
+        setdidPublish(false);
+      };
+      fetchAssignments();
+    }
+  }, [period, setUser, user._id, didPublish]);
 
   return (
     <form
@@ -38,7 +54,10 @@ const PublishAssignmentForm = () => {
           body: JSON.stringify(formData),
         });
         response = await response.json();
-        if (response.success) clearFormFields();
+        if (response.success) {
+          clearFormFields();
+          setdidPublish(true);
+        }
       }}
     >
       <label htmlFor="assignment-name">Assignment Name: </label>

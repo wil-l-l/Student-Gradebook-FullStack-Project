@@ -1,7 +1,7 @@
 import isGradeEmpty from "./isGradeEmpty";
 
 const getLetterGrade = (grade) => {
-  if (isGradeEmpty(grade)) return "NG";
+  if (isGradeEmpty(grade) || isNaN(grade)) return "NG";
   grade = parseFloat(grade.toFixed(2)) * 100;
   return grade >= 90
     ? "A"

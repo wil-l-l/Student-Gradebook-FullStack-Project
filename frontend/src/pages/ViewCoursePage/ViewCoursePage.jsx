@@ -34,6 +34,11 @@ const ViewCoursePage = () => {
     currentStudentId,
   ]);
 
+  const getAssignments = () =>
+    isStudent
+      ? courseAssignments
+      : getCourseFromPeriod(loadedStudentData.courses, period).assignments;
+
   return (
     <section className="view-course-page">
       <div className="view_course_page__course-info-bar">
@@ -58,15 +63,8 @@ const ViewCoursePage = () => {
               setCurrentStudentId={setCurrentStudentId}
             />
           )}
-          <GradesBar />
-          <AssignmentsTable
-            assignments={
-              isStudent
-                ? courseAssignments
-                : getCourseFromPeriod(loadedStudentData.courses, period)
-                    .assignments
-            }
-          />
+          <GradesBar assignments={getAssignments()} />
+          <AssignmentsTable assignments={getAssignments()} />
         </>
       )}
     </section>

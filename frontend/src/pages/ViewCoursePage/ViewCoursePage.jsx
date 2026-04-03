@@ -45,7 +45,12 @@ const ViewCoursePage = () => {
         <h2>Course: {course.name}</h2>
         <p>Period: {course.period}</p>
       </div>
-      {loadedStudentData === null && isStudent === false ? (
+      {isStudent ? (
+        <>
+          <GradesBar assignments={getAssignments()} />
+          <AssignmentsTable assignments={getAssignments()} />
+        </>
+      ) : loadedStudentData === null && isStudent === false ? (
         <p>Loading course assignments for student...</p>
       ) : (
         <>

@@ -19,7 +19,7 @@ const GradeRows = () => {
         >
           <td>{period}</td>
           <td>{name}</td>
-          <td>{getWeightedGradeAsPercent(period)}</td>
+          <td>{getWeightedGradeAsPercent(user, period)}</td>
         </tr>
       ),
     }))

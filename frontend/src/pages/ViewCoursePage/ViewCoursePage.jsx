@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
 import getCourseFromPeriod from "../../utils/getCourseFromPeriod";
+import GradesBar from "../../components/GradesBar/GradesBar";
 
 const ViewCoursePage = () => {
   const { user } = useContext(UserContext);
@@ -41,6 +42,7 @@ const ViewCoursePage = () => {
               {loadedStudentData.firstName + " " + loadedStudentData.lastName}
             </span>
           </p>
+          <GradesBar />
           <AssignmentsTable
             assignments={
               isStudent

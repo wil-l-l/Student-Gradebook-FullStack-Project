@@ -127,10 +127,7 @@ const AssignmentsTable = ({ assignments }) => {
         ) : (
           assignments.map(
             ({ name, type, pointsEarned, maxPoints, _id }, index) => (
-              <li
-                className="assignments-table__list__item"
-                key={name + type.classwork}
-              >
+              <li className="assignments-table__list__item" key={_id}>
                 <p className="assignments-table__list__item__text">{name}</p>
                 {cellClicked === index ? (
                   <>{pointsForm(maxPoints)}</>

@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import "./ReviewBulkGrades.css";
 import PointsForm from "../PointsForm/PointsForm";
 import { UserContext } from "../../contexts/UserContext";
+import { useNavigate, useParams } from "react-router";
 
 const ReviewBulkGrades = ({
   courseStudents,
@@ -20,6 +21,8 @@ const ReviewBulkGrades = ({
   const [doGradeSubmission, setDoGradeSubmission] = useState(false);
 
   const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  const { period } = useParams();
 
   useEffect(() => {
     setThisGradedStudents(trackGradedStudents);
@@ -40,8 +43,20 @@ const ReviewBulkGrades = ({
           }),
         });
       });
+      navigate(`/teacher/course/${period}/assignments`, {
+        state: {
+          wasModified: true,
+        },
+      });
     }
-  }, [doGradeSubmission, thisGradedStudents, user.userName, assignment]);
+  }, [
+    doGradeSubmission,
+    thisGradedStudents,
+    user.userName,
+    assignment,
+    navigate,
+    period,
+  ]);
 
   return (
     <>

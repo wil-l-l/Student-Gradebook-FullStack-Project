@@ -1,17 +1,34 @@
 import getCourseFromPeriod from "../../utils/getCourseFromPeriod";
-import { useContext } from "react";
-import { Link, useNavigate, useParams } from "react-router";
+import { useContext, useEffect, useState } from "react";
+import { Link, useLocation, useNavigate, useParams } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
 import "./ManageAssignments.css";
 
 const ManageAssignments = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const { period } = useParams();
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const publishAssignmentRoute = `/teacher/course/${period}/assignments/publish`;
-  const course = getCourseFromPeriod(user.courses, period);
+  const [course, setCourse] = useState(
+    getCourseFromPeriod(user.courses, period),
+  );
   const courseAssignments = course.assignments;
+
+  useEffect(() => {
+    if (state && state.wasModified) {
+      const fetchAssignments = async () => {
+        const response = await fetch(`/api/users/${user._id}`);
+        const responseBody = await response.json();
+        const updatedTeacher = responseBody.data;
+        setUser(updatedTeacher);
+
+        setCourse(getCourseFromPeriod(updatedTeacher.courses, period));
+      };
+      fetchAssignments();
+    }
+  }, [state, user.userName, period, user.courses, user._id, setUser]);
 
   return (
     <>

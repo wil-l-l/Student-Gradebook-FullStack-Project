@@ -1,34 +1,26 @@
 import "./StudentDropdown.css";
 
-const StudentDropdown = ({
-  students,
-  currentStudent,
-  setCurrentStudent,
-  setEditMode,
-}) => {
+const StudentDropdown = ({ students, currentStudent, setCurrentStudentId }) => {
   return (
-    <div className="student-dropdown-box">
-      <p>Current Student: {currentStudent}</p>
-      <form>
-        <label htmlFor="student-dropdown">Select Different Student:</label>
-        <select
-          id="student-dropdown"
-          defaultValue={""}
-          onChange={(e) => {
-            setCurrentStudent(e.target.value);
-            setEditMode(null);
-          }}
-          className="student-dropdown"
-        >
-          <option value="" disabled hidden></option>
-          {[...Array(students.length).keys()].map((num) => (
-            <option key={num + 1} value={num + 1}>
-              {num + 1}
+    <form className="student-dropdown-form">
+      <label htmlFor="student-dropdown">Switch Student:</label>
+      <select
+        id="student-dropdown"
+        defaultValue={""}
+        onChange={(e) => {
+          setCurrentStudentId(e.target.value);
+        }}
+        className="student-dropdown"
+      >
+        {students
+          .toSorted((a) => (a.firstName === currentStudent.firstName ? -1 : 0))
+          .map(({ firstName, lastName, _id }) => (
+            <option key={_id} value={_id}>
+              {firstName + " " + lastName}
             </option>
           ))}
-        </select>
-      </form>
-    </div>
+      </select>
+    </form>
   );
 };
 

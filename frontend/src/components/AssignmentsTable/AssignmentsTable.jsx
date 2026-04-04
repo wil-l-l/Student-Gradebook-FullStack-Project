@@ -4,112 +4,85 @@ import "./AssignmentsTable.css";
 import getGradePercentage from "../../utils/getGradePercentage";
 import { useParams } from "react-router";
 import { useState, useRef } from "react";
+import AssignmentPointsForm from "./AssignmentPointsForm/AssignmentPointsForm";
 
-const AssignmentsTable = ({ assignments, teacherUserName }) => {
-  const { id } = useParams();
+const AssignmentsTable = ({
+  assignments,
+  // Everything marked 'null' are props only a teacher uses in this component
+  teacherUserName = null,
+  updatedAssignments = null,
+  setUpdatedAssignments = null,
+}) => {
+  const { id } = useParams(); // id = studentId
   const [cellClicked, setCellClicked] = useState(null);
   const [newPointsEarned, setNewPointsEarned] = useState(0);
-  const [updatedAssignments, setUpdatedAssignments] = useState([]);
   const pointsFormRef = useRef(null);
 
-  const clearPointsInput = () => {
-    setCellClicked(null);
-    setNewPointsEarned(0);
-  };
-
-  const pointsForm = (maxPoints) => {
+  const getTeacherListItem = (
+    index,
+    _id,
+    name,
+    pointsEarned,
+    maxPoints,
+    type,
+  ) => {
     return (
-      <form
-        action=""
-        onSubmit={(e) => {
-          e.preventDefault();
-          const pointsEarnedToSubmit = Number(pointsFormRef.current.value);
-
-          const assignmentToUpdate = assignments[cellClicked];
-          const assignmentId = assignmentToUpdate._id;
-
-          const updateAssignmentGrade = async () => {
-            let updateResponse = await fetch(
-              `/api/assignments/${assignmentId}`,
-              {
-                method: "PATCH",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                  studentId: id,
-                  pointsEarned: pointsEarnedToSubmit,
-                  teacherUserName
-                }),
-              },
-            );
-            updateResponse = await updateResponse.json();
-
-            if (updateResponse.success) {
-              const updatedAssignmentDetails = {
-                updatedPoints: pointsEarnedToSubmit,
-                percent: getGradePercentage(pointsEarnedToSubmit / maxPoints),
-                grade: getLetterGrade(pointsEarnedToSubmit / maxPoints),
-              };
-
-              const addNewAssignmentToUpdatedAssignments = () => {
-                setUpdatedAssignments([
-                  ...updatedAssignments,
-                  {
-                    ...updatedAssignmentDetails,
-                    id: assignmentId,
-                  },
-                ]);
-              };
-
-              if (updatedAssignments.length > 0) {
-                const result = updatedAssignments.find(
-                  (assignment) => assignment.id === assignmentId,
-                );
-                if (result) {
-                  setUpdatedAssignments(
-                    updatedAssignments.map(
-                      (
-                        assignment, // don't destructure
-                      ) =>
-                        assignment.id === assignmentId
-                          ? {
-                              ...assignment,
-                              ...updatedAssignmentDetails,
-                            }
-                          : assignment,
-                    ),
-                  );
-                } else addNewAssignmentToUpdatedAssignments();
-              } else addNewAssignmentToUpdatedAssignments();
-
-              clearPointsInput();
-            }
-          };
-          updateAssignmentGrade();
-        }}
-      >
-        <input
-          className="assignments-table__points-earned-input"
-          type="number"
-          min={0}
-          max={maxPoints}
-          value={newPointsEarned}
-          ref={pointsFormRef}
-          autoFocus
-          name=""
-          id=""
-          onChange={(e) => setNewPointsEarned(Number(e.target.value))}
-          onKeyDown={({ key }) => key === "Escape" && clearPointsInput()}
-        />
-        /{maxPoints}
-      </form>
+      <li className="assignments-table__list__item" key={_id}>
+        <p className="assignments-table__list__item__text">{name}</p>
+        {cellClicked === index ? (
+          <AssignmentPointsForm
+            assignments={assignments}
+            updatedAssignmentsState={{
+              state: updatedAssignments,
+              set: setUpdatedAssignments,
+            }}
+            cellClickedState={{
+              state: cellClicked,
+              set: setCellClicked,
+            }}
+            newPointsEarnedState={{
+              state: newPointsEarned,
+              set: setNewPointsEarned,
+            }}
+            pointsFormRef={pointsFormRef}
+            maxPoints={maxPoints}
+            studentId={id}
+            teacherUserName={teacherUserName}
+          />
+        ) : (
+          <p
+            onClick={() => {
+              setCellClicked(index);
+              setNewPointsEarned(0);
+            }}
+            className="assignments-table__list__item__text"
+          >
+            {getUpdatedAssignment(_id)
+              ? `${getUpdatedAssignment(_id).updatedPoints}/${maxPoints}`
+              : isGradeEmpty(pointsEarned)
+                ? "N/A"
+                : `${pointsEarned}/${maxPoints}`}
+          </p>
+        )}
+        <p className="assignments-table__list__item__text">
+          {getUpdatedAssignment(_id)
+            ? getUpdatedAssignment(_id).percent
+            : isGradeEmpty(pointsEarned)
+              ? "N/A"
+              : `${getGradePercentage(pointsEarned / maxPoints)}`}
+        </p>
+        <p className="assignments-table__list__item__text">
+          {getUpdatedAssignment(_id)
+            ? getUpdatedAssignment(_id).grade
+            : getLetterGrade(pointsEarned / maxPoints)}
+        </p>
+        <p className="assignments-table__list__item__text">{type.name}</p>
+      </li>
     );
   };
 
-  const getUpdatedAssignment = (assignmentId) => {
-    return updatedAssignments.find(({ id }) => id === assignmentId);
-  };
+  const getUpdatedAssignment = (assignmentId) =>
+    updatedAssignments.find(({ id }) => id === assignmentId);
 
   return (
     <>
@@ -127,43 +100,37 @@ const AssignmentsTable = ({ assignments, teacherUserName }) => {
           </p>
         ) : (
           assignments.map(
-            ({ name, type, pointsEarned, maxPoints, _id }, index) => (
-              <li className="assignments-table__list__item" key={_id}>
-                <p className="assignments-table__list__item__text">{name}</p>
-                {cellClicked === index ? (
-                  <>{pointsForm(maxPoints)}</>
-                ) : (
-                  <p
-                    onClick={() => {
-                      setCellClicked(index);
-                      setNewPointsEarned(0);
-                    }}
-                    className="assignments-table__list__item__text"
-                  >
-                    {getUpdatedAssignment(_id)
-                      ? `${getUpdatedAssignment(_id).updatedPoints}/${maxPoints}`
-                      : isGradeEmpty(pointsEarned)
-                        ? "N/A"
-                        : `${pointsEarned}/${maxPoints}`}
+            ({ name, type, pointsEarned, maxPoints, _id }, index) =>
+              teacherUserName === null ? (
+                <li className="assignments-table__list__item" key={_id}>
+                  <p className="assignments-table__list__item__text">{name}</p>
+                  <p className="assignments-table__list__item__text">
+                    {isGradeEmpty(pointsEarned)
+                      ? "N/A"
+                      : `${pointsEarned}/${maxPoints}`}
                   </p>
-                )}
-                <p className="assignments-table__list__item__text">
-                  {getUpdatedAssignment(_id)
-                    ? getUpdatedAssignment(_id).percent
-                    : isGradeEmpty(pointsEarned)
+                  <p className="assignments-table__list__item__text">
+                    {isGradeEmpty(pointsEarned)
                       ? "N/A"
                       : `${getGradePercentage(pointsEarned / maxPoints)}`}
-                </p>
-                <p className="assignments-table__list__item__text">
-                  {getUpdatedAssignment(_id)
-                    ? getUpdatedAssignment(_id).grade
-                    : getLetterGrade(pointsEarned / maxPoints)}
-                </p>
-                <p className="assignments-table__list__item__text">
-                  {type.name}
-                </p>
-              </li>
-            ),
+                  </p>
+                  <p className="assignments-table__list__item__text">
+                    {getLetterGrade(pointsEarned / maxPoints)}
+                  </p>
+                  <p className="assignments-table__list__item__text">
+                    {type.name}
+                  </p>
+                </li>
+              ) : (
+                getTeacherListItem(
+                  index,
+                  _id,
+                  name,
+                  pointsEarned,
+                  maxPoints,
+                  type,
+                )
+              ),
           )
         )}
       </ul>

@@ -1,0 +1,9 @@
+.assignments-table__points-earned-input {
+  width: 44px;
+  padding: 3px 0px;
+  background: none;
+  text-align: right;
+  border: 1.5px solid black;
+  border-radius: 5px;
+  font-size: 1.6rem;
+}

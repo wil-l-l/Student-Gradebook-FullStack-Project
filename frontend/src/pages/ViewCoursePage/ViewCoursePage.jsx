@@ -12,6 +12,7 @@ const ViewCoursePage = () => {
   const { period, id } = useParams();
   const [loadedStudentData, setLoadedStudentData] = useState(null);
   const [currentStudentId, setCurrentStudentId] = useState(id);
+  const [updatedAssignments, setUpdatedAssignments] = useState([]);
 
   const course = getCourseFromPeriod(user.courses, period);
   const courseAssignments = course.assignments;
@@ -23,6 +24,7 @@ const ViewCoursePage = () => {
       response = await response.json();
       const studentData = response.data;
       setLoadedStudentData(studentData);
+      setUpdatedAssignments([]);
     };
     if (isStudent === false) getStudent();
   }, [
@@ -48,7 +50,10 @@ const ViewCoursePage = () => {
       {isStudent ? (
         <>
           <GradesBar assignments={getAssignments()} />
-          <AssignmentsTable assignments={getAssignments()} />
+          <AssignmentsTable
+            isStudent={user.isStudent}
+            assignments={getAssignments()}
+          />
         </>
       ) : loadedStudentData === null && isStudent === false ? (
         <p>Loading course assignments for student...</p>
@@ -70,8 +75,11 @@ const ViewCoursePage = () => {
           )}
           <GradesBar assignments={getAssignments()} />
           <AssignmentsTable
+            isStudent={user.isStudent}
             assignments={getAssignments()}
             teacherUserName={user.userName}
+            updatedAssignments={updatedAssignments}
+            setUpdatedAssignments={setUpdatedAssignments}
           />
         </>
       )}

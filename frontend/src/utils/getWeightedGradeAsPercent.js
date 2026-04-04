@@ -7,7 +7,6 @@ const getWeightedGradeAsPercent = (user, period, courseAssignments = null) => {
     const course = getCourseFromPeriod(user.courses, period);
     courseAssignments = course.assignments;
   }
-
   if (courseAssignments.length === 0) return "N/A";
 
   const pointsEarnedPerCategory = [];
@@ -38,20 +37,31 @@ const getWeightedGradeAsPercent = (user, period, courseAssignments = null) => {
 
   if (ungradedAssignments === courseAssignments.length) return "N/A";
 
+  let countGradedCategories = 0;
+  pointsEarnedPerCategory.forEach(({ atLeastOne }) => {
+    if (atLeastOne) countGradedCategories += 1;
+  });
+
   let totalPointsWeighted = 0;
   pointsEarnedPerCategory.forEach(({ type, atLeastOne, totalPtsDivided }) => {
+    if (atLeastOne === false) return;
+
     const assigmentWeight = sharedConstants.assignmentTypes[type] / 100;
 
-    if (atLeastOne === false) {
-      totalPointsWeighted += 1 * assigmentWeight;
-    } else {
-      const sum = totalPtsDivided.reduce(
-        (accumulator, num) => accumulator + num,
-        0,
-      );
-      totalPointsWeighted += (sum / totalPtsDivided.length) * assigmentWeight;
-    }
+    const sum = totalPtsDivided.reduce(
+      (accumulator, num) => accumulator + num,
+      0,
+    );
+    const avgPtsEarned =
+      totalPtsDivided.length === 0 ? 0 : sum / totalPtsDivided.length;
+
+    totalPointsWeighted += avgPtsEarned * assigmentWeight;
   });
+
+  const forNoAssignmentCategories =
+    countGradedCategories === 1 ? 3 : countGradedCategories === 2 ? 2 : 1;
+
+  totalPointsWeighted = forNoAssignmentCategories * totalPointsWeighted;
 
   return getGradePercentage(totalPointsWeighted);
 };

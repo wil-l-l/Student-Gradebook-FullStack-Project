@@ -73,7 +73,10 @@ const ViewCoursePage = () => {
               setCurrentStudentId={setCurrentStudentId}
             />
           )}
-          <GradesBar assignments={getAssignments()} />
+          <GradesBar
+            assignments={getAssignments()}
+            updatedAssignments={updatedAssignments}
+          />
           <AssignmentsTable
             isStudent={user.isStudent}
             assignments={getAssignments()}

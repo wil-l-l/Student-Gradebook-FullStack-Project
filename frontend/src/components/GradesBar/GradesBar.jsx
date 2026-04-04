@@ -4,7 +4,7 @@ import getLetterGrade from "../../utils/getLetterGrade";
 import getWeightedGradeAsPercent from "../../utils/getWeightedGradeAsPercent";
 import "./GradesBar.css";
 
-const GradesBar = ({ assignments }) => {
+const GradesBar = ({ assignments, updatedAssignments = null }) => {
   const getAssignmentTypesList = () => {
     const makeAssignmentTypes = [];
     for (let type in sharedConstants.assignmentTypes) {
@@ -45,10 +45,23 @@ const GradesBar = ({ assignments }) => {
     </p>
   );
 
+  const getUpdatedAssignments = [...assignments].map((originalAssignment) => {
+    const updatedAssignment = updatedAssignments.find(
+      (assignment) => assignment.id === originalAssignment._id,
+    );
+    if (updatedAssignment)
+      return {
+        ...originalAssignment,
+        pointsEarned: updatedAssignment.updatedPoints,
+      };
+    return originalAssignment;
+  });
+
   return (
     <>
       <p className="grades-bar__weight-grade bold-text">
-        Weighted Grade: {getWeightedGradeAsPercent(null, null, assignments)}
+        Weighted Grade:{" "}
+        {getWeightedGradeAsPercent(null, null, getUpdatedAssignments)}
       </p>
       <ul className="grades-bar-list">
         Assignment Weights:

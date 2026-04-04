@@ -47,6 +47,7 @@ const ReviewBulkGrades = ({
         state: {
           wasModified: true,
         },
+        replace: true,
       });
     }
   }, [

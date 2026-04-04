@@ -1,5 +1,9 @@
-.grades-bar {
-  margin-top: 30px;
+.grades-bar__weight-grade {
+  margin-top: 40px;
+}
+
+.grades-bar-list {
+  margin-top: 5px;
   list-style: none;
   display: flex;
   column-gap: 20px;

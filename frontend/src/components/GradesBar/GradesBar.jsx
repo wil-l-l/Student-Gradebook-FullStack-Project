@@ -1,6 +1,7 @@
 import sharedConstants from "../../../../sharedConstants";
 import getGradePercentage from "../../utils/getGradePercentage";
 import getLetterGrade from "../../utils/getLetterGrade";
+import getWeightedGradeAsPercent from "../../utils/getWeightedGradeAsPercent";
 import "./GradesBar.css";
 
 const GradesBar = ({ assignments }) => {
@@ -45,22 +46,27 @@ const GradesBar = ({ assignments }) => {
   );
 
   return (
-    <ul className="grades-bar">
-      Assignment Weights:
-      <br />
-      Points Per Category:
-      {getAssignmentTypesList()
-        .toSorted((a, b) =>
-          a.weight < b.weight ? 1 : a.weight > b.weight ? -1 : 0,
-        )
-        .map(({ type, weight }) => (
-          <li key={type} className="grades-bar__item">
-            {`${type[0].toUpperCase() + (type === "assessment" ? type + "s" : type).slice(1)}`}{" "}
-            {weight}%
-            {isNaN(getGrade(type)) ? <p>N/A</p> : getCategoryDetails(type)}
-          </li>
-        ))}
-    </ul>
+    <>
+      <p className="grades-bar__weight-grade bold-text">
+        Weighted Grade: {getWeightedGradeAsPercent(null, null, assignments)}
+      </p>
+      <ul className="grades-bar-list">
+        Assignment Weights:
+        <br />
+        Points Per Category:
+        {getAssignmentTypesList()
+          .toSorted((a, b) =>
+            a.weight < b.weight ? 1 : a.weight > b.weight ? -1 : 0,
+          )
+          .map(({ type, weight }) => (
+            <li key={type} className="grades-bar__item">
+              {`${type[0].toUpperCase() + (type === "assessment" ? type + "s" : type).slice(1)}`}{" "}
+              {weight}%
+              {isNaN(getGrade(type)) ? <p>N/A</p> : getCategoryDetails(type)}
+            </li>
+          ))}
+      </ul>
+    </>
   );
 };
 

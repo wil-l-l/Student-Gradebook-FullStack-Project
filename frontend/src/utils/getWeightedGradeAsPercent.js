@@ -2,9 +2,12 @@ import getCourseFromPeriod from "./getCourseFromPeriod";
 import sharedConstants from "../../../sharedConstants";
 import getGradePercentage from "./getGradePercentage";
 
-const getWeightedGradeAsPercent = (user, period) => {
-  const course = getCourseFromPeriod(user.courses, period);
-  const courseAssignments = course.assignments;
+const getWeightedGradeAsPercent = (user, period, courseAssignments = null) => {
+  if (courseAssignments === null) {
+    const course = getCourseFromPeriod(user.courses, period);
+    courseAssignments = course.assignments;
+  }
+
   if (courseAssignments.length === 0) return "N/A";
 
   const pointsEarnedPerCategory = [];

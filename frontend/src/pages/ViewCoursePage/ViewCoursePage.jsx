@@ -69,7 +69,10 @@ const ViewCoursePage = () => {
             />
           )}
           <GradesBar assignments={getAssignments()} />
-          <AssignmentsTable assignments={getAssignments()} />
+          <AssignmentsTable
+            assignments={getAssignments()}
+            teacherUserName={user.userName}
+          />
         </>
       )}
     </section>

@@ -5,7 +5,7 @@ import getGradePercentage from "../../utils/getGradePercentage";
 import { useParams } from "react-router";
 import { useState, useRef } from "react";
 
-const AssignmentsTable = ({ assignments }) => {
+const AssignmentsTable = ({ assignments, teacherUserName }) => {
   const { id } = useParams();
   const [cellClicked, setCellClicked] = useState(null);
   const [newPointsEarned, setNewPointsEarned] = useState(0);
@@ -39,6 +39,7 @@ const AssignmentsTable = ({ assignments }) => {
                 body: JSON.stringify({
                   studentId: id,
                   pointsEarned: pointsEarnedToSubmit,
+                  teacherUserName
                 }),
               },
             );

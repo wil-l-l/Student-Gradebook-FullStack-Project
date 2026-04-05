@@ -1,0 +1,10 @@
+.course-dropdown-form {
+  margin-top: 5px;
+}
+
+.course-dropdown {
+  margin-left: 10px;
+  padding: 5px 7px;
+  border: 1px solid black;
+  border-radius: 7px;
+}

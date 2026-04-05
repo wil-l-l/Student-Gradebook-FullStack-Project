@@ -45,23 +45,26 @@ const GradesBar = ({ assignments, updatedAssignments = null }) => {
     </p>
   );
 
-  const getUpdatedAssignments = [...assignments].map((originalAssignment) => {
-    const updatedAssignment = updatedAssignments.find(
-      (assignment) => assignment.id === originalAssignment._id,
-    );
-    if (updatedAssignment)
-      return {
-        ...originalAssignment,
-        pointsEarned: updatedAssignment.updatedPoints,
-      };
-    return originalAssignment;
-  });
+  const getUpdatedAssignments = () =>
+    [...assignments].map((originalAssignment) => {
+      const updatedAssignment = updatedAssignments.find(
+        (assignment) => assignment.id === originalAssignment._id,
+      );
+      if (updatedAssignment)
+        return {
+          ...originalAssignment,
+          pointsEarned: updatedAssignment.updatedPoints,
+        };
+      return originalAssignment;
+    });
 
   return (
     <>
       <p className="grades-bar__weight-grade bold-text">
         Weighted Grade:{" "}
-        {getWeightedGradeAsPercent(null, null, getUpdatedAssignments)}
+        {updatedAssignments
+          ? getWeightedGradeAsPercent(null, null, getUpdatedAssignments())
+          : getWeightedGradeAsPercent(null, null, assignments)}
       </p>
       <ul className="grades-bar-list">
         Assignment Weights:

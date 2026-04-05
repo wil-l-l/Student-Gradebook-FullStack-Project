@@ -6,6 +6,7 @@ import { UserContext } from "../../contexts/UserContext";
 import getCourseFromPeriod from "../../utils/getCourseFromPeriod";
 import GradesBar from "../../components/GradesBar/GradesBar";
 import StudentDropdown from "../../components/StudentDropdown/StudentDropdown";
+import CourseDropdown from "../../components/CourseDropdown/CourseDropdown";
 
 const ViewCoursePage = () => {
   const { user } = useContext(UserContext);
@@ -14,8 +15,11 @@ const ViewCoursePage = () => {
   const [currentStudentId, setCurrentStudentId] = useState(id);
   const [updatedAssignments, setUpdatedAssignments] = useState([]);
 
-  const course = getCourseFromPeriod(user.courses, period);
-  const courseAssignments = course.assignments;
+  const [currentCourse, setCurrentCourse] = useState(
+    getCourseFromPeriod(user.courses, period),
+  );
+
+  const courseAssignments = currentCourse.assignments;
   const isStudent = user.isStudent;
 
   useEffect(() => {
@@ -44,11 +48,16 @@ const ViewCoursePage = () => {
   return (
     <section className="view-course-page">
       <div className="view_course_page__course-info-bar">
-        <h2>Course: {course.name}</h2>
-        <p>Period: {course.period}</p>
+        <h2>Course: {currentCourse.name}</h2>
+        <p>Period: {currentCourse.period}</p>
       </div>
       {isStudent ? (
         <>
+          <CourseDropdown
+            user={user}
+            currentCourse={currentCourse}
+            setCurrentCourse={setCurrentCourse}
+          />
           <GradesBar assignments={getAssignments()} />
           <AssignmentsTable
             isStudent={user.isStudent}
@@ -68,7 +77,7 @@ const ViewCoursePage = () => {
           </p>
           {isStudent === false && loadedStudentData && (
             <StudentDropdown
-              students={course.students}
+              students={currentCourse.students}
               currentStudent={loadedStudentData}
               setCurrentStudentId={setCurrentStudentId}
             />

@@ -5,7 +5,7 @@ const { User, validateClient } = require("../models/user.model");
 const School = require("../models/school.model");
 
 router.post("/", async (req, res) => {
-  const { error } = validateClient(req.body);
+  const { error } = await validateClient(req.body);
   if (error)
     return res
       .status(400)

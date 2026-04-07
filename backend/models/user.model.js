@@ -54,7 +54,7 @@ function validateClient(req) {
     isStudent: Joi.bool(),
   });
 
-  return schema.validate(req);
+  return schema.validateAsync(req);
 }
 
 exports.User = User;

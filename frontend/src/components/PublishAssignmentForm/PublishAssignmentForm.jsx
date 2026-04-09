@@ -10,7 +10,7 @@ const PublishAssignmentForm = () => {
   const [type, setType] = useState("");
   const [points, setPoints] = useState(5);
   const { period } = useParams();
-  const [didPublish, setdidPublish] = useState(false);
+  const [didPublish, setdidPublish] = useState(null);
 
   const course = getCourseFromPeriod(user.courses, period);
 
@@ -28,7 +28,6 @@ const PublishAssignmentForm = () => {
 
         const updatedTeacher = responseBody.data;
         setUser(updatedTeacher);
-        setdidPublish(false);
       };
       fetchAssignments();
     }
@@ -57,7 +56,7 @@ const PublishAssignmentForm = () => {
         if (response.success) {
           clearFormFields();
           setdidPublish(true);
-        }
+        } else setdidPublish(false);
       }}
     >
       <label htmlFor="assignment-name">Assignment Name: </label>
@@ -94,6 +93,9 @@ const PublishAssignmentForm = () => {
       />
       <br />
       <button>Submit</button>
+      {didPublish && (
+        <p className="green-text">Successfully created assignment!</p>
+      )}
     </form>
   );
 };

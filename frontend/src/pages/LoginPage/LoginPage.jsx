@@ -5,7 +5,6 @@ import { UserContext } from "../../contexts/UserContext";
 
 const LoginPage = () => {
   const userNameRef = useRef(null);
-  const passwordRef = useRef(null);
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
 

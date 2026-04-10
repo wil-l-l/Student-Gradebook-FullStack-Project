@@ -5,6 +5,7 @@ import { UserContext } from "../../contexts/UserContext";
 
 const LoginPage = () => {
   const userNameRef = useRef(null);
+  const passwordRef = useRef(null);
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
 
@@ -39,12 +40,14 @@ const LoginPage = () => {
   return (
     <main>
       <form
+        className="login-page__form"
         action=""
         onSubmit={(e) => {
           e.preventDefault();
           login(userNameRef.current.value);
         }}
       >
+        <div className="login-page__form__user-img"></div>
         <input
           type="text"
           placeholder="username"

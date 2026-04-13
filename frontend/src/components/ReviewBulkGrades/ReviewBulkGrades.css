@@ -5,13 +5,11 @@
   cursor: pointer;
   margin-top: 20px;
   padding: 10px 20px;
-  width: 330px;
   background-color: white;
   border-radius: 5px;
   box-shadow: 0px 0px 0px 1px lightgray;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 1fr;
 }
 
 .review-bulk-grades__mark-missing-form {

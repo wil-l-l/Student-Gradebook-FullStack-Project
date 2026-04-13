@@ -104,6 +104,15 @@ const ReviewBulkGrades = ({
                 ) : (
                   <span className="red-text bold-text">NOT GRADED</span>
                 )}
+                {studentObj.isGraded ? (
+                  <p className="grid-align-center">
+                    {studentObj.pointsEarned
+                      ? `${studentObj.pointsEarned} / ${assignment.maxPoints}`
+                      : `MISSING!`}
+                  </p>
+                ) : (
+                  <p className="red-text grid-align-center">?</p>
+                )}
                 <p>{getFullName(studentObj)}</p>
               </li>
             ))}

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const School = require("../models/school.model");
 const { User } = require("../models/user.model");
-const Course = require("../models/course.model");
+const { Course } = require("../models/course.model");
 const constants = require("../constants");
 const uuid = require("uuid");
 const { exhaustiveUniqueRandom } = require("unique-random");
@@ -19,8 +19,8 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   let newSchool = new School({
     name: req.body.name,
+    
   });
-
   const getCode = () => uuid.v4().slice(0, 4);
 
   let uniqueCodeGenerated = false;

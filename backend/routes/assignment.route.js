@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Course = require("../models/course.model");
+const { Course } = require("../models/course.model");
 const Assignment = require("../models/assignment.model");
 const { User } = require("../models/user.model");
 const { default: sharedConstants } = require("../../sharedConstants");

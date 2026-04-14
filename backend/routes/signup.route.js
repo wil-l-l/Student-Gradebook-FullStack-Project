@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 const { User, validateClient } = require("../models/user.model");
 const School = require("../models/school.model");
+const { createStudentCourses } = require("../models/course.model");
 
 router.post("/", async (req, res) => {
   const { error } = await validateClient(req.body);
@@ -25,15 +26,20 @@ router.post("/", async (req, res) => {
   ]); // the value of 'school' passed by the client could be the school name or school code
 
   const matchedSchool = schoolFound[0];
+
   newUser.schoolId = matchedSchool._id.toString();
   newUser.userName =
     (lastName + firstName[0]).toLowerCase() + matchedSchool.code;
+  await createStudentCourses(newUser, matchedSchool.courses);
+
+  // find the teachers of the courses, add the student, and then save too
 
   newUser = await newUser.save();
 
+  const newUserIdAsString = newUser._id.toString();
   if (isStudent === false)
-    matchedSchool.teachers = [...matchedSchool.teachers, newUser];
-  else matchedSchool.students = [...matchedSchool.students, newUser];
+    matchedSchool.teachers = [...matchedSchool.teachers, newUserIdAsString];
+  else matchedSchool.students = [...matchedSchool.students, newUserIdAsString];
 
   await matchedSchool.save();
 

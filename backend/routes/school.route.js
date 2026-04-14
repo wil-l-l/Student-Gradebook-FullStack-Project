@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const School = require("../models/school.model");
 const { User } = require("../models/user.model");
-const { Course } = require("../models/course.model");
+const { Course, createStudentCourses } = require("../models/course.model");
 const constants = require("../constants");
 const uuid = require("uuid");
 const { exhaustiveUniqueRandom } = require("unique-random");
@@ -19,7 +19,6 @@ router.get("/", async (req, res) => {
 router.post("/", async (req, res) => {
   let newSchool = new School({
     name: req.body.name,
-    
   });
   const getCode = () => uuid.v4().slice(0, 4);
 
@@ -102,45 +101,6 @@ function createTeacherCourses(teacher) {
         schoolId: teacher.schoolId.toString(),
       }),
     );
-
-    // The unique numbers will be iterated over infinitely
-    if (count === numOfCourses) break;
-  }
-}
-
-function createStudentCourses(student, courses) {
-  const numOfCourses = 3;
-  const random = exhaustiveUniqueRandom(0, courses.length - 1);
-
-  let count = 0;
-  let filledPeriods = [];
-  for (const number of random) {
-    const course = courses[number];
-    const coursePeriod = course.period;
-    if (filledPeriods.includes(coursePeriod)) continue;
-
-    count = count + 1;
-
-    const studentCourseCopy = {
-      teacherId: course.teacherId,
-      name: course.name,
-      period: coursePeriod,
-      assignments: course.assignments,
-      id: course._id.toString(),
-    };
-
-    const studentDocumentCopy = { ...student._doc };
-    const courseStudentCopy = {
-      firstName: studentDocumentCopy.firstName,
-      lastName: studentDocumentCopy.lastName,
-      isStudent: studentDocumentCopy.isStudent,
-      schoolId: studentDocumentCopy.schoolId,
-      _id: studentDocumentCopy._id.toString(),
-    };
-
-    courses[number].students.push(courseStudentCopy);
-    student.courses.push(studentCourseCopy);
-    filledPeriods.push(coursePeriod);
 
     // The unique numbers will be iterated over infinitely
     if (count === numOfCourses) break;

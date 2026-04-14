@@ -30,24 +30,13 @@ const Course = mongoose.model(
   }),
 );
 
-async function createStudentCourses(student, courses) {
+function createStudentCourses(
+  student,
+  courses,
+  saveUpdatesToTeacherAndCourse = null,
+) {
   const numOfCourses = 3;
   const random = exhaustiveUniqueRandom(0, courses.length - 1);
-
-  const getCourseDocuments = async () => {
-    const courseDocs = [];
-
-    const promisedCourses = new Promise((resolve, reject) => {
-      courses.forEach(async (id) => {
-        const foundCourse = await Course.findById(id);
-        courseDocs.push(foundCourse);
-        if (courseDocs.length === courses.length) resolve(courseDocs);
-      });
-    });
-
-    return promisedCourses;
-  };
-  courses = await getCourseDocuments();
 
   let count = 0;
   let filledPeriods = [];
@@ -62,7 +51,7 @@ async function createStudentCourses(student, courses) {
       teacherId: course.teacherId,
       name: course.name,
       period: coursePeriod,
-      assignments: [],
+      assignments: saveUpdatesToTeacherAndCourse ? [] : course.assignments,
       id: course._id.toString(),
     };
 
@@ -79,12 +68,37 @@ async function createStudentCourses(student, courses) {
     student.courses.push(studentCourseCopy);
     filledPeriods.push(coursePeriod);
 
-    const teacher = await User.findById(course.teacherId);
+    saveUpdatesToTeacherAndCourse &&
+      saveUpdatesToTeacherAndCourse(course, number);
+
+    // The unique numbers will be iterated over infinitely
+    if (count === numOfCourses) break;
+  }
+}
+
+async function createStudentCoursesOnSignup(student, courses) {
+  const getCourseDocuments = async () => {
+    const courseDocs = [];
+
+    const promisedCourses = new Promise((resolve, reject) => {
+      courses.forEach(async (id) => {
+        const foundCourse = await Course.findById(id);
+        courseDocs.push(foundCourse);
+        if (courseDocs.length === courses.length) resolve(courseDocs);
+      });
+    });
+
+    return promisedCourses;
+  };
+  courses = await getCourseDocuments();
+
+  createStudentCourses(student, courses, async (generatedCourse, number) => {
+    const teacher = await User.findById(generatedCourse.teacherId);
 
     const findUserCourseById = (userCourses) => {
       let foundCourse = null;
       userCourses.some((course) => {
-        if (course.period === coursePeriod) {
+        if (course.period === generatedCourse.period) {
           foundCourse = course;
           return true;
         }
@@ -98,11 +112,9 @@ async function createStudentCourses(student, courses) {
     teacher.markModified("courses");
     await teacher.save();
     await courses[number].save();
-
-    // The unique numbers will be iterated over infinitely
-    if (count === numOfCourses) break;
-  }
+  });
 }
 
 exports.Course = Course;
 exports.createStudentCourses = createStudentCourses;
+exports.createStudentCoursesOnSignup = createStudentCoursesOnSignup;

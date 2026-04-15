@@ -50,6 +50,9 @@ const LoginPage = () => {
         <input
           type="text"
           placeholder="username"
+          minLength={6}
+          maxLength={52}
+          required
           className="login-page__username-input"
           ref={userNameRef}
         />

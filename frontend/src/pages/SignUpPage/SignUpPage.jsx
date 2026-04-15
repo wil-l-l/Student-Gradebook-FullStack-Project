@@ -45,6 +45,9 @@ const SignUpPage = () => {
         type="text"
         placeholder="First Name"
         autoComplete="on"
+        minLength={3}
+        maxLength={50}
+        required
         value={inputData.firstName}
         onChange={(e) =>
           setInputData({ ...inputData, firstName: e.target.value })
@@ -55,6 +58,9 @@ const SignUpPage = () => {
         type="text"
         autoComplete="on"
         placeholder="Last Name"
+        minLength={3}
+        maxLength={50}
+        required
         value={inputData.lastName}
         onChange={(e) =>
           setInputData({ ...inputData, lastName: e.target.value })
@@ -66,6 +72,8 @@ const SignUpPage = () => {
         autoComplete="on"
         placeholder="Middle Name"
         value={inputData.middleName}
+        minLength={3}
+        maxLength={50}
         onChange={(e) =>
           setInputData({ ...inputData, middleName: e.target.value })
         }

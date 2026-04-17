@@ -23,6 +23,10 @@ const Course = mongoose.model(
       type: String,
       required: true,
     },
+    teacherName: {
+      firstName: { type: String, required: true },
+      lastName: { type: String, required: true },
+    },
     schoolId: {
       type: String,
       required: true,
@@ -49,6 +53,10 @@ function createStudentCourses(
 
     const studentCourseCopy = {
       teacherId: course.teacherId,
+      teacherName: {
+        firstName: course.teacherName.firstName,
+        lastName: course.teacherName.lastName,
+      },
       name: course.name,
       period: coursePeriod,
       assignments: saveUpdatesToTeacherAndCourse ? [] : course.assignments,

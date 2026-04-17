@@ -53,6 +53,12 @@ const ViewCoursePage = () => {
       </div>
       {isStudent ? (
         <>
+          <p>
+            Teacher:{" "}
+            {currentCourse.teacherName.firstName +
+              " " +
+              currentCourse.teacherName.lastName}
+          </p>
           <CourseDropdown
             user={user}
             currentCourse={currentCourse}

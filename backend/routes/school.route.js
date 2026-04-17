@@ -98,6 +98,10 @@ function createTeacherCourses(teacher) {
         students: [],
         assignments: [],
         teacherId: teacher._id.toString(),
+        teacherName: {
+          firstName: teacher.firstName,
+          lastName: teacher.lastName,
+        },
         schoolId: teacher.schoolId.toString(),
       }),
     );

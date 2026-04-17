@@ -17,11 +17,11 @@ const School = mongoose.model(
       immutable: true,
     },
     teachers: {
-      type: [],
+      type: [String], // an array of teacher document ids
       default: [],
     },
     students: {
-      type: [],
+      type: [String], // an array of student document ids
       default: [],
     },
     courses: {

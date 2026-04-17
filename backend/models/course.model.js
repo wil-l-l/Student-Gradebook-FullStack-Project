@@ -16,10 +16,12 @@ const Course = mongoose.model(
       immutable: true,
     },
     students: {
-      type: [],
+      type: [Object],
+      default: [],
     },
     assignments: {
-      type: [],
+      type: [Object],
+      default: [],
     },
     teacherId: {
       type: String,

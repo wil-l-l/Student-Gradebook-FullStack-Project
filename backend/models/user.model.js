@@ -41,7 +41,7 @@ const User = mongoose.model(
     },
     // Created randomly by server
     courses: {
-      type: [], // Array of course ids for students, an array of course objects for teachers
+      type: [Object], // an array of course objects, students get a course object with less properties
       required: true,
     },
   }),

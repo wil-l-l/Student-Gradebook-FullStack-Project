@@ -47,7 +47,7 @@ const User = mongoose.model(
   }),
 );
 
-function validateClient(req) {
+function validateClientSignupInput(reqBody) {
   const schema = Joi.object({
     firstName: Joi.string().min(3).max(50).required(),
     lastName: Joi.string().min(3).max(50).required(),
@@ -56,8 +56,13 @@ function validateClient(req) {
     isStudent: Joi.bool(),
   });
 
-  return schema.validateAsync(req);
+  return schema.validate(reqBody);
+}
+
+function validateClientLoginInput(reqBody) {
+  return Joi.string().min(6).max(52).required().validate(reqBody);
 }
 
 exports.User = User;
-exports.validateClient = validateClient;
+exports.validateClientSignupInput = validateClientSignupInput;
+exports.validateClientLoginInput = validateClientLoginInput;

@@ -1,19 +1,22 @@
 const express = require("express");
 const router = express.Router();
-const { User } = require("../models/user.model");
+const { User, validateClientLoginInput } = require("../models/user.model");
 
 router.post("/", async (req, res) => {
   const { userName } = req.body;
-  if (!userName)
-    return res.status(404).send({ success: false, message: "Could not login" });
+
+  const { error } = validateClientLoginInput(userName);
+  if (error)
+    return res
+      .status(404)
+      .send({ success: false, message: error.details[0].message });
 
   const user = await User.findOne({ userName: userName }).select(
     "firstName lastName courses userName isStudent",
   );
 
-  if (!user) {
-    return res.status(404).send({ success: false, message: "Could not login" });
-  }
+  if (!user)
+    return res.status(404).send({ success: false, message: "User not found" });
 
   res
     .status(200)

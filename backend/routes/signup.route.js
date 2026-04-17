@@ -1,12 +1,12 @@
 const Joi = require("joi");
 const express = require("express");
 const router = express.Router();
-const { User, validateClient } = require("../models/user.model");
+const { User, validateClientSignupInput } = require("../models/user.model");
 const School = require("../models/school.model");
 const { createStudentCoursesOnSignup } = require("../models/course.model");
 
 router.post("/", async (req, res) => {
-  const { error } = await validateClient(req.body);
+  const { error } = validateClientSignupInput(req.body);
   if (error)
     return res
       .status(400)

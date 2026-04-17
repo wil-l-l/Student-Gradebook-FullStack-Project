@@ -15,7 +15,7 @@ const SchoolSelector = ({ onChange }) => {
   }, []);
 
   return (
-    <select name="" id="" onChange={onChange} defaultValue={""}>
+    <select required name="" id="" onChange={onChange} defaultValue={""}>
       <option value="" disabled hidden></option>
       {schools.length > 0 &&
         schools.map(({ name, code }) => (

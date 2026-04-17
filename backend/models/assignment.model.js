@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Joi = require("joi");
 
 const Assignment = mongoose.model(
   "Assignment",
@@ -45,4 +46,17 @@ const Assignment = mongoose.model(
   }),
 );
 
-module.exports = Assignment;
+function validateClientNewAssignment(reqBody) {
+  const schema = Joi.object({
+    name: Joi.string().min(3).max(80).required(),
+    type: Joi.string().min(3).max(30).required(), // The client is only passing the name of the assignment type
+    userName: Joi.string().min(6).max(52).required(),
+    courseId: Joi.string().min(24).max(24).required(),
+    maxPoints: Joi.number().min(5).max(100).required(),
+  });
+
+  return schema.validate(reqBody);
+}
+
+exports.Assignment = Assignment;
+exports.validateClientNewAssignment = validateClientNewAssignment;

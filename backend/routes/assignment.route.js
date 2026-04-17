@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const { Course } = require("../models/course.model");
-const Assignment = require("../models/assignment.model");
+const {
+  Assignment,
+  validateClientNewAssignment,
+} = require("../models/assignment.model");
 const { User } = require("../models/user.model");
 const { default: sharedConstants } = require("../../sharedConstants");
 const { default: mongoose } = require("mongoose");
@@ -28,6 +31,11 @@ router.get("/:userName/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const { type, name, userName, courseId, maxPoints } = req.body;
+  const { error } = validateClientNewAssignment(req.body);
+  if (error)
+    return res
+      .status(400)
+      .send({ success: false, message: error.details[0].message });
 
   const newAssignment = new Assignment({
     name,

@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
   );
 
   if (!user)
-    return res.status(404).send({ success: false, message: "User not found" });
+    return res.status(404).send({ success: false, message: "Could not login" });
 
   res
     .status(200)

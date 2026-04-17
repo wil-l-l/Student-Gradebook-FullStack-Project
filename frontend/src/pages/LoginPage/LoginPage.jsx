@@ -1,5 +1,5 @@
 import "./LoginPage.css";
-import { useRef, useEffect, useContext } from "react";
+import { useRef, useEffect, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
 
@@ -7,6 +7,7 @@ const LoginPage = () => {
   const userNameRef = useRef(null);
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
+  const [loginResponse, setLoginResponse] = useState(null);
 
   useEffect(() => {
     if (user === null) return;
@@ -27,6 +28,7 @@ const LoginPage = () => {
     });
 
     const responseBody = await response.json();
+    setLoginResponse(responseBody);
 
     if (!responseBody.success) {
       console.error(responseBody.message);
@@ -47,6 +49,11 @@ const LoginPage = () => {
         }}
       >
         <div className="login-page__form__user-img"></div>
+        {loginResponse && loginResponse.success === false && (
+          <p className="login-page_error-msg red-text">
+            {loginResponse.message}
+          </p>
+        )}
         <input
           type="text"
           placeholder="username"

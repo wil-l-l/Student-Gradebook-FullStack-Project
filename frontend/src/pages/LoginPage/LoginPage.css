@@ -14,3 +14,7 @@
   background-color: rgb(255, 255, 255);
   margin-bottom: 20px;
 }
+
+.login-page_error-msg {
+  font-size: 1.4rem;
+}

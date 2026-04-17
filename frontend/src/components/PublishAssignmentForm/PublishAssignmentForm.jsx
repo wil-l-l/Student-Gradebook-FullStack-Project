@@ -101,6 +101,12 @@ const PublishAssignmentForm = () => {
       {didPublish && (
         <p className="green-text">Successfully created assignment!</p>
       )}
+      {didPublish === false && (
+        <>
+          <p className="red-text">Could not create an assignment.</p>
+          <p>Please try again!</p>
+        </>
+      )}
     </form>
   );
 };

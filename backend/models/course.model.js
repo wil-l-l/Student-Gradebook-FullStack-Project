@@ -8,10 +8,12 @@ const Course = mongoose.model(
     name: {
       type: String,
       required: true,
+      immutable: true,
     },
     period: {
       type: Number,
       required: true,
+      immutable: true,
     },
     students: {
       type: [],
@@ -24,12 +26,13 @@ const Course = mongoose.model(
       required: true,
     },
     teacherName: {
-      firstName: { type: String, required: true },
-      lastName: { type: String, required: true },
+      firstName: { type: String, required: true, minlength: 3, maxLength: 50 },
+      lastName: { type: String, required: true, minlength: 3, maxLength: 50 },
     },
     schoolId: {
       type: String,
       required: true,
+      immutable: true,
     },
   }),
 );

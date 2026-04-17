@@ -14,6 +14,7 @@ const School = mongoose.model(
       required: true,
       minlength: 4,
       maxlength: 4,
+      immutable: true,
     },
     teachers: {
       type: [],

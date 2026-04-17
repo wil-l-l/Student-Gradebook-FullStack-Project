@@ -8,10 +8,23 @@ const Assignment = mongoose.model(
       required: true,
       minlength: 3,
       maxlength: 80,
+      immutable: true,
     },
     type: {
-      type: Object, // { name: <assignment_type_name>, weight: <assignment_type_weight> }
-      required: true,
+      name: {
+        type: String,
+        minlength: 3,
+        maxlength: 30,
+        required: true,
+        immutable: true,
+      },
+      weight: {
+        type: Number,
+        min: 5,
+        max: 70,
+        required: true,
+        immutable: true,
+      },
     },
     isGraded: {
       type: Boolean,
@@ -22,6 +35,7 @@ const Assignment = mongoose.model(
       required: true,
       min: 5,
       max: 100,
+      immutable: true,
     },
     pointsEarned: {
       type: Number,

@@ -65,6 +65,8 @@ const PublishAssignmentForm = () => {
         placeholder="name"
         name="assignment-name"
         value={name}
+        minLength={3}
+        maxLength={80}
         onChange={(e) => setName(e.target.value)}
       />
       <br />

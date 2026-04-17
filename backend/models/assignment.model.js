@@ -6,6 +6,8 @@ const Assignment = mongoose.model(
     name: {
       type: String,
       required: true,
+      minlength: 3,
+      maxlength: 80,
     },
     type: {
       type: Object, // { name: <assignment_type_name>, weight: <assignment_type_weight> }

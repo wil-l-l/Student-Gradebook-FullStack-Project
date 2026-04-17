@@ -67,6 +67,7 @@ const PublishAssignmentForm = () => {
         value={name}
         minLength={3}
         maxLength={80}
+        required
         onChange={(e) => setName(e.target.value)}
       />
       <br />
@@ -75,6 +76,7 @@ const PublishAssignmentForm = () => {
         name="assignment-type-selector"
         id=""
         value={type}
+        required
         onChange={(e) => setType(e.target.value)}
       >
         <option value=""></option>
@@ -91,6 +93,7 @@ const PublishAssignmentForm = () => {
         min={5}
         max={100}
         value={points}
+        required
         onChange={(e) => setPoints(e.target.value)}
       />
       <br />

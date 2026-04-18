@@ -2,16 +2,14 @@ const express = require("express");
 const { User } = require("../models/user.model");
 const router = express.Router();
 const mongoose = require("mongoose");
-const verifyMongooseId = require("../util/verifyMongooseId");
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
 
-  const isValidMongooseId = verifyMongooseId(id);
-  if (isValidMongooseId !== true)
+  if (!mongoose.Types.ObjectId.isValid(id))
     return res
-      .status(isValidMongooseId.status)
-      .send({ ...isValidMongooseId, status: undefined });
+      .status(404)
+      .send({ success: false, message: "Invalid id passed" });
 
   const user = await User.findById(id);
   if (!user)

@@ -59,6 +59,10 @@ const ReviewBulkGrades = ({
     period,
   ]);
 
+  useEffect(() => {
+    if (gradeOneStudent) setMarkAllMissing(false);
+  }, [gradeOneStudent]);
+
   return (
     <>
       {gradeOneStudent === null ? (

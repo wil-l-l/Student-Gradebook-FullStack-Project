@@ -123,8 +123,14 @@ async function createStudentCoursesOnSignup(student, courses) {
     teacherCourse.students = courses[number].students;
 
     teacher.markModified("courses");
-    await teacher.save();
-    await courses[number].save();
+    try {
+      await teacher.save();
+      await courses[number].save();
+    } catch (error) {
+      console.log(
+        "Could not save new student added to a teacher's courses or to a course document list of students",
+      );
+    }
   });
 }
 

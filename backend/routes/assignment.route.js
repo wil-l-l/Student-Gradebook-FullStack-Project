@@ -13,6 +13,11 @@ const { assignmentTypes } = sharedConstants;
 router.get("/:userName/:id", async (req, res) => {
   const { userName, id } = req.params;
 
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res
+      .status(404)
+      .send({ success: false, message: "Invalid id passed" });
+
   const teacher = await User.findOne({ userName }).select("courses -_id");
   const teacherCourses = teacher.courses;
 

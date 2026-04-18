@@ -30,10 +30,7 @@ const LoginPage = () => {
     const responseBody = await response.json();
     setLoginResponse(responseBody);
 
-    if (!responseBody.success) {
-      console.error(responseBody.message);
-      return;
-    }
+    if (!responseBody.success) return;
 
     setUser(responseBody.data);
   };

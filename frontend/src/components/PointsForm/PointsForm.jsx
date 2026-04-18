@@ -33,16 +33,24 @@ const PointsForm = ({
             ...courseStudents[currentStudentIndex],
             isGraded: false,
           };
+          let keepOriginal = null;
 
           if (points === 0 || (points && Number(points) >= 0)) {
             studentJustGraded.isGraded = true;
             studentJustGraded.pointsEarned = points;
+            if (setGradeOneStudent) keepOriginal = false;
           }
+          if (points === "" && setGradeOneStudent) keepOriginal = true; // Grade of the student selected in the points form single student view did not change
 
+          // Grading a single student
           if (setCurrentStudentIndex === null) {
             const newGradedStudents = trackGradedStudents.map(
               (studentObj, index) =>
-                index === currentStudentIndex ? studentJustGraded : studentObj,
+                index === currentStudentIndex
+                  ? keepOriginal === false
+                    ? studentJustGraded
+                    : studentObj
+                  : studentObj,
             );
             setTrackGradedStudents(newGradedStudents);
             setGradeOneStudent(null);

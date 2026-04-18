@@ -108,7 +108,7 @@ const ReviewBulkGrades = ({
                   <p className="grid-align-center">
                     {studentObj.pointsEarned
                       ? `${studentObj.pointsEarned} / ${assignment.maxPoints}`
-                      : `MISSING!`}
+                      : `MISSING! (0)`}
                   </p>
                 ) : (
                   <p className="red-text grid-align-center">?</p>

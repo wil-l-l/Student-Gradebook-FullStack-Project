@@ -8,7 +8,7 @@ router.post("/", async (req, res) => {
   const { error } = validateClientLoginInput(userName);
   if (error)
     return res
-      .status(404)
+      .status(400)
       .send({ success: false, message: error.details[0].message });
 
   const user = await User.findOne({ userName: userName }).select(

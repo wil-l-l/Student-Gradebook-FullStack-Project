@@ -86,22 +86,43 @@ router.post("/", async (req, res) => {
   });
 
   teacher.markModified("courses");
-  await course.save();
-  await teacher.save();
-  studentsWithCourse.forEach(async (student) => {
-    student.markModified("courses");
-    await student.save();
-  });
+  try {
+    await course.save();
+    await teacher.save();
+  } catch (err) {
+    return res
+      .status(500)
+      .send({ success: false, message: "Could not create assignment" });
+  }
 
-  res.status(201).send({
-    success: true,
-    data: {
-      name: newAssignment.name,
-      type: newAssignment.type,
-      grade: newAssignment.grade,
-      isGraded: newAssignment.isGraded,
-      maxPoints: newAssignment.maxPoints,
-    },
+  let countCompletedAsync = 0;
+  const courseLoadingErrors = [];
+  studentsWithCourse.forEach(async (student, index) => {
+    student.markModified("courses");
+    try {
+      await student.save();
+      countCompletedAsync += 1;
+
+      if (!(countCompletedAsync === studentsWithCourse.length)) return;
+
+      if (courseLoadingErrors.length > 0)
+        res
+          .status(500)
+          .send({ success: false, message: "Could not create assignment" });
+      else
+        res.status(201).send({
+          success: true,
+          data: {
+            name: newAssignment.name,
+            type: newAssignment.type,
+            grade: newAssignment.grade,
+            isGraded: newAssignment.isGraded,
+            maxPoints: newAssignment.maxPoints,
+          },
+        });
+    } catch (err) {
+      courseLoadingErrors.push(err);
+    }
   });
 });
 
@@ -175,16 +196,22 @@ router.patch("/:id", async (req, res) => {
   student.markModified("courses");
   teacher.markModified("courses");
   course.markModified("assignments");
-  const studentAfterUpdate = await student.save();
-  await course.save();
-  await teacher.save();
+  try {
+    const studentAfterUpdate = await student.save();
+    await course.save();
+    await teacher.save();
 
-  res.status(200).send({
-    success: true,
-    data: {
-      student: studentAfterUpdate,
-    },
-  });
+    res.status(200).send({
+      success: true,
+      data: {
+        student: studentAfterUpdate,
+      },
+    });
+  } catch (err) {
+    res
+      .status(500)
+      .send({ success: false, message: "Could not update assignment" });
+  }
 });
 
 module.exports = router;

@@ -5,10 +5,6 @@ const mongoose = require("mongoose");
 
 router.get("/:id", async (req, res) => {
   const { id } = req.params;
-  if (!id)
-    return res
-      .status(400)
-      .send({ success: false, message: "No id in request" });
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res

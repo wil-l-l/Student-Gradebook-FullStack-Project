@@ -8,7 +8,7 @@ router.get("/:id", async (req, res) => {
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res
-      .status(404)
+      .status(400)
       .send({ success: false, message: "Invalid id passed" });
 
   const user = await User.findById(id);

@@ -15,10 +15,15 @@ router.get("/:userName/:id", async (req, res) => {
 
   if (!mongoose.Types.ObjectId.isValid(id))
     return res
-      .status(404)
+      .status(400)
       .send({ success: false, message: "Invalid id passed" });
 
   const teacher = await User.findOne({ userName }).select("courses -_id");
+  if (!teacher)
+    return res
+      .status(404)
+      .send({ success: false, message: "User could not be found" });
+
   const teacherCourses = teacher.courses;
 
   let assignment = null;
@@ -27,6 +32,11 @@ router.get("/:userName/:id", async (req, res) => {
       if (assignmentObj._id.toString() === id) assignment = assignmentObj;
     });
   });
+
+  if (assignment === null)
+    return res
+      .status(404)
+      .send({ success: false, message: "Assignment could not be found" });
 
   res.status(200).send({
     success: true,
@@ -99,6 +109,14 @@ router.patch("/:id", async (req, res) => {
   const assignmentId = req.params.id;
   const { studentId, pointsEarned, teacherUserName } = req.body;
 
+  if (
+    !mongoose.Types.ObjectId.isValid(assignmentId) ||
+    !mongoose.Types.ObjectId.isValid(studentId)
+  )
+    return res
+      .status(400)
+      .send({ success: false, message: "Invalid id passed" });
+
   const student = await User.findOne({
     _id: studentId,
   }).select("courses");
@@ -110,6 +128,11 @@ router.patch("/:id", async (req, res) => {
       },
     },
   });
+
+  if (!student || !teacher || !course)
+    return res
+      .status(404)
+      .send({ success: false, message: "Could not find a resource" });
 
   const updateAssignmentFromAssignments = (assignments, isUser = true) => {
     assignments.some((assignmentObj, index) => {

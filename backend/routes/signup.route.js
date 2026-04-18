@@ -32,7 +32,13 @@ router.post("/", async (req, res) => {
     (lastName + firstName[0]).toLowerCase() + matchedSchool.code;
   await createStudentCoursesOnSignup(newUser, matchedSchool.courses);
 
-  newUser = await newUser.save();
+  try {
+    newUser = await newUser.save();
+  } catch (error) {
+    return res
+      .status(500)
+      .send({ success: false, message: "Could not create a new user" });
+  }
 
   const newUserIdAsString = newUser._id.toString();
   if (isStudent === false)

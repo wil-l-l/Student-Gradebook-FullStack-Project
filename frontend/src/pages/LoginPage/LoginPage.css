@@ -1,20 +1,57 @@
 .login-page__form {
-  margin-top: 80px;
+  margin-top: 60px;
   margin-bottom: 10px;
+  padding: 20px 25px;
+  background-color: white;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   row-gap: 5px;
+  border: 1px solid rgb(183, 183, 183);
+  border-radius: 16px;
 }
 
-.login-page__form__user-img {
-  height: 160px;
-  width: 160px;
-  border-radius: 50%;
-  background-color: rgb(255, 255, 255);
-  margin-bottom: 20px;
+.login-page__form__login-text {
+  font-size: 2.4rem;
 }
 
+.login-page__form__username-label {
+  margin-top: 20px;
+}
+
+.login-page__username-input,
 .login-page_error-msg {
-  font-size: 1.4rem;
+  font-size: 1.6rem;
+}
+.login-page__username-input {
+  padding: 12px 8px;
+  border-radius: 8px;
+  border: 1.6px solid rgb(183, 183, 183);
+  width: 100%;
+}
+
+.login-page__form__submit-btn {
+  margin-top: 20px;
+  color: white;
+  background-color: rgb(40, 40, 40);
+  padding: 12px 0px;
+  width: 100%;
+  border: none;
+  border-radius: 8px;
+}
+
+.login-page__form__sign-up-link,
+.login-page__form__sign-up-link:hover,
+.login-page__form__sign-up-link:active,
+.login-page__form__sign-up-link:focus,
+.login-page__form__sign-up-link:visited {
+  margin-top: 5px;
+  color: #323955;
+  text-decoration: none;
+}
+
+@media (min-width: 768px) {
+  .login-page__form {
+    width: 400px;
+  }
 }

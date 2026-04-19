@@ -45,23 +45,35 @@ const LoginPage = () => {
           login(userNameRef.current.value);
         }}
       >
-        <div className="login-page__form__user-img"></div>
+        <p className="login-page__form__login-text bold-text">Login</p>
         {loginResponse && loginResponse.success === false && (
           <p className="login-page_error-msg red-text">
             {loginResponse.message}
           </p>
         )}
+        <label className="login-page__form__username-label" htmlFor="username">
+          username
+        </label>
         <input
           type="text"
           placeholder="username"
           minLength={6}
           maxLength={52}
           required
+          id="username"
           className="login-page__username-input"
           ref={userNameRef}
         />
+        <button
+          className="login-page__form__submit-btn bold-text"
+          type="submit"
+        >
+          Log in
+        </button>
+        <Link className="login-page__form__sign-up-link" to={"/signup"}>
+          New User? Signup here.
+        </Link>
       </form>
-      <Link to={"/signup"}>New User? Signup here.</Link>
     </main>
   );
 };

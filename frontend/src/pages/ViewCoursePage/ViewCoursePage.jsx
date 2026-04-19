@@ -47,13 +47,15 @@ const ViewCoursePage = () => {
 
   return (
     <section className="view-course-page">
-      <div className="view_course_page__course-info-bar">
-        <h2>Course: {currentCourse.name}</h2>
+      <div className="view_course_page__course-info-bar page-padding">
+        <h2 className="view-course-page__course-title">
+          Course: {currentCourse.name}
+        </h2>
         <p>Period: {currentCourse.period}</p>
       </div>
       {isStudent ? (
         <>
-          <p>
+          <p className="page-padding">
             Teacher:{" "}
             {currentCourse.teacherName.firstName +
               " " +
@@ -74,7 +76,7 @@ const ViewCoursePage = () => {
         <p>Loading course assignments for student...</p>
       ) : (
         <>
-          <p className="view-course-page__teacher-view-text">
+          <p className="view-course-page__teacher-view-text page-padding">
             Teacher View of Student:{" "}
             <span className="magenta-text bold-text">
               {" "}

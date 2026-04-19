@@ -1,11 +1,16 @@
 .view-course-page {
   display: flex;
   flex-direction: column;
+  font-size: 1.3rem;
+}
+
+.view-course-page__course-title {
+  font-size: 1.6rem;
+  width: fit-content;
 }
 
 .view_course_page__course-info-bar {
-  margin-top: 50px;
-  width: 90vw;
+  margin-top: 15px;
   display: flex;
   flex-direction: column;
   font-weight: 600;

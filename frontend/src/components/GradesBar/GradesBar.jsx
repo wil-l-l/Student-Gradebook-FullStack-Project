@@ -58,28 +58,43 @@ const GradesBar = ({ assignments, updatedAssignments = null }) => {
       return originalAssignment;
     });
 
+  const getAssignmentTypesListByWeight = () =>
+    getAssignmentTypesList().toSorted((a, b) =>
+      a.weight < b.weight ? 1 : a.weight > b.weight ? -1 : 0,
+    );
+
   return (
     <>
-      <p className="grades-bar__weight-grade bold-text">
+      <p className="grades-bar__weight-grade bold-text page-padding">
         Weighted Grade:{" "}
         {updatedAssignments
           ? getWeightedGradeAsPercent(null, null, getUpdatedAssignments())
           : getWeightedGradeAsPercent(null, null, assignments)}
       </p>
-      <ul className="grades-bar-list">
-        Assignment Weights:
-        <br />
+
+      <ul className="grades-bar-list page-padding">
+        Categories:
+        {getAssignmentTypesListByWeight().map(({ type }) => (
+          <li key={type} className="grades-bar__item">
+            {`${type[0].toUpperCase() + type.slice(1)}`}
+          </li>
+        ))}
+      </ul>
+      <ul className="grades-bar-list page-padding ">
+        Weights:
+        {getAssignmentTypesListByWeight().map(({ type, weight }) => (
+          <li key={type} className="grades-bar__item">
+            {weight}%
+          </li>
+        ))}
+      </ul>
+      <ul className="grades-bar-list page-padding">
         Points Per Category:
-        {getAssignmentTypesList()
-          .toSorted((a, b) =>
-            a.weight < b.weight ? 1 : a.weight > b.weight ? -1 : 0,
-          )
-          .map(({ type, weight }) => (
-            <li key={type} className="grades-bar__item">
-              {`${type[0].toUpperCase() + type.slice(1)}`} {weight}%
-              {isNaN(getGrade(type)) ? <p>N/A</p> : getCategoryDetails(type)}
-            </li>
-          ))}
+        {getAssignmentTypesListByWeight().map(({ type }) => (
+          <li key={type} className="grades-bar__item">
+            {isNaN(getGrade(type)) ? <p>N/A</p> : getCategoryDetails(type)}
+          </li>
+        ))}
       </ul>
     </>
   );

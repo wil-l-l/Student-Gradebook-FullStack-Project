@@ -1,10 +1,14 @@
-.grades-bar__weight-grade {
-  margin-top: 40px;
+.grades-bar__weight-grade,
+.grades-bar-list {
+  font-size: 1.1rem;
 }
-
+.grades-bar__weight-grade {
+  margin-top: 24px;
+}
 .grades-bar-list {
   margin-top: 5px;
   list-style: none;
-  display: flex;
-  column-gap: 20px;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  column-gap: 10px;
 }

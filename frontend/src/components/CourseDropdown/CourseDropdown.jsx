@@ -5,7 +5,7 @@ const CourseDropdown = ({ user, currentCourse, setCurrentCourse }) => {
   const courses = user.courses;
 
   return (
-    <form className="course-dropdown-form">
+    <form className="course-dropdown-form page-padding">
       <label htmlFor="course-dropdown">Switch Course:</label>
       <select
         id="course-dropdown"

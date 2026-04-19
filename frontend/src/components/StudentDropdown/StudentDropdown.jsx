@@ -2,7 +2,7 @@ import "./StudentDropdown.css";
 
 const StudentDropdown = ({ students, currentStudent, setCurrentStudentId }) => {
   return (
-    <form className="student-dropdown-form">
+    <form className="student-dropdown-form page-padding">
       <label htmlFor="student-dropdown">Switch Student:</label>
       <select
         id="student-dropdown"

@@ -38,3 +38,7 @@ button {
 .bold-text {
   font-weight: 600;
 }
+
+.page-padding {
+  padding: 0px 10px;
+}

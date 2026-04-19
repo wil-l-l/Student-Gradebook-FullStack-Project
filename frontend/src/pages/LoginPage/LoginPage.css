@@ -1,6 +1,5 @@
 .login-page__form {
   margin-top: 60px;
-  margin-bottom: 10px;
   padding: 20px 25px;
   background-color: white;
   display: flex;
@@ -31,6 +30,7 @@
 }
 
 .login-page__form__submit-btn {
+  cursor: pointer;
   margin-top: 20px;
   color: white;
   background-color: rgb(40, 40, 40);
@@ -53,5 +53,11 @@
 @media (min-width: 768px) {
   .login-page__form {
     width: 400px;
+  }
+}
+
+@media (min-width: 768px) {
+  .login-page__form {
+    font-size: 2rem;
   }
 }

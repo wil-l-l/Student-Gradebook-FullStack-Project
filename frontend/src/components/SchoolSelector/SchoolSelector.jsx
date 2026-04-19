@@ -15,15 +15,25 @@ const SchoolSelector = ({ onChange }) => {
   }, []);
 
   return (
-    <select required name="" id="" onChange={onChange} defaultValue={""}>
-      <option value="" disabled hidden></option>
-      {schools.length > 0 &&
-        schools.map(({ name, code }) => (
-          <option key={code} value={name}>
-            {name}
-          </option>
-        ))}
-    </select>
+    <>
+      <label htmlFor="school-selector">Select School: </label>
+      <select
+        className="school-selector"
+        required
+        name=""
+        id="school-selector"
+        onChange={onChange}
+        defaultValue={""}
+      >
+        <option value="" disabled hidden></option>
+        {schools.length > 0 &&
+          schools.map(({ name, code }) => (
+            <option key={code} value={name}>
+              {name}
+            </option>
+          ))}
+      </select>
+    </>
   );
 };
 

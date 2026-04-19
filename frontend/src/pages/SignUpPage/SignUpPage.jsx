@@ -40,7 +40,10 @@ const SignUpPage = () => {
         setSignUpResponse(responseBody);
       }}
       action=""
+      className="signup-page__form"
     >
+      <p className="signup-page__signup-text bold-text">Signup</p>
+      <label htmlFor="first-name">First Name:</label>
       <input
         type="text"
         placeholder="First Name"
@@ -52,8 +55,11 @@ const SignUpPage = () => {
         onChange={(e) =>
           setInputData({ ...inputData, firstName: e.target.value })
         }
+        className="signup-page__text-input"
+        id="first-name"
       />
       <br />
+      <label htmlFor="last-name">Last Name:</label>
       <input
         type="text"
         autoComplete="on"
@@ -65,8 +71,11 @@ const SignUpPage = () => {
         onChange={(e) =>
           setInputData({ ...inputData, lastName: e.target.value })
         }
+        className="signup-page__text-input"
+        id="last-name"
       />
       <br />
+      <label htmlFor="middle-name">Middle Name:</label>
       <input
         type="text"
         autoComplete="on"
@@ -77,6 +86,8 @@ const SignUpPage = () => {
         onChange={(e) =>
           setInputData({ ...inputData, middleName: e.target.value })
         }
+        className="signup-page__text-input"
+        id="middle-name"
       />
       <br />
       <SchoolSelector
@@ -84,7 +95,7 @@ const SignUpPage = () => {
         onChange={(e) => setInputData({ ...inputData, school: e.target.value })}
       />
       <br />
-      <button>Submit</button>
+      <button className="signup-page__submit-btn">Submit</button>
 
       {signUpResponse &&
         (signUpResponse.success ? (

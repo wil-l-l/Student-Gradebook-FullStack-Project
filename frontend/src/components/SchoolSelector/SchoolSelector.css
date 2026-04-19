@@ -1,0 +1,13 @@
+.school-selector {
+  padding: 3px 4px;
+  border-radius: 8px;
+  font-size: 1.6rem;
+}
+
+@media (min-width: 1024px) {
+  .school-selector {
+    padding: 6px 8px;
+    font-size: 1.6rem;
+    width: 100%;
+  }
+}

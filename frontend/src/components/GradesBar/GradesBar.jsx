@@ -76,8 +76,7 @@ const GradesBar = ({ assignments, updatedAssignments = null }) => {
           )
           .map(({ type, weight }) => (
             <li key={type} className="grades-bar__item">
-              {`${type[0].toUpperCase() + (type === "assessment" ? type + "s" : type).slice(1)}`}{" "}
-              {weight}%
+              {`${type[0].toUpperCase() + type.slice(1)}`} {weight}%
               {isNaN(getGrade(type)) ? <p>N/A</p> : getCategoryDetails(type)}
             </li>
           ))}

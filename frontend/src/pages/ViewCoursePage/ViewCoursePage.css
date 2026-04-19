@@ -18,5 +18,29 @@
 
 .view-course-page__teacher-view-text {
   margin-top: 20px;
-  font-size: 1.6rem;
+}
+
+@media (min-width: 768px) {
+  .view-course-page {
+    font-size: 1.6rem;
+  }
+  .view-course-page__course-title {
+    font-size: 2rem;
+  }
+  .view-course-page__teacher-view-text {
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .view-course-page {
+    font-size: 2rem;
+  }
+  .view-course-page__course-title {
+    font-size: 2.4rem;
+    width: fit-content;
+  }
+  .view-course-page__teacher-view-text {
+    font-size: 2rem;
+  }
 }

@@ -10,3 +10,17 @@
   border: 1px solid black;
   border-radius: 7px;
 }
+
+@media (min-width: 768px) {
+  .course-dropdown {
+    font-size: 1.6rem;
+    padding: 5px 7px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .course-dropdown {
+    font-size: 2rem;
+    padding: 8px 9px;
+  }
+}

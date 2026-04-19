@@ -12,3 +12,17 @@
   grid-template-columns: 1.5fr 1fr 1fr 1fr;
   column-gap: 10px;
 }
+
+@media (min-width: 768px) {
+  .grades-bar__weight-grade,
+  .grades-bar-list {
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grades-bar__weight-grade,
+  .grades-bar-list {
+    font-size: 2rem;
+  }
+}

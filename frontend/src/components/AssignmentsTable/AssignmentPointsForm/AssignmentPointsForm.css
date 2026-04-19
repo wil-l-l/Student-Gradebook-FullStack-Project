@@ -7,3 +7,17 @@
   border-radius: 5px;
   font-size: 1.6rem;
 }
+
+@media (min-width: 768px) {
+  .assignments-table__points-earned-input {
+    font-size: 1.9rem;
+    padding: 5px 0px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .assignments-table__points-earned-input {
+    font-size: 2.2rem;
+    padding: 7px 0px;
+  }
+}

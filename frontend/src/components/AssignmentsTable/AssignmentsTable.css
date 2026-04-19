@@ -28,3 +28,17 @@
 .assignments-table__list__item:nth-child(even) {
   background-color: var(--secondary-color);
 }
+
+@media (min-width: 768px) {
+  .assignments-table__info-bar,
+  .assignments-table__list__item {
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .assignments-table__info-bar,
+  .assignments-table__list__item {
+    font-size: 2rem;
+  }
+}

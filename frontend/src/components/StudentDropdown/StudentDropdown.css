@@ -8,3 +8,16 @@
   border: 1px solid black;
   border-radius: 7px;
 }
+
+@media (min-width: 768px) {
+  .student-dropdown {
+    font-size: 1.6rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .student-dropdown {
+    font-size: 2rem;
+    padding: 9px 12px;
+  }
+}

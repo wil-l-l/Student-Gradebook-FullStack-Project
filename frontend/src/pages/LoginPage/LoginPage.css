@@ -41,13 +41,15 @@
 }
 
 .login-page__form__sign-up-link,
-.login-page__form__sign-up-link:hover,
 .login-page__form__sign-up-link:active,
 .login-page__form__sign-up-link:focus,
 .login-page__form__sign-up-link:visited {
   margin-top: 5px;
   color: #323955;
   text-decoration: none;
+}
+.login-page__form__sign-up-link:hover {
+  text-decoration: underline;
 }
 
 @media (min-width: 768px) {

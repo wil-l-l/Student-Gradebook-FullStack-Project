@@ -35,6 +35,7 @@ const PublishAssignmentForm = () => {
 
   return (
     <form
+      className="publish-assignment-form"
       action=""
       onSubmit={async (e) => {
         e.preventDefault();
@@ -59,8 +60,12 @@ const PublishAssignmentForm = () => {
         } else setdidPublish(false);
       }}
     >
+      <p className="publish-assignment-form__heading bold-text">
+        Publish Assignment
+      </p>
       <label htmlFor="assignment-name">Assignment Name: </label>
       <input
+        className="publish-assignment-form__input"
         type="text"
         placeholder="name"
         name="assignment-name"
@@ -73,13 +78,20 @@ const PublishAssignmentForm = () => {
       <br />
       <label htmlFor="assignment-type-selector">Assignment Type: </label>
       <select
+        className="publish-assignment-form__input"
         name="assignment-type-selector"
         id=""
         value={type}
         required
         onChange={(e) => setType(e.target.value)}
       >
-        <option value=""></option>
+        <option
+          value="select assignment type"
+          className="publish-assignment-form__assignment-type-input"
+          disabled
+        >
+          select assignment type
+        </option>
         <option value="classwork">classwork</option>
         <option value="homework">homework</option>
         <option value="assessments">assessments</option>
@@ -87,6 +99,7 @@ const PublishAssignmentForm = () => {
       <br />
       <label htmlFor="assignment-points">Points: </label>
       <input
+        className="publish-assignment-form__input"
         type="number"
         name="assignment-points"
         id=""
@@ -97,7 +110,7 @@ const PublishAssignmentForm = () => {
         onChange={(e) => setPoints(e.target.value)}
       />
       <br />
-      <button>Submit</button>
+      <button className="publish-assignment-form__submit-btn">SUBMIT</button>
       {didPublish && (
         <p className="green-text">Successfully created assignment!</p>
       )}

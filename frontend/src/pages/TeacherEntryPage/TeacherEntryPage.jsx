@@ -21,7 +21,8 @@ const TeacherEntryPage = () => {
                 key: period,
                 children: (
                   <>
-                    <p>{name}</p> <p>Pd: {period}</p>
+                    <p>{name}</p>
+                    <p>Pd: {period}</p>
                   </>
                 ),
                 onClickHandler: () => {

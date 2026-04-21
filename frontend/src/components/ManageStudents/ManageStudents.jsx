@@ -56,7 +56,6 @@ const ManageStudents = () => {
         ),
         onClickHandler: () =>
           navigate(`/teacher/course/${period}/students/${_id}`),
-        customClasses: "manage-students__list-item",
       }))}
     />
   );

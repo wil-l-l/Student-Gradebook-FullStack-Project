@@ -25,6 +25,7 @@
 
 .page-card__list__item {
   display: flex;
+  flex-direction: column;
   cursor: pointer;
   border-bottom: 1px solid var(--page-gray);
   padding: 10px 20px;

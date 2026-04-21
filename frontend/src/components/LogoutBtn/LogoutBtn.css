@@ -1,0 +1,23 @@
+.logout-btn {
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid black;
+  padding: 6px 12px;
+  border-radius: 5px;
+}
+
+@media (min-width: 768px) {
+  .logout-btn {
+    font-size: 1.8rem;
+  }
+}
+@media (min-width: 1024px) {
+  .logout-btn {
+    font-size: 2.1rem;
+  }
+}
+@media (min-width: 1440px) {
+  .logout-btn {
+    font-size: 2.5rem;
+  }
+}

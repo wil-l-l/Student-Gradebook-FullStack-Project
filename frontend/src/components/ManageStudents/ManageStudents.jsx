@@ -4,6 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import "./ManageStudents.css";
 import getWeightedGradeAsPercent from "../../utils/getWeightedGradeAsPercent";
+import PageCard from "../PageCard/PageCard";
 
 const ManageStudents = () => {
   const { user } = useContext(UserContext);
@@ -33,28 +34,31 @@ const ManageStudents = () => {
   }, [isStudent, setLoadedStudents, user, period, course.students]);
 
   return (
-    <>
-      <ul>
-        {course.students.map(({ firstName, lastName, _id }, index) => (
-          <li
-            onClick={() =>
-              navigate(`/teacher/course/${period}/students/${_id}`)
-            }
-            className="manage-students__list-item"
-            key={firstName + lastName + index}
-          >
-            {firstName}, {lastName} <br />
-            Grade:{" "}
-            {loadedAllStudents
-              ? getWeightedGradeAsPercent(
-                  loadedStudents.find((studentObj) => studentObj._id === _id),
-                  period,
-                )
-              : "Loading..."}
-          </li>
-        ))}
-      </ul>
-    </>
+    <PageCard
+      headingBoxChildren={<h2>Course Students</h2>}
+      list={course.students.map(({ firstName, lastName, _id }, index) => ({
+        key: firstName + lastName + index,
+        children: (
+          <>
+            <p>
+              {firstName}, {lastName}
+            </p>
+            <p>
+              Grade:{" "}
+              {loadedAllStudents
+                ? getWeightedGradeAsPercent(
+                    loadedStudents.find((studentObj) => studentObj._id === _id),
+                    period,
+                  )
+                : "Loading..."}
+            </p>
+          </>
+        ),
+        onClickHandler: () =>
+          navigate(`/teacher/course/${period}/students/${_id}`),
+        customClasses: "manage-students__list-item",
+      }))}
+    />
   );
 };
 

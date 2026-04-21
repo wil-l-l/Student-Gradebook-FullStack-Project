@@ -6,15 +6,22 @@ const PageCard = ({ headingBoxChildren, list }) => {
       <div className="page-card__heading-box">{headingBoxChildren}</div>
       {
         <ul className="page-card__list">
-          {list.map(({ key, children, onClickHandler = null }) => (
-            <li
-              key={key}
-              className="page-card__list__item"
-              onClick={onClickHandler}
-            >
-              {children}
-            </li>
-          ))}
+          {list.map(
+            ({
+              key,
+              children,
+              onClickHandler = null,
+              customClasses = null,
+            }) => (
+              <li
+                key={key}
+                className={`page-card__list__item ${customClasses ? customClasses : ""}`}
+                onClick={onClickHandler}
+              >
+                {children}
+              </li>
+            ),
+          )}
         </ul>
       }
     </div>

@@ -43,3 +43,9 @@ button {
 .page-padding {
   padding: 0px 10px;
 }
+
+@media (min-width: 768px) {
+  .page-padding {
+    padding: 0px 30px;
+  }
+}

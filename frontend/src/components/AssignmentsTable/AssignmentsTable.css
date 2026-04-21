@@ -34,6 +34,10 @@
   .assignments-table__list__item {
     font-size: 1.6rem;
   }
+  .assignments-table__info-bar,
+  .assignments-table__list__item__text {
+    padding-left: 30px;
+  }
 }
 
 @media (min-width: 1024px) {

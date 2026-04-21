@@ -33,13 +33,19 @@ const ManageAssignments = () => {
   return (
     <>
       {courseAssignments.length > 0 ? (
-        <>
-          <button
-            onClick={() => navigate(publishAssignmentRoute)}
-            className="manage-assignments__create-btn"
-          >
-            Create & Publish an Assignment
-          </button>
+        <div className="manage-assignment__assignments-box">
+          <p className="manage-assignment__heading-text bold-text">{`${course.name}`}</p>
+          <div className="manage-assignment__assignments-box__head-box">
+            <p className="manage-assignment__heading-text bold-text">
+              Assignments:
+            </p>
+            <button
+              onClick={() => navigate(publishAssignmentRoute)}
+              className="manage-assignments__create-btn"
+            >
+              CREATE
+            </button>
+          </div>
           <ul className="manage-assignments-assignments-list">
             {courseAssignments.map((assignmentObj, index) => (
               <li
@@ -60,7 +66,7 @@ const ManageAssignments = () => {
               </li>
             ))}
           </ul>
-        </>
+        </div>
       ) : (
         <>
           <Link to={publishAssignmentRoute}>

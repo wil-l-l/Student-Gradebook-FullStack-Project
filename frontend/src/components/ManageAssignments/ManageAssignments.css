@@ -1,11 +1,32 @@
+.manage-assignment__assignments-box,
 .manage-assignments__create-btn {
-  margin-top: 20px;
+  font-size: 1.4rem;
+}
+.manage-assignment__assignments-box {
+  margin-top: 30px;
   background-color: white;
-  cursor: pointer;
-  border: none;
+  border: 1px solid rgb(183, 183, 183);
+  padding: 15px 20px 35px 20px;
+  border-radius: 10px;
+}
+
+.manage-assignment__heading-text {
+  font-size: 1.6rem;
+}
+
+.manage-assignment__assignments-box__head-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgb(183, 183, 183);
+}
+
+.manage-assignments__create-btn {
+  padding: 8px 12px;
   border-radius: 5px;
-  box-shadow: 0px 0px 0px 1px rgb(206, 206, 206);
-  padding: 30px 70px;
+  border: 1px solid rgb(183, 183, 183);
+  cursor: pointer;
 }
 
 .manage-assignments-assignments-list {
@@ -13,10 +34,24 @@
 }
 .manage-assignments-assignments-list__item {
   cursor: pointer;
-  text-align: center;
-  padding: 10px 80px;
-  background-color: white;
-  border-radius: 7px;
-  margin-top: 30px;
-  box-shadow: 0px 0px 0px 1px rgb(206, 206, 206);
+  border-bottom: 1px solid rgb(183, 183, 183);
+  padding: 10px 20px;
+}
+
+@media (min-width: 768px) {
+  .manage-assignment__heading-text {
+    font-size: 1.7rem;
+  }
+  .manage-assignment__assignments-box {
+    zoom: 1.3;
+  }
+}
+
+@media (min-width: 1024px) {
+  .manage-assignment__heading-text {
+    font-size: 1.8rem;
+  }
+  .manage-assignment__assignments-box {
+    zoom: 1.5;
+  }
 }

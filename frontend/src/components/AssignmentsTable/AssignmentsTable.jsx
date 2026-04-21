@@ -51,7 +51,8 @@ const AssignmentsTable = ({
           />
         ) : (
           <p
-            onClick={() => {
+            onClick={(e) => {
+              if (e.target.innerHTML === "N/A") return;
               setCellClicked(index);
               setNewPointsEarned(0);
             }}

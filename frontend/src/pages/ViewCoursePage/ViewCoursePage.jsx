@@ -12,7 +12,9 @@ const ViewCoursePage = () => {
   const { user } = useContext(UserContext);
   const { period, id } = useParams();
   const [loadedStudentData, setLoadedStudentData] = useState(null);
-  const [currentStudentId, setCurrentStudentId] = useState(id);
+  const [currentStudentId, setCurrentStudentId] = useState(
+    user.isStudent ? user._id : id,
+  );
   const [updatedAssignments, setUpdatedAssignments] = useState([]);
 
   const [currentCourse, setCurrentCourse] = useState(
@@ -30,7 +32,7 @@ const ViewCoursePage = () => {
       setLoadedStudentData(studentData);
       setUpdatedAssignments([]);
     };
-    if (isStudent === false) getStudent();
+    getStudent();
   }, [
     isStudent,
     setLoadedStudentData,
@@ -41,9 +43,9 @@ const ViewCoursePage = () => {
   ]);
 
   const getAssignments = () =>
-    isStudent
-      ? courseAssignments
-      : getCourseFromPeriod(loadedStudentData.courses, period).assignments;
+    loadedStudentData
+      ? getCourseFromPeriod(loadedStudentData.courses, period).assignments
+      : courseAssignments;
 
   return (
     <section className="view-course-page">

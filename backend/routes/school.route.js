@@ -35,15 +35,20 @@ router.post("/", async (req, res) => {
   const { teachers, students } = req.body;
   let teachersArr = [];
   let coursesArr = [];
+
+  const getNewUserObj = (firstName, lastName, isStudent) =>
+    new User({
+      firstName,
+      lastName,
+      isStudent: false,
+      userName: (lastName + firstName[0]).toLowerCase() + newSchool.code,
+      schoolId: newSchool._id.toString(),
+      password: "12345678",
+    });
+
   if (teachers && teachers.length > 0) {
     teachersArr = teachers.map(({ firstName, lastName }) => {
-      const newTeacher = new User({
-        firstName,
-        lastName,
-        isStudent: false,
-        userName: (lastName + firstName[0]).toLowerCase() + newSchool.code,
-        schoolId: newSchool._id.toString(),
-      });
+      const newTeacher = getNewUserObj(firstName, lastName, false);
 
       createTeacherCourses(newTeacher);
       coursesArr.push(...newTeacher.courses);
@@ -55,12 +60,7 @@ router.post("/", async (req, res) => {
   let studentsArr = [];
   if (students && students.length > 0) {
     studentsArr = students.map(({ firstName, lastName, middleName }) => {
-      const newStudent = new User({
-        firstName,
-        lastName,
-        userName: (lastName + firstName[0]).toLowerCase() + newSchool.code,
-        schoolId: newSchool._id.toString(),
-      });
+      const newStudent = getNewUserObj(firstName, lastName, true);
       if (middleName) newStudent.middleName = middleName;
 
       createStudentCourses(newStudent, coursesArr);

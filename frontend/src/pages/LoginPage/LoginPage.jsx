@@ -5,6 +5,7 @@ import { UserContext } from "../../contexts/UserContext";
 
 const LoginPage = () => {
   const userNameRef = useRef(null);
+  const passwordRef = useRef(null);
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
   const [loginResponse, setLoginResponse] = useState(null);
@@ -16,11 +17,12 @@ const LoginPage = () => {
     else navigate("/teacher");
   }, [user, navigate]);
 
-  const login = async (userName) => {
+  const login = async (userName, password) => {
     const response = await fetch("/api/login", {
       method: "POST",
       body: JSON.stringify({
         userName,
+        password,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -42,7 +44,7 @@ const LoginPage = () => {
         action=""
         onSubmit={(e) => {
           e.preventDefault();
-          login(userNameRef.current.value);
+          login(userNameRef.current.value, passwordRef.current.value);
         }}
       >
         <p className="login-page__form__login-text bold-text">Login</p>
@@ -61,8 +63,22 @@ const LoginPage = () => {
           maxLength={52}
           required
           id="username"
-          className="login-page__username-input"
+          className="login-page__input-field login-page__username-input"
           ref={userNameRef}
+        />
+        <label className="login-page__form__password-label" htmlFor="password">
+          password
+        </label>
+        <input
+          type="password"
+          placeholder="password"
+          minLength={8}
+          maxLength={500}
+          required
+          autoComplete="true"
+          id="password"
+          className="login-page__input-field login-page__password-input"
+          ref={passwordRef}
         />
         <button
           className="login-page__form__submit-btn bold-text"

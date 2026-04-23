@@ -43,7 +43,6 @@ router.post("/", async (req, res) => {
       isStudent: false,
       userName: (lastName + firstName[0]).toLowerCase() + newSchool.code,
       schoolId: newSchool._id.toString(),
-      password: "12345678",
     });
 
   if (teachers && teachers.length > 0) {

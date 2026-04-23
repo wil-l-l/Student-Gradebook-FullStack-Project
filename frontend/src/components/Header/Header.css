@@ -11,13 +11,20 @@
   display: flex;
   align-items: center;
 }
-.profile-img {
+.profile-img-box {
+  position: relative;
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 1px solid rgb(136, 136, 136);
-  background-color: var(--secondary-color);
 }
+.profile-img {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 26px;
+  height: 26px;
+}
+
 .profile-name {
   margin-left: 10px;
   color: rgb(23, 23, 23);
@@ -36,9 +43,15 @@
   .profile-name {
     font-size: 2.1rem;
   }
-  .profile-img {
+  .profile-img-box {
     width: 48px;
     height: 48px;
+  }
+  .profile-img {
+    top: 8px;
+    right: 4px;
+    width: 30px;
+    height: 30px;
   }
   .student-entry-page__logout-btn {
     font-size: 1.8rem;
@@ -48,9 +61,14 @@
   .profile-name {
     font-size: 2.3rem;
   }
-  .profile-img {
+  .profile-img-box {
     width: 51px;
     height: 51px;
+  }
+  .profile-img {
+    right: 0px;
+    width: 35px;
+    height: 35px;
   }
   .student-entry-page__logout-btn {
     font-size: 2.1rem;
@@ -61,8 +79,14 @@
   .student-entry-page__logout-btn {
     font-size: 2.5rem;
   }
-  .profile-img {
+  .profile-img-box {
     width: 54px;
     height: 54px;
+  }
+  .profile-img {
+    top: 6px;
+    right: 3px;
+    width: 37px;
+    height: 37px;
   }
 }

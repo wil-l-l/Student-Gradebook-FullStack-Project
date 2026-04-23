@@ -9,7 +9,7 @@ import StudentDropdown from "../../components/StudentDropdown/StudentDropdown";
 import CourseDropdown from "../../components/CourseDropdown/CourseDropdown";
 
 const ViewCoursePage = () => {
-  const { user } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
   const { period, id } = useParams();
   const [loadedStudentData, setLoadedStudentData] = useState(null);
   const [currentStudentId, setCurrentStudentId] = useState(
@@ -25,11 +25,12 @@ const ViewCoursePage = () => {
       let response = await fetch(`/api/users/${currentStudentId}`);
       response = await response.json();
       const studentData = response.data;
+      if (isStudent) setUser(studentData);
       setLoadedStudentData(studentData);
       setUpdatedAssignments([]);
     };
     getStudent();
-  }, [setLoadedStudentData, period, currentStudentId]);
+  }, [setLoadedStudentData, period, currentStudentId, isStudent, setUser]);
 
   const getAssignments = () =>
     loadedStudentData

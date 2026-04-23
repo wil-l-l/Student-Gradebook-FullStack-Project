@@ -40,7 +40,7 @@ router.post("/", async (req, res) => {
     new User({
       firstName,
       lastName,
-      isStudent: false,
+      isStudent,
       userName: (lastName + firstName[0]).toLowerCase() + newSchool.code,
       schoolId: newSchool._id.toString(),
     });

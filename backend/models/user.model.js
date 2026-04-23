@@ -65,8 +65,13 @@ function validateClientSignupInput(reqBody) {
   return schema.validate(reqBody);
 }
 
-function validateClientLoginInput(userName) {
-  return Joi.string().min(6).max(52).required().validate(userName);
+function validateClientLoginInput(reqBody) {
+  const schema = Joi.object({
+    userName: Joi.string().min(6).max(52).required(),
+    password: Joi.string().min(8).max(255).required(),
+  });
+
+  return schema.validate(reqBody);
 }
 
 exports.User = User;

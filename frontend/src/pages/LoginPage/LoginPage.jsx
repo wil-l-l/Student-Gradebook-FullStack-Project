@@ -78,6 +78,7 @@ const LoginPage = () => {
           autoComplete="true"
           id="password"
           className="login-page__input-field login-page__password-input"
+          defaultValue={"12345678"}
           ref={passwordRef}
         />
         <button

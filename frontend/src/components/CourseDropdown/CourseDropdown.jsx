@@ -1,8 +1,9 @@
 import "./CourseDropdown.css";
-import getCourseFromPeriod from "../../utils/getCourseFromPeriod";
+import { useNavigate } from "react-router";
 
-const CourseDropdown = ({ user, currentCourse, setCurrentCourse }) => {
+const CourseDropdown = ({ user, currentCourse }) => {
   const courses = user.courses;
+  const navigate = useNavigate();
 
   return (
     <form className="course-dropdown-form page-padding">
@@ -10,9 +11,7 @@ const CourseDropdown = ({ user, currentCourse, setCurrentCourse }) => {
       <select
         id="course-dropdown"
         defaultValue={""}
-        onChange={(e) =>
-          setCurrentCourse(getCourseFromPeriod(courses, e.target.value))
-        }
+        onChange={(e) => navigate(`/student/course/${e.target.value}`)}
         className="course-dropdown"
       >
         {courses

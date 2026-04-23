@@ -17,11 +17,7 @@ const ViewCoursePage = () => {
   );
   const [updatedAssignments, setUpdatedAssignments] = useState([]);
 
-  const [currentCourse, setCurrentCourse] = useState(
-    getCourseFromPeriod(user.courses, period),
-  );
-
-  const courseAssignments = currentCourse.assignments;
+  const currentCourse = getCourseFromPeriod(user.courses, period);
   const isStudent = user.isStudent;
 
   useEffect(() => {
@@ -33,19 +29,12 @@ const ViewCoursePage = () => {
       setUpdatedAssignments([]);
     };
     getStudent();
-  }, [
-    isStudent,
-    setLoadedStudentData,
-    id,
-    courseAssignments,
-    period,
-    currentStudentId,
-  ]);
+  }, [setLoadedStudentData, period, currentStudentId]);
 
   const getAssignments = () =>
     loadedStudentData
       ? getCourseFromPeriod(loadedStudentData.courses, period).assignments
-      : courseAssignments;
+      : currentCourse.assignments;
 
   return (
     <section className="view-course-page">
@@ -63,11 +52,7 @@ const ViewCoursePage = () => {
               " " +
               currentCourse.teacherName.lastName}
           </p>
-          <CourseDropdown
-            user={user}
-            currentCourse={currentCourse}
-            setCurrentCourse={setCurrentCourse}
-          />
+          <CourseDropdown user={user} currentCourse={currentCourse} />
           <GradesBar assignments={getAssignments()} />
           <AssignmentsTable
             isStudent={user.isStudent}

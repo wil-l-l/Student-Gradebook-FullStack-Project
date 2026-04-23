@@ -11,7 +11,9 @@ const CourseDropdown = ({ user, currentCourse }) => {
       <select
         id="course-dropdown"
         defaultValue={""}
-        onChange={(e) => navigate(`/student/course/${e.target.value}`)}
+        onChange={(e) =>
+          navigate(`/student/course/${e.target.value}`, { replace: true })
+        }
         className="course-dropdown"
       >
         {courses

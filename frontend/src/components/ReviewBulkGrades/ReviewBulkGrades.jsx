@@ -18,7 +18,7 @@ const ReviewBulkGrades = ({
     ...trackGradedStudents,
   ]);
   const [gradeOneStudent, setGradeOneStudent] = useState(null);
-  const [doGradeSubmission, setDoGradeSubmission] = useState(false);
+  const [doGradeSubmission, setDoGradeSubmission] = useState(null);
 
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
@@ -67,6 +67,11 @@ const ReviewBulkGrades = ({
     <>
       {gradeOneStudent === null ? (
         <>
+          {doGradeSubmission === false && (
+            <p className="red-text">
+              All students MUST be graded to submit grades!
+            </p>
+          )}
           <form
             className="review-bulk-grades__mark-missing-form"
             onSubmit={(e) => e.preventDefault()}
@@ -123,13 +128,9 @@ const ReviewBulkGrades = ({
             <button
               className="review-bulk-grades__submit-btn bold-text"
               onClick={() => {
-                if (thisGradedStudents.every(({ isGraded }) => isGraded)) {
+                if (thisGradedStudents.every(({ isGraded }) => isGraded))
                   setDoGradeSubmission(true);
-                } else {
-                  console.log(
-                    "All assignments are not graded, show an error message and/or visual cue.",
-                  );
-                }
+                else setDoGradeSubmission(false);
               }}
             >
               SUBMIT GRADES

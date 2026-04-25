@@ -3,6 +3,7 @@
   --primary-color: #edeef0;
   --teritary-color: #3e53a0;
   --page-gray: rgb(183, 183, 183);
+  --page-red: #88313f;
 }
 
 #root {
@@ -33,7 +34,7 @@ button {
 }
 
 .magenta-text {
-  color: #88313f;
+  color: var(--page-red);
 }
 
 .bold-text {

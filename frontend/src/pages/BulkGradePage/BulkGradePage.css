@@ -66,6 +66,25 @@
   justify-content: center;
 }
 .bulk-grade-page__missing-grade-btn {
-  padding: 10px;
+  background-color: var(--page-red);
+  color: white;
+  font-weight: 600;
+  border-radius: 5px;
+  letter-spacing: 1px;
+  padding: 20px 15px;
   cursor: pointer;
+  font-size: 2rem;
+  border: none;
+}
+
+@media (min-width: 768px) {
+  .bulk-grade-page {
+    zoom: 1.3;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bulk-grade-page {
+    zoom: 1.5;
+  }
 }

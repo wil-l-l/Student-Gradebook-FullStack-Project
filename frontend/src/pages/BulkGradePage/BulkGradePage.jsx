@@ -15,7 +15,9 @@ const BulkGradePage = () => {
 
   useEffect(() => {
     const getAssignment = async () => {
-      const response = await fetch(`/api/assignments/${user.userName}/${id}`);
+      const response = await fetch(
+        `https://gradebook-backend-pmo7.onrender.com/api/assignments/${user.userName}/${id}`,
+      );
       const responseBody = await response.json();
       if (responseBody.success) setAssignment(responseBody.data);
     };

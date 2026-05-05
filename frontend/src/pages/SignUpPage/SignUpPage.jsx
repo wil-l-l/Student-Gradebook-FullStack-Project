@@ -26,13 +26,16 @@ const SignUpPage = () => {
           requiredUserData.middleName = inputData.middleName;
 
         e.preventDefault();
-        const response = await fetch("/api/signup", {
-          method: "POST",
-          body: JSON.stringify(requiredUserData),
-          headers: {
-            "Content-Type": "application/json",
+        const response = await fetch(
+          "https://gradebook-backend-pmo7.onrender.com/api/signup",
+          {
+            method: "POST",
+            body: JSON.stringify(requiredUserData),
+            headers: {
+              "Content-Type": "application/json",
+            },
           },
-        });
+        );
 
         const responseBody = await response.json();
 

@@ -19,7 +19,9 @@ const ManageAssignments = () => {
   useEffect(() => {
     if (state && state.wasModified) {
       const fetchAssignments = async () => {
-        const response = await fetch(`/api/users/${user._id}`);
+        const response = await fetch(
+          `https://gradebook-backend-pmo7.onrender.com/api/users/${user._id}`,
+        );
         const responseBody = await response.json();
         const updatedTeacher = responseBody.data;
         setUser(updatedTeacher);

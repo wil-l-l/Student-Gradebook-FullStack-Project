@@ -20,7 +20,7 @@ if (!config.get("db")) {
 }
 
 mongoose
-  .connect("mongodb://localhost/gradebook")
+  .connect(config.get("db"))
   .then(() => console.log(`Connected to mongodb`))
   .catch((err) => console.error(`Could not connect to mongodb:`, err.message));
 

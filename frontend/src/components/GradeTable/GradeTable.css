@@ -4,6 +4,7 @@
   font-size: 2.2rem;
   border-collapse: collapse;
   text-align: center;
+  max-width: 800px;
 }
 
 .grade-table__heading-row {

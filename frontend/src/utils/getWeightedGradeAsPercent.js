@@ -1,5 +1,5 @@
 import getCourseFromPeriod from "./getCourseFromPeriod";
-import sharedConstants from "../../../sharedConstants";
+import sharedConstants from "../sharedConstants";
 import getGradePercentage from "./getGradePercentage";
 
 const getWeightedGradeAsPercent = (user, period, courseAssignments = null) => {

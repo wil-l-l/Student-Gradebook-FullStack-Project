@@ -1,4 +1,4 @@
-import sharedConstants from "../../../../sharedConstants";
+import sharedConstants from "../../sharedConstants";
 import getGradePercentage from "../../utils/getGradePercentage";
 import getLetterGrade from "../../utils/getLetterGrade";
 import getWeightedGradeAsPercent from "../../utils/getWeightedGradeAsPercent";

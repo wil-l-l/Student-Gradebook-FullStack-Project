@@ -31,7 +31,7 @@ const ReviewBulkGrades = ({
   useEffect(() => {
     if (doGradeSubmission === true) {
       thisGradedStudents.forEach(async ({ _id, pointsEarned }) => {
-        fetch(`/api/assignments/${assignment._id}`, {
+        await fetch(`/api/assignments/${assignment._id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",

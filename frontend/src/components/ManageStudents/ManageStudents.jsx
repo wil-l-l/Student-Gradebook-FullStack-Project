@@ -19,7 +19,7 @@ const ManageStudents = () => {
     const storeLoadedStudents = [];
     const getStudent = async (id) => {
       let response = await fetch(
-        `/api/users/${id}`,
+        `https://gradebook-backend-pmo7.onrender.com/api/users/${id}`,
       );
       response = await response.json();
       const student = response.data;

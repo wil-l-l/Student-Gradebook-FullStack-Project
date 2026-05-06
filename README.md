@@ -9,6 +9,28 @@ Primary Link (Frontend): https://gradebook-frontend-wil-l-l.vercel.app/
 Backend Link: https://gradebook-backend-pmo7.onrender.com
 *Keep open while using website, required
 
+LOGINS: *All these passwords are 12345678
+Teachers: 
+PRIMARY: lavine13dc
+Also: monzoneg13dc
+
+Students:
+PRIMARY: dangerh13dc
+Others: allenb13dc, bannerb13dc, caulfieldm13dc
+
+Instructions: Use the prefilled password!
+1. On the login page, use the primary student login dangerh13dc
+2. On the student's grade page, notice the grade of the Geometry class, click on the class to see the current assignments
+3. Back out of the current page using your browser back button to return to the student page and click the 'LOG OUT' button
+4. Sign in with the teacher login lavine13dc
+5. Click on the Geometry block, then click on 'Assignments', then click on the publish assignment link OR the 'CREATE' button at the top of the page and complete the form
+6. Back out of the assignment publishing page when done and click on the assignment you just created to put grades for each student
+7. Hit the 'SUBMIT GRADES' button when you are at the assignment review screen
+8. Hit your browser's back button until you reach a page with a LOG OUT button and logout
+9. Login with the primary student login: dangerh13dc
+10. Notice the student's grade updated, and click on the course to see the assignment grades in detail
+
+
 ## Features
 
 TEACHERS:

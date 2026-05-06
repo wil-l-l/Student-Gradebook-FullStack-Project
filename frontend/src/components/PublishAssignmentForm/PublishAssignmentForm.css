@@ -27,38 +27,31 @@
   margin-top: 10px;
   border-radius: 5px;
   font-weight: 600;
-  padding: 15px;
+  padding: 12px;
   width: 50%;
   align-self: center;
 }
 
 @media (min-width: 768px) {
   .publish-assignment-form__heading {
-    font-size: 2.7rem;
+    font-size: 3rem;
   }
   .publish-assignment-form {
     font-size: 2rem;
+    zoom: 1.2;
   }
   .publish-assignment-form__submit-btn,
   .publish-assignment-form__input {
     font-size: 1.6rem;
   }
   .publish-assignment-form__submit-btn {
-    padding: 15px;
+    padding: 10px;
     font-size: 2rem;
   }
 }
 
 @media (min-width: 1024px) {
   .publish-assignment-form__heading {
-    font-size: 3rem;
-  }
-  .publish-assignment-form {
-    font-size: 2.5rem;
-    zoom: 1.2;
-  }
-  .publish-assignment-form__input,
-  .publish-assignment-form__submit-btn {
-    font-size: 2rem;
+    font-size: 3.2rem;
   }
 }

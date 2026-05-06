@@ -61,7 +61,7 @@ const PublishAssignmentForm = () => {
       }}
     >
       <p className="publish-assignment-form__heading bold-text">
-        Publish Assignment
+        Publish Assignments
       </p>
       <label htmlFor="assignment-name">Assignment Name: </label>
       <input

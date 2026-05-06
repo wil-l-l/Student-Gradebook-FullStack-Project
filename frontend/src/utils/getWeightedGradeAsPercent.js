@@ -13,57 +13,32 @@ const getWeightedGradeAsPercent = (user, period, courseAssignments = null) => {
   for (const type in sharedConstants.assignmentTypes) {
     pointsEarnedPerCategory.push({
       type,
-      atLeastOne: false,
-      totalPtsDivided: [],
+      ptsEarned: 0,
+      totalPts: 0,
+      weight: sharedConstants.assignmentTypes[type] / 100,
     });
   }
 
-  let ungradedAssignments = 0;
-  courseAssignments.forEach(({ isGraded, pointsEarned, maxPoints, type }) => {
-    if (isGraded === false) {
-      ungradedAssignments += 1;
-      return;
-    }
+  const getCategory = (category) =>
+    pointsEarnedPerCategory.find(({ type }) => category === type);
 
-    pointsEarnedPerCategory.some((obj) => {
-      if (obj.type === type.name) {
-        obj.totalPtsDivided.push(pointsEarned / maxPoints);
-        obj.atLeastOne = true;
-
-        return true;
-      }
-    });
+  courseAssignments.forEach((assignment) => {
+    const categoryObj = getCategory(assignment.type.name);
+    categoryObj.totalPts += assignment.maxPoints;
+    categoryObj.ptsEarned += assignment.pointsEarned;
   });
 
-  if (ungradedAssignments === courseAssignments.length) return "N/A";
-
-  let countGradedCategories = 0;
-  pointsEarnedPerCategory.forEach(({ atLeastOne }) => {
-    if (atLeastOne) countGradedCategories += 1;
+  let finalPointsEarnedWeighted = 0;
+  let combinedWeight = 0;
+  pointsEarnedPerCategory.forEach((obj) => {
+    if (obj.totalPts === 0) return;
+    combinedWeight += obj.weight;
+    finalPointsEarnedWeighted += (obj.ptsEarned / obj.totalPts) * obj.weight;
   });
 
-  let totalPointsWeighted = 0;
-  pointsEarnedPerCategory.forEach(({ type, atLeastOne, totalPtsDivided }) => {
-    if (atLeastOne === false) return;
+  const finalPointsWeighted = finalPointsEarnedWeighted / combinedWeight;
 
-    const assigmentWeight = sharedConstants.assignmentTypes[type] / 100;
-
-    const sum = totalPtsDivided.reduce(
-      (accumulator, num) => accumulator + num,
-      0,
-    );
-    const avgPtsEarned =
-      totalPtsDivided.length === 0 ? 0 : sum / totalPtsDivided.length;
-
-    totalPointsWeighted += avgPtsEarned * assigmentWeight;
-  });
-
-  const forNoAssignmentCategories =
-    countGradedCategories === 1 ? 3 : countGradedCategories === 2 ? 2 : 1;
-
-  totalPointsWeighted = forNoAssignmentCategories * totalPointsWeighted;
-
-  return getGradePercentage(totalPointsWeighted);
+  return getGradePercentage(finalPointsWeighted);
 };
 
 export default getWeightedGradeAsPercent;

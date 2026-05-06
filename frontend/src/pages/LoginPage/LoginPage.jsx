@@ -18,19 +18,16 @@ const LoginPage = () => {
   }, [user, navigate]);
 
   const login = async (userName, password) => {
-    const response = await fetch(
-      "https://gradebook-backend-pmo7.onrender.com/api/login",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          userName,
-          password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+    const response = await fetch("/api/login", {
+      method: "POST",
+      body: JSON.stringify({
+        userName,
+        password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+    });
 
     const responseBody = await response.json();
     setLoginResponse(responseBody);

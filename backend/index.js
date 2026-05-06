@@ -14,13 +14,13 @@ process.on("unhandledRejection", (reason) => {
   process.exit(1);
 });
 
-if (!config.get("db")) {
-  console.error("Could not start app: db is not defined");
-  process.exit(1);
-}
+// if (!config.get("db")) {
+//   console.error("Could not start app: db is not defined");
+//   process.exit(1);
+// }
 
 mongoose
-  .connect(config.get("db"))
+  .connect('mongodb://localhost/gradebook')
   .then(() => console.log(`Connected to mongodb`))
   .catch((err) => console.error(`Could not connect to mongodb:`, err.message));
 

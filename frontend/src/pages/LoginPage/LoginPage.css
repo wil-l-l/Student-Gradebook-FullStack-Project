@@ -8,6 +8,8 @@
   row-gap: 5px;
   border: 1px solid rgb(183, 183, 183);
   border-radius: 16px;
+  width: 90vw;
+  max-width: 550px;
 }
 
 .login-page__form__login-text {
@@ -52,12 +54,6 @@
 }
 .login-page__form__sign-up-link:hover {
   text-decoration: underline;
-}
-
-@media (min-width: 768px) {
-  .login-page__form {
-    width: 400px;
-  }
 }
 
 @media (min-width: 768px) {

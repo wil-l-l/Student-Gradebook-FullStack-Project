@@ -5,9 +5,7 @@ const SchoolSelector = ({ onChange }) => {
   const [schools, setSchools] = useState([]);
 
   async function getSchools() {
-    const schools = await fetch(
-      "https://gradebook-backend-pmo7.onrender.com/api/schools",
-    );
+    const schools = await fetch("/api/schools");
     const schoolsData = await schools.json();
     return schoolsData.data;
   }

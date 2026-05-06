@@ -31,20 +31,17 @@ const ReviewBulkGrades = ({
   useEffect(() => {
     if (doGradeSubmission === true) {
       thisGradedStudents.forEach(async ({ _id, pointsEarned }) => {
-        fetch(
-          `https://gradebook-backend-pmo7.onrender.com/api/assignments/${assignment._id}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              studentId: _id,
-              teacherUserName: user.userName,
-              pointsEarned,
-            }),
+        fetch(`/api/assignments/${assignment._id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
           },
-        );
+          body: JSON.stringify({
+            studentId: _id,
+            teacherUserName: user.userName,
+            pointsEarned,
+          }),
+        });
       });
       navigate(`/teacher/course/${period}/assignments`, {
         state: {

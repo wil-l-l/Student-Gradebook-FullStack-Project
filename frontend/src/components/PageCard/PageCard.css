@@ -7,6 +7,8 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  width: 90vw;
+  max-width: 600px;
 }
 
 .page-card__heading-box {

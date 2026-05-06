@@ -28,20 +28,17 @@ const AssignmentPointsForm = ({
         const assignmentId = assignmentToUpdate._id;
 
         const updateAssignmentGrade = async () => {
-          let updateResponse = await fetch(
-            `https://gradebook-backend-pmo7.onrender.com/api/assignments/${assignmentId}`,
-            {
-              method: "PATCH",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                studentId,
-                pointsEarned: pointsEarnedToSubmit,
-                teacherUserName,
-              }),
+          let updateResponse = await fetch(`/api/assignments/${assignmentId}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
             },
-          );
+            body: JSON.stringify({
+              studentId,
+              pointsEarned: pointsEarnedToSubmit,
+              teacherUserName,
+            }),
+          });
           updateResponse = await updateResponse.json();
 
           if (updateResponse.success) {

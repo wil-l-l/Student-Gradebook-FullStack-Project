@@ -182,11 +182,15 @@ router.patch("/:id", validateId, async (req, res) => {
   student.markModified("courses");
   teacher.markModified("courses");
   course.markModified("assignments");
-  try {
-    const studentAfterUpdate = await student.save();
-    await course.save();
-    await teacher.save();
 
+  const session = await mongoose.startSession();
+  try {
+    let studentAfterUpdate;
+    await session.withTransaction(async () => {
+      studentAfterUpdate = await student.save({ session });
+      await course.save({ session });
+      await teacher.save({ session });
+    });
     res.send({
       success: true,
       data: {
@@ -197,6 +201,8 @@ router.patch("/:id", validateId, async (req, res) => {
     res
       .status(500)
       .send({ success: false, message: "Could not update assignment" });
+  } finally {
+    await session.endSession();
   }
 });
 

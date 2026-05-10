@@ -21,10 +21,10 @@
     "unique-random": "^4.0.0",
     "uuid": "^13.0.0"
   },
-  "devDependencies": {
-    "nodemon": "^3.1.14"
-  },
   "engines": {
     "node": "22.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
   }
 }

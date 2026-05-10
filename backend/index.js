@@ -15,7 +15,7 @@ process.on("unhandledRejection", (reason) => {
 });
 
 mongoose
-  .connect("mongodb://localhost/gradebook")
+  .connect("mongodb://localhost:27017/gradebook?replicaSet=rs0")
   .then(() => console.log(`Connected to mongodb`))
   .catch((err) => console.error(`Could not connect to mongodb:`, err.message));
 

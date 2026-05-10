@@ -13,26 +13,24 @@ const TeacherEntryPage = () => {
   return (
     <>
       {pathname === "/teacher" && (
-        <>
-          <main>
-            <PageCard
-              headingBoxChildren={<h2>Classes</h2>}
-              list={user.courses.map(({ name, period, students }, index) => ({
-                key: period,
-                children: (
-                  <>
-                    <p>{name}</p>
-                    <p>Pd: {period}</p>
-                  </>
-                ),
-                onClickHandler: () => {
-                  if (!(students.length > 0)) return;
-                  navigate(`/teacher/course/${user.courses[index].period}`);
-                },
-              }))}
-            />
-          </main>
-        </>
+        <main>
+          <PageCard
+            headingBoxChildren={<h2>Classes</h2>}
+            list={user.courses.map(({ name, period, students }, index) => ({
+              key: period,
+              children: (
+                <>
+                  <p>{name}</p>
+                  <p>Pd: {period}</p>
+                </>
+              ),
+              onClickHandler: () => {
+                if (!(students.length > 0)) return;
+                navigate(`/teacher/course/${user.courses[index].period}`);
+              },
+            }))}
+          />
+        </main>
       )}
       {pathname === `/teacher/course/${period}` && <Outlet />}
       {pathname === `/teacher/course/${period}/students` && <Outlet />}

@@ -23,9 +23,7 @@ const PublishAssignmentForm = () => {
   useEffect(() => {
     if (didPublish) {
       const fetchAssignments = async () => {
-        const response = await fetch(
-          `https://gradebook-backend-pmo7.onrender.com/api/users/${user._id}`,
-        );
+        const response = await fetch(`/api/users/${user._id}`);
         const responseBody = await response.json();
 
         const updatedTeacher = responseBody.data;
@@ -48,16 +46,13 @@ const PublishAssignmentForm = () => {
           courseId: course._id,
           maxPoints: Number(points),
         };
-        let response = await fetch(
-          "https://gradebook-backend-pmo7.onrender.com/api/assignments",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(formData),
+        let response = await fetch("/api/assignments", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
           },
-        );
+          body: JSON.stringify(formData),
+        });
         response = await response.json();
         if (response.success) {
           clearFormFields();

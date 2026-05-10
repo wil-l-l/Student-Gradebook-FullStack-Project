@@ -22,9 +22,7 @@ const ViewCoursePage = () => {
 
   useEffect(() => {
     const getStudent = async () => {
-      let response = await fetch(
-        `https://gradebook-backend-pmo7.onrender.com/api/users/${currentStudentId}`,
-      );
+      let response = await fetch(`/api/users/${currentStudentId}`);
       response = await response.json();
       const studentData = response.data;
       if (isStudent) setUser(studentData);

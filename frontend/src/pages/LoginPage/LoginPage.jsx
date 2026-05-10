@@ -1,11 +1,11 @@
 import "./LoginPage.css";
-import { useRef, useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { UserContext } from "../../contexts/UserContext";
 
 const LoginPage = () => {
-  const userNameRef = useRef(null);
-  const passwordRef = useRef(null);
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("12345678");
   const navigate = useNavigate();
   const { user, setUser } = useContext(UserContext);
   const [loginResponse, setLoginResponse] = useState(null);
@@ -17,20 +17,17 @@ const LoginPage = () => {
     else navigate("/teacher");
   }, [user, navigate]);
 
-  const login = async (userName, password) => {
-    const response = await fetch(
-      "https://gradebook-backend-pmo7.onrender.com/api/login",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          userName,
-          password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
+  const login = async () => {
+    const response = await fetch("/api/login", {
+      method: "POST",
+      body: JSON.stringify({
+        userName,
+        password,
+      }),
+      headers: {
+        "Content-Type": "application/json",
       },
-    );
+    });
 
     const responseBody = await response.json();
     setLoginResponse(responseBody);
@@ -47,7 +44,7 @@ const LoginPage = () => {
         action=""
         onSubmit={(e) => {
           e.preventDefault();
-          login(userNameRef.current.value, passwordRef.current.value);
+          login();
         }}
       >
         <p className="login-page__form__login-text bold-text">Login</p>
@@ -67,7 +64,8 @@ const LoginPage = () => {
           required
           id="username"
           className="login-page__input-field login-page__username-input"
-          ref={userNameRef}
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
         />
         <label className="login-page__form__password-label" htmlFor="password">
           password
@@ -81,8 +79,8 @@ const LoginPage = () => {
           autoComplete="true"
           id="password"
           className="login-page__input-field login-page__password-input"
-          defaultValue={"12345678"}
-          ref={passwordRef}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button
           className="login-page__form__submit-btn bold-text"

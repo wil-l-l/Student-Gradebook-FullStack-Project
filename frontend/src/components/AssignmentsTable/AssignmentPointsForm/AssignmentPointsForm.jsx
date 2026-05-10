@@ -29,7 +29,7 @@ const AssignmentPointsForm = ({
 
         const updateAssignmentGrade = async () => {
           let updateResponse = await fetch(
-            `https://gradebook-backend-pmo7.onrender.com/api/assignments/${assignmentId}`,
+            `/api/assignments/${assignmentId}`,
             {
               method: "PATCH",
               headers: {

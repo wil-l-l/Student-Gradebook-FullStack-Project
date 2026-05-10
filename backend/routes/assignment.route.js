@@ -122,17 +122,9 @@ router.post("/", async (req, res) => {
   });
 });
 
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", validateId, async (req, res) => {
   const assignmentId = req.params.id;
   const { studentId, pointsEarned, teacherUserName } = req.body;
-
-  if (
-    !mongoose.Types.ObjectId.isValid(assignmentId) ||
-    !mongoose.Types.ObjectId.isValid(studentId)
-  )
-    return res
-      .status(400)
-      .send({ success: false, message: "Invalid id passed" });
 
   const student = await User.findOne({
     _id: studentId,

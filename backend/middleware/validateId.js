@@ -12,11 +12,10 @@ module.exports = function (req, res, next) {
     return true;
   };
 
-  const { id } = req.params;
-  if (verifyId(id) === false) return getErrorResponse();
+  const ids = [req.params.id];
+  if (req.body) ids.push(req.body.studentId, req.body.courseId);
 
-  const { studentId } = req.body;
-  if (verifyId(id) === false) return getErrorResponse();
+  if (ids.some((id) => verifyId(id) === false)) return getErrorResponse();
 
   next();
 };

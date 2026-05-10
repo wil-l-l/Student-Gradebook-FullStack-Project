@@ -20,10 +20,8 @@ router.get("/:userName/:id", validateId, async (req, res) => {
       .status(404)
       .send({ success: false, message: "User could not be found" });
 
-  const teacherCourses = teacher.courses;
-
   let assignment = null;
-  teacherCourses.forEach((courseObj) => {
+  teacher.courses.forEach((courseObj) => {
     courseObj.assignments.forEach((assignmentObj) => {
       if (assignmentObj._id.toString() === id) assignment = assignmentObj;
     });

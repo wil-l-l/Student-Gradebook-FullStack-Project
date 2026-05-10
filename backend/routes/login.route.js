@@ -21,9 +21,7 @@ router.post("/", async (req, res) => {
       .status(404)
       .send({ success: false, message: "Incorrect username or password" });
 
-  res
-    .status(200)
-    .send({ success: true, message: "Successfully logged in", data: user });
+  res.send({ success: true, message: "Successfully logged in", data: user });
 });
 
 module.exports = router;

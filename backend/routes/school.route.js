@@ -75,7 +75,7 @@ router.post("/", async (req, res) => {
   await User.bulkSave(studentsArr);
   newSchool = await newSchool.save();
 
-  res.status(200).send({
+  res.status(201).send({
     success: true,
     message: "Successfully registered school",
     data: newSchool,

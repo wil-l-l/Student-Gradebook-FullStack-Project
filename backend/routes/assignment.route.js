@@ -8,15 +8,11 @@ const {
 const { User } = require("../models/user.model");
 const { default: sharedConstants } = require("../../sharedConstants");
 const { default: mongoose } = require("mongoose");
+const validateId = require("../middleware/validateId");
 const { assignmentTypes } = sharedConstants;
 
-router.get("/:userName/:id", async (req, res) => {
+router.get("/:userName/:id", validateId, async (req, res) => {
   const { userName, id } = req.params;
-
-  if (!mongoose.Types.ObjectId.isValid(id))
-    return res
-      .status(400)
-      .send({ success: false, message: "Invalid id passed" });
 
   const teacher = await User.findOne({ userName }).select("courses -_id");
   if (!teacher)
@@ -38,7 +34,7 @@ router.get("/:userName/:id", async (req, res) => {
       .status(404)
       .send({ success: false, message: "Assignment could not be found" });
 
-  res.status(200).send({
+  res.send({
     success: true,
     data: assignment,
   });
@@ -201,7 +197,7 @@ router.patch("/:id", async (req, res) => {
     await course.save();
     await teacher.save();
 
-    res.status(200).send({
+    res.send({
       success: true,
       data: {
         student: studentAfterUpdate,
